@@ -1,0 +1,206 @@
+$v-app-loading-text: "Loading";
+
+$v-background-color: hsl(0, 0, 99.5%);
+$v-app-background-color: #fff;
+$v-focus-color: hsl(218, 80%, 60%);
+$v-border: 1px solid (v-shade 0.6);
+$v-border-radius: 3px;
+$v-bevel: inset 0 1px 0 v-tint;
+$v-textfield-bevel: false;
+$v-gradient: v-linear 3%;
+$v-shadow: false;
+$valo-menu-background-color: hsl(218, 20%, 98%);
+$v-friendly-color: hsl(163, 61%, 41%);
+$v-error-indicator-color: hsl(349, 66%, 56%);
+$v-unit-size: 20px;
+$v-layout-margin-top: 10px; 
+$v-layout-margin-right: 10px; 
+$v-layout-margin-bottom: 10px; 
+$v-layout-margin-left: 10px; 
+$v-font-size: 12px;
+$v-link-font-color: red;
+$valo-menu-color: #ffffff;
+$valo-menu-background-color: #2e2e2e;
+$v-selection-color: #ff0000;
+
+@import "../valo/valo";
+
+
+@mixin light {
+  @include valo;
+  // Insert your own theme rules here
+
+  div.v-horizontallayout-nested .v-formlayout-first td.v-formlayout-errorcell {
+     display: none;
+  }  
+  
+  div.v-horizontallayout-nested .v-formlayout-first span.v-required-field-indicator {
+     display: none;
+  }
+  
+  .v-caption-required:after {
+    content: "*"; 
+    color: #d94560;
+    padding-left:2px;
+  }
+
+  div.v-button {
+	@include valo-button-style($background-color: #ff0000);
+  	color: white;
+  }
+  
+  .v-menubar.v-widget {
+    background-color: #2e2e2e;
+    color: white;
+  }
+  
+  .v-menubar > .v-menubar-menuitem {
+    background-color: #2e2e2e;
+    color: white;
+  }
+  
+  .v-menubar-popup {
+    background-color: #2e2e2e;
+  }
+  
+  .v-menubar-popup .v-menubar-menuitem {
+    color: white;
+  }
+  
+  a.token-action span {
+    color: black;
+  }
+  
+  .v-tabsheet-tabitemcell .v-caption .v-captiontext {
+  	 color: red;
+  	 font-weight: bold;
+  }
+  
+  .v-tabsheet-tabitemcell .v-tabsheet-tabitem-selected .v-caption.v-caption {
+     border-bottom-color: red;
+  }
+  
+  .v-widget.exttokenfield .token {
+    background-color: red;
+  }
+  
+  div.v-panel-caption {
+  	background-color: red;
+  	background-image: none;
+  }
+  
+  div#banner {
+    background-color: #2e2e2e;
+    color: #ffffff;
+  	width: 100%;
+  	height: 100px;
+	padding-bottom: 5px;
+  }
+  
+  div#banner .v-panel{
+	background: transparent;
+    border: 0px;
+  }
+
+  div.fileUpload img {
+   	max-height: 96px;
+  	max-width: 96px;
+  }
+  
+  div.v-formlayout.halfScreen {
+  	max-width: 750px !important;
+  }
+  
+  div.buttonBar {
+  	 white-space: normal !important;
+  }
+  
+  div.buttonBar .v-slot {
+  	padding-bottom: 5px;
+  }
+  
+  div.ocsDialog {
+  	width: 700px !important;
+  }
+
+  div.attributePanel td.v-formlayout-captioncell {
+  	 width: 20%;
+  }
+  
+  .v-window-header {
+  		color: black;
+  		background-color: red;
+  }
+  
+  div.v-caption-on-top div.numerical {
+    float: right;
+  }
+  
+  tr.divider {
+  	border-top: 1px solid black;
+  }
+
+  tr.weak_divider {
+  	border-top: 1px dashed black;
+  }
+  
+  div.divider .v-table-header table, div.divider .v-table-table {
+      border-collapse: collapse;
+  }
+  
+  td.v-table-cell-content-divider {
+  	border-top: 1px solid black;
+  }
+  
+  tr.v-table-row-divider {
+    border-top: 2px solid gray;
+  }
+  
+  td.v-table-cell-content-parentRow {
+  	font-weight: bold;
+  }
+  
+  td.v-table-cell-content-warning {
+     background-color: red;
+  }
+  
+  /* Align numerical fields in tables to the right */
+  .v-textfield.numerical {
+  	text-align: right;
+  }
+  	  
+   div.v-caption-danger {
+   	 color: red;
+   }
+   
+   div.v-caption-danger span.v-captiontext {
+   	 white-space: normal !important;
+   }
+
+   div.packageSizeCombo input.v-filterselect-input {
+     width: 120px !important;
+   }
+   
+   div.v-verticallayout-searchDialogWrapper {
+     height: 600px;
+     overflow: auto;
+   }
+   
+   .v-slot.v-slot-nested {
+     width: 200px;
+   }
+   
+   .v-slot.v-slot-nested div.v-filterselect {
+      width: 195px;
+    }
+    
+    .v-slot.v-slot-nested .v-select-select {
+      width: 195px;
+    }
+    
+    .label_large {
+       font-size: 18px;
+       font-weight: bold;
+    }
+    
+}
