@@ -45,7 +45,7 @@ public class GiftLayout extends ServiceBasedSplitLayout<Integer, Gift> {
 				// method for adding a new row to the table
 				@Override
 				protected GiftTranslation createEntity() {
-					Gift gift = new Gift();
+					Gift gift = GiftLayout.this.getSelectedItem();
 					GiftTranslation translation = new GiftTranslation();
 					gift.addTranslation(translation);
 					return translation;

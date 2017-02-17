@@ -23,7 +23,7 @@
 		<spring.version>4.3.6.RELEASE</spring.version>
 		<querydsl.version>3.6.3</querydsl.version>
 		<aspectj.version>1.6.12</aspectj.version>
-		<com.ocs.dynamo.version>1.0.1-SNAPSHOT</com.ocs.dynamo.version>
+		<com.ocs.dynamo.version>1.1-TRAINING</com.ocs.dynamo.version>
 		<deltaspike.version>1.2.1</deltaspike.version>
 		<junit.version>4.12</junit.version>
 		<jackson.version>1.9.13</jackson.version>
@@ -39,6 +39,7 @@
 		<xlsx-streamer.version>0.2.9</xlsx-streamer.version>
 		<jaxen.version>1.1.6</jaxen.version>
 		<hsqldb.version>2.3.3</hsqldb.version>
+		<poi.version>3.13</poi.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -320,6 +321,16 @@
 				<groupId>org.hsqldb</groupId>
 				<artifactId>hsqldb</artifactId>
 				<version>${hsqldb.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

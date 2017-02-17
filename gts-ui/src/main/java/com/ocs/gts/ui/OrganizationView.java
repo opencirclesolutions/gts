@@ -30,7 +30,7 @@ public class OrganizationView extends BaseView {
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
 		FormOptions fo = new FormOptions();
 		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
-				        QueryType.ID_BASED, fo, null);
+		        QueryType.ID_BASED, fo, null);
 		main.addComponent(layout);
 	}
 }
