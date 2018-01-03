@@ -23,7 +23,7 @@
 		<spring.version>4.3.6.RELEASE</spring.version>
 		<querydsl.version>3.6.3</querydsl.version>
 		<aspectj.version>1.6.12</aspectj.version>
-		<com.ocs.dynamo.version>1.1-TRAINING</com.ocs.dynamo.version>
+		<com.ocs.dynamo.version>1.2-CB5-SNAPSHOT</com.ocs.dynamo.version>
 		<deltaspike.version>1.2.1</deltaspike.version>
 		<junit.version>4.12</junit.version>
 		<jackson.version>1.9.13</jackson.version>
@@ -61,7 +61,12 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.dynamoframework</groupId>
-				<artifactId>dynamo-spring</artifactId>
+				<artifactId>dynamo-api</artifactId>
+				<version>${com.ocs.dynamo.version}</version>
+			</dependency>		
+			<dependency>
+				<groupId>org.dynamoframework</groupId>
+				<artifactId>dynamo-impl</artifactId>
 				<version>${com.ocs.dynamo.version}</version>
 			</dependency>
 			<dependency>

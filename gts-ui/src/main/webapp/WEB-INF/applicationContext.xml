@@ -54,5 +54,10 @@
 		</constructor-arg>
 		<constructor-arg index="1" value="code" />
 	</bean>
+	
+	<!-- service for checking who has access to which view -->
+	<bean id="permissionChecker" class="com.ocs.dynamo.ui.auth.impl.DefaultPermissionCheckerImpl">
+		<constructor-arg value="com.ocs.gts" />
+	</bean>	
 
 </beans>

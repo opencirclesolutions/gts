@@ -13,8 +13,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-spring</artifactId>
+			<artifactId>dynamo-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.dynamoframework</groupId>
+			<artifactId>dynamo-impl</artifactId>
+		</dependency>		
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-functional-domain</artifactId>
@@ -189,8 +193,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -216,12 +220,13 @@
 				</configuration>
 				<executions>
 					<execution>
-						<goals>
-							<goal>update-widgetset</goal>
-							<goal>update-theme</goal>
-							<goal>compile</goal>
-							<goal>compile-theme</goal>
-						</goals>
+							<goals>
+								<goal>resources</goal>
+								<goal>update-widgetset</goal>
+								<goal>compile</goal>
+								<goal>update-theme</goal>
+								<goal>compile-theme</goal>
+							</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -277,7 +282,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

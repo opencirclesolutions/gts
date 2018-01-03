@@ -77,11 +77,6 @@
 	<!-- Component responsible for creating the menu -->
 	<bean id="menuService" class="com.ocs.dynamo.ui.menu.MenuService" />
 
-	<!-- service for checking who has access to which view -->
-	<bean id="permissionChecker" class="com.ocs.dynamo.ui.auth.DefaultPermissionCheckerImpl">
-		<constructor-arg value="com.ocs.gts" />
-	</bean>
-
 	<!-- wrapper around the export -->
 	<bean id="tableExportService"
 		class="com.ocs.dynamo.ui.composite.table.export.TableExportService" />
