@@ -52,7 +52,7 @@
 				<constructor-arg index="2" value="parent" />
 			</bean>
 		</constructor-arg>
-		<constructor-arg index="1" value="code" />
+		<constructor-arg index="1" value="code,name" />
 	</bean>
 	
 	<!-- service for checking who has access to which view -->
