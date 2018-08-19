@@ -29,6 +29,14 @@ $v-selection-color: #ff0000;
 @mixin light {
   @include valo;
   // Insert your own theme rules here
+  
+      // button that looks like a link
+    .v-button-link {
+    	color: red !important;
+    	background: none !important;
+    	box-shadow: none !important;
+    	border: none !important;
+    }
 
   div.v-horizontallayout-nested .v-formlayout-first td.v-formlayout-errorcell {
      display: none;

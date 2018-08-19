@@ -21,6 +21,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
+import com.ocs.dynamo.domain.model.annotation.AttributeGroups;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
 
@@ -32,6 +38,10 @@ import com.ocs.gts.domain.type.Reputation;
  */
 @Entity
 @Table(name = "organization")
+@AttributeOrder(attributeNames = { "name", "headQuarters", "address", "countryOfOrigin", "reputation" })
+@AttributeGroups(attributeGroups = { @AttributeGroup(messageKey = "organization.first", attributeNames = { "name", "address",
+		"headQuarters", "countryOfOrigin" }),
+		@AttributeGroup(messageKey = "organization.second", attributeNames = { "reputation" }) })
 public class Organization extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -41,12 +51,25 @@ public class Organization extends AbstractEntity<Integer> {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_id_gen")
 	private Integer id;
 
+	@Attribute(url = true)
+	private String url;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@NotNull
 	@Size(max = 255)
+	@Attribute(searchable = true, searchCaseSensitive = true, searchPrefixOnly = true)
 	private String name;
 
 	@NotNull
 	@Size(max = 255)
+	@Attribute(searchable = true, displayName = "Headquarters", groupTogetherWith = "address", expansionFactor = 4.0f)
 	private String headQuarters;
 
 	@NotNull
@@ -56,6 +79,7 @@ public class Organization extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Attribute(showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.LOOKUP, complexEditable = true)
 	private Country countryOfOrigin;
 
 	@NotNull
@@ -72,6 +96,7 @@ public class Organization extends AbstractEntity<Integer> {
 	private Reputation reputation;
 
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+	@Attribute(searchable = true)
 	private Set<Person> members = new HashSet<>();
 
 	public String getAddress() {

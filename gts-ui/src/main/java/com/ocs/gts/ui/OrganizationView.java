@@ -28,9 +28,9 @@ public class OrganizationView extends BaseView {
 		Layout main = initLayout();
 
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		FormOptions fo = new FormOptions();
+		FormOptions fo = new FormOptions().setEditAllowed(true).setConfirmClear(true).setShowIterationButtons(true);
 		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
-		        QueryType.ID_BASED, fo, null);
+				QueryType.ID_BASED, fo, null);
 		main.addComponent(layout);
 	}
 }
