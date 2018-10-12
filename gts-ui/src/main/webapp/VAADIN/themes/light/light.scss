@@ -30,6 +30,10 @@ $v-selection-color: #ff0000;
   @include valo;
   // Insert your own theme rules here
 
+	div.v-customcomponent span.v-errorindicator-error {
+		display: none;
+	}
+
   div.v-horizontallayout-nested .v-formlayout-first td.v-formlayout-errorcell {
      display: none;
   }  
