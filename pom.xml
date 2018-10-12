@@ -15,15 +15,15 @@
 	<properties>
 		<sonar.language>java</sonar.language>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>7.7.3</vaadin.version>
+		<vaadin.version>7.7.15</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<hibernate.version>4.3.1.Final</hibernate.version>
-		<spring.version>4.3.6.RELEASE</spring.version>
+		<spring.version>4.3.19.RELEASE</spring.version>
 		<querydsl.version>3.6.3</querydsl.version>
 		<aspectj.version>1.6.12</aspectj.version>
-		<com.ocs.dynamo.version>1.1-TRAINING</com.ocs.dynamo.version>
+		<com.ocs.dynamo.version>1.2-SNAPSHOT</com.ocs.dynamo.version>
 		<deltaspike.version>1.2.1</deltaspike.version>
 		<junit.version>4.12</junit.version>
 		<jackson.version>1.9.13</jackson.version>
@@ -61,9 +61,19 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.dynamoframework</groupId>
-				<artifactId>dynamo-spring</artifactId>
+				<artifactId>dynamo-api</artifactId>
 				<version>${com.ocs.dynamo.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.dynamoframework</groupId>
+				<artifactId>dynamo-impl</artifactId>
+				<version>${com.ocs.dynamo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.dynamoframework</groupId>
+				<artifactId>dynamo-frontend</artifactId>
+				<version>${com.ocs.dynamo.version}</version>
+			</dependency>			
 			<dependency>
 				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-test</artifactId>

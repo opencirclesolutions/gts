@@ -13,7 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-spring</artifactId>
+			<artifactId>dynamo-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.dynamoframework</groupId>

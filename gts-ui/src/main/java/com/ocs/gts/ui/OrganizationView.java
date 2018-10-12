@@ -3,7 +3,7 @@ package com.ocs.gts.ui;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ocs.dynamo.domain.model.EntityModel;
-import com.ocs.dynamo.ui.composite.form.FormOptions;
+import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;

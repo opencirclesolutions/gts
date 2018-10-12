@@ -16,6 +16,7 @@ import com.ocs.dynamo.ui.component.BaseBanner;
 import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
 import com.ocs.dynamo.ui.component.ErrorView;
 import com.ocs.dynamo.ui.menu.MenuService;
+import com.ocs.dynamo.ui.utils.VaadinUtils;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
@@ -115,12 +116,13 @@ public class GtsUI extends BaseUI {
 		center.addComponent(titleLayout);
 
 		// first line: application title
-		Label titleLabel = new Label("<b>" + messageService.getMessage("gts.application.name") + " v" + versionNumber
-		        + "</b>", ContentMode.HTML);
+		Label titleLabel = new Label("<b>" + messageService.getMessage("gts.application.name", VaadinUtils.getLocale())
+				+ " v" + versionNumber + "</b>", ContentMode.HTML);
 		titleLayout.addComponent(titleLabel);
 
 		String userName = principal.getName();
-		titleLayout.addComponent(new Label(messageService.getMessage("gts.logged.in.as", userName), ContentMode.HTML));
+		titleLayout.addComponent(new Label(
+				messageService.getMessage("gts.logged.in.as", VaadinUtils.getLocale(), userName), ContentMode.HTML));
 
 		banner.setExpandRatio(banner.getImage(), 0.3f);
 		banner.setExpandRatio(hCenter, 2.0f);

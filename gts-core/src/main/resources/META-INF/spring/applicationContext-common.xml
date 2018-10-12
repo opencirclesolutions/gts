@@ -78,7 +78,7 @@
 	<bean id="menuService" class="com.ocs.dynamo.ui.menu.MenuService" />
 
 	<!-- service for checking who has access to which view -->
-	<bean id="permissionChecker" class="com.ocs.dynamo.ui.auth.DefaultPermissionCheckerImpl">
+	<bean id="permissionChecker" class="com.ocs.dynamo.ui.auth.impl.DefaultPermissionCheckerImpl">
 		<constructor-arg value="com.ocs.gts" />
 	</bean>
 

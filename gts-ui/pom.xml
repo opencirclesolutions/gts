@@ -13,11 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-functional-domain</artifactId>
+			<artifactId>dynamo-frontend</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.ocs</groupId>
