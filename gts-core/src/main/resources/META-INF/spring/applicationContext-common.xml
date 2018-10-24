@@ -82,10 +82,6 @@
 		<constructor-arg value="com.ocs.gts" />
 	</bean>
 
-	<!-- wrapper around the export -->
-	<bean id="tableExportService"
-		class="com.ocs.dynamo.ui.composite.table.export.TableExportService" />
-
 	<!-- the beans below are for the "default" profile and will only be used 
 		during unit tests -->
 	<beans profile="default">

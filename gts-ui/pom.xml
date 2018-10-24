@@ -16,6 +16,17 @@
 			<artifactId>dynamo-frontend</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.dynamoframework</groupId>
+			<artifactId>dynamo-api</artifactId>
+			<exclusions>
+				<!--  exclude compiler to avoid class path problems when compiling widget set -->
+				<exclusion>
+					<groupId>org.eclipse.jdt.core.compiler</groupId>
+					<artifactId>ecj</artifactId>
+				</exclusion>
+			</exclusions>	
+		</dependency>
+		<dependency>
 			<groupId>com.ocs</groupId>
 			<artifactId>gts-domain</artifactId>
 			<version>${project.parent.version}</version>
@@ -44,10 +55,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-push</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>
 		</dependency>
 		<dependency>
@@ -57,10 +64,6 @@
 		<dependency>
 			<groupId>org.apache.deltaspike.core</groupId>
 			<artifactId>deltaspike-core-impl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons.lazyquerycontainer</groupId>
-			<artifactId>vaadin-lazyquerycontainer</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -153,6 +156,7 @@
 			<groupId>org.vaadin.addon</groupId>
 			<artifactId>confirmdialog</artifactId>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
@@ -161,10 +165,11 @@
 			<groupId>jaxen</groupId>
 			<artifactId>jaxen</artifactId>
 		</dependency>
+		-->
 		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-cdi</artifactId>
-			<version>1.0.0.rc1</version>
+		   <groupId>org.reactivestreams</groupId>
+		   <artifactId>reactive-streams</artifactId>
+		   <version>1.0.1</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -185,8 +190,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>

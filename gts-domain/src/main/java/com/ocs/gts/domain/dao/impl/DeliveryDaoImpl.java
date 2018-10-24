@@ -2,12 +2,12 @@ package com.ocs.gts.domain.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.mysema.query.types.path.EntityPathBase;
 import com.ocs.dynamo.dao.FetchJoinInformation;
 import com.ocs.dynamo.dao.impl.BaseDaoImpl;
 import com.ocs.gts.domain.Delivery;
 import com.ocs.gts.domain.QDelivery;
 import com.ocs.gts.domain.dao.DeliveryDao;
+import com.querydsl.core.types.dsl.EntityPathBase;
 
 @Repository("deliveryDao")
 public class DeliveryDaoImpl extends BaseDaoImpl<Integer, Delivery> implements DeliveryDao {

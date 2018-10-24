@@ -20,7 +20,7 @@ import com.ocs.dynamo.ui.utils.VaadinUtils;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.EnableVaadin;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.UIScope;
@@ -131,7 +131,6 @@ public class GtsUI extends BaseUI {
 		// set up navigation
 		VerticalLayout viewLayout = new VerticalLayout();
 		viewPanel = new Panel();
-		viewPanel.setImmediate(Boolean.TRUE);
 		viewPanel.setContent(viewLayout);
 
 		initNavigation(viewProvider, viewPanel, Views.ORGANIZATION_VIEW, true);
