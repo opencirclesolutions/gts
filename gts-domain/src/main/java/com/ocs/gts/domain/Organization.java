@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
@@ -75,6 +76,9 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
 	private Set<Person> members = new HashSet<>();
+
+	@Attribute(url = true)
+	private String url;
 
 	public String getAddress() {
 		return address;
@@ -166,5 +170,13 @@ public class Organization extends AbstractEntity<Integer> {
 	public void removeMember(Person person) {
 		this.members.remove(person);
 		person.setOrganization(null);
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }
