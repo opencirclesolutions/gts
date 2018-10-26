@@ -1,6 +1,6 @@
 package com.ocs.gts.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.EditableType;
+import com.ocs.dynamo.domain.model.NumberSelectMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
@@ -50,6 +49,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "first_name")
+	@Attribute(searchable = true)
 	private String firstName;
 
 	@NotNull
@@ -65,14 +65,16 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true)
 	private Organization organization;
 
-	@Temporal(TemporalType.DATE)
-	private Date born;
+	@Attribute(searchable = true)
+	private LocalDate born;
 
-	@Temporal(TemporalType.DATE)
-	private Date died;
+	private LocalDate died;
+
+	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
+	private Integer age;
 
 	public String getFirstName() {
 		return firstName;
@@ -106,19 +108,19 @@ public class Person extends AbstractEntity<Integer> {
 		this.organization = organization;
 	}
 
-	public Date getBorn() {
+	public LocalDate getBorn() {
 		return born;
 	}
 
-	public void setBorn(Date born) {
+	public void setBorn(LocalDate born) {
 		this.born = born;
 	}
 
-	public Date getDied() {
+	public LocalDate getDied() {
 		return died;
 	}
 
-	public void setDied(Date died) {
+	public void setDied(LocalDate died) {
 		this.died = died;
 	}
 
@@ -129,6 +131,14 @@ public class Person extends AbstractEntity<Integer> {
 		builder.append(" '" + nickName + "' ");
 		builder.append(lastName);
 		return builder.toString();
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 }

@@ -47,6 +47,14 @@ $v-selection-color: #ff0000;
     color: #d94560;
     padding-left:2px;
   }
+  
+  .v-button-link {
+    	color: red !important;
+    	background: none !important;
+    	box-shadow: none !important;
+    	border: none !important;
+    	white-space: nowrap !important;
+  }
 
   div.v-button {
 	@include valo-button-style($background-color: #ff0000);

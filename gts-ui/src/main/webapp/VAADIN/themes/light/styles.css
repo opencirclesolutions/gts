@@ -15095,6 +15095,14 @@ div.v-layout.v-horizontal.v-widget {
 	padding-left: 2px;
 }
 
+.light .v-button-link {
+	color: red !important;
+	background: none !important;
+	box-shadow: none !important;
+	border: none !important;
+	white-space: nowrap !important;
+}
+
 .light div.v-button {
 	height: 20px;
 	padding: 0 9px;
