@@ -47,42 +47,51 @@ public class PersonView extends BaseView {
 		Layout main = initLayout();
 
 		EntityModel<Person> model = getModelFactory().getModel(Person.class);
-		SimpleSearchLayout<Integer, Person> ssl = new SimpleSearchLayout<>(personService, model, QueryType.ID_BASED,
-				new FormOptions(), null);
+		SimpleSearchLayout<Integer, Person> ssl = new SimpleSearchLayout<Integer, Person>(personService, model,
+				QueryType.ID_BASED, new FormOptions().setShowSearchAnyButton(true), null) {
+
+			private static final long serialVersionUID = 6383158350570359504L;
+
+			@Override
+			protected void postProcessLayout(Layout main) {
+				super.postProcessLayout(main);
+				//setSearchValue("firstName", "vin");
+			}
+
+		};
 
 		List<SerializablePredicate<Person>> defaultFilters = new ArrayList<>();
-		defaultFilters.add(new com.ocs.dynamo.filter.LikePredicate<>("firstName", "%vin%", false));
+		// defaultFilters.add(new com.ocs.dynamo.filter.LikePredicate<>("firstName",
+		// "%vin%", false));
 		ssl.setDefaultFilters(defaultFilters);
 		main.addComponent(ssl);
 
-		List<Person> persons = personService.fetch(null);
-		ListDataProvider<Person> provider = new ListDataProvider<>(persons);
-
-		ModelBasedGrid<Integer, Person> table = new ModelBasedGrid<>(provider, model, false);
-
-		main.addComponent(table);
+//		List<Person> persons = personService.fetch(null);
+//		ListDataProvider<Person> provider = new ListDataProvider<>(persons);
+//		ModelBasedGrid<Integer, Person> table = new ModelBasedGrid<>(provider, model, false);
+//		main.addComponent(table);
 
 		// List<Organization> organizations = organizationService.fetch(null);
 		// ListDataProvider<Organization> orgProvider = new
 		// ListDataProvider<>(organizations);
 		EntityModel<Organization> oModel = getModelFactory().getModel(Organization.class);
 
-		PagingDataProvider<Integer, Organization> pagingProvider = new PagingDataProvider<>(organizationService,
-				oModel);
-		ModelBasedGrid<Integer, Organization> orgTable = new ModelBasedGrid<>(pagingProvider, oModel, false);
-		orgTable.setCurrencySymbol("$");
-
-		main.addComponent(orgTable);
-
-		EntityModel<Country> cModel = getModelFactory().getModel(Country.class);
-		IdBasedDataProvider<Integer, Country> countryProvider = new IdBasedDataProvider<>(countryService, cModel);
-		ModelBasedGrid<Integer, Country> cTable = new ModelBasedGrid<>(countryProvider, cModel, false);
-		main.addComponent(cTable);
-
-		Button refresh = new Button("Refresh");
-		refresh.addClickListener(evt -> {
-			cTable.clearSortOrder();
-		});
-		main.addComponent(refresh);
+//		PagingDataProvider<Integer, Organization> pagingProvider = new PagingDataProvider<>(organizationService,
+//				oModel);
+//		ModelBasedGrid<Integer, Organization> orgTable = new ModelBasedGrid<>(pagingProvider, oModel, false);
+//		orgTable.setCurrencySymbol("$");
+//
+//		main.addComponent(orgTable);
+//
+//		EntityModel<Country> cModel = getModelFactory().getModel(Country.class);
+//		IdBasedDataProvider<Integer, Country> countryProvider = new IdBasedDataProvider<>(countryService, cModel);
+//		ModelBasedGrid<Integer, Country> cTable = new ModelBasedGrid<>(countryProvider, cModel, false);
+//		main.addComponent(cTable);
+//
+//		Button refresh = new Button("Refresh");
+//		refresh.addClickListener(evt -> {
+//			cTable.clearSortOrder();
+//		});
+//		main.addComponent(refresh);
 	}
 }

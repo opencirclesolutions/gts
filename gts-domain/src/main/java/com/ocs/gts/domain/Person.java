@@ -46,12 +46,13 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "first_name")
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, requiredForSearching = false)
 	private String firstName;
 
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "last_name")
+	@Attribute(searchable = true)
 	private String lastName;
 
 	@NotNull
@@ -62,7 +63,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true)
 	private Organization organization;
 
 	@Attribute(searchable = true)
