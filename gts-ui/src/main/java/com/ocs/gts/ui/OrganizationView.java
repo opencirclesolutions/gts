@@ -1,6 +1,7 @@
 package com.ocs.gts.ui;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,6 +35,8 @@ import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextArea;
+import com.vaadin.ui.VerticalLayout;
 
 @UIScope
 @SpringView(name = Views.ORGANIZATION_VIEW)
@@ -50,6 +53,8 @@ public class OrganizationView extends BaseView {
 
 	private static final long serialVersionUID = 3310122000037867336L;
 
+	private Layout searchResultsLayout;
+
 	private class MySearchable implements Searchable<Person> {
 
 		@Override
@@ -59,7 +64,14 @@ public class OrganizationView extends BaseView {
 			FilterConverter<Person> converter = new FilterConverter<Person>(model);
 
 			List<Person> persons = personService.fetch(converter.convert(filter));
-			persons.forEach(x -> System.out.println(x.getFullName() + " " + x.getAge()));
+
+			searchResultsLayout.removeAllComponents();
+			TextArea area = new TextArea();
+			area.setSizeFull();
+			searchResultsLayout.addComponent(area);
+
+			String value = persons.stream().map(p -> p.getFullName()).collect(Collectors.joining("\n"));
+			area.setValue(value);
 		}
 
 	}
@@ -74,6 +86,9 @@ public class OrganizationView extends BaseView {
 		ModelBasedSearchForm<Integer, Person> personForm = new ModelBasedSearchForm<Integer, Person>(mySearchable,
 				personModel, new FormOptions());
 		main.addComponent(personForm);
+
+		searchResultsLayout = new VerticalLayout();
+		main.addComponent(searchResultsLayout);
 
 //		FormOptions fo = new FormOptions();
 //		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,7 @@ import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.gts.domain.type.Reputation;
 
 @Entity
 @Table(name = "person")
@@ -36,15 +39,9 @@ public class Person extends AbstractEntity<Integer> {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_id_gen")
 	private Integer id;
 
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@Attribute(week = true, searchable = true)
+	@Column(name = "birth_week")
+	private LocalDate birthWeek;
 
 	@NotNull
 	@Size(max = 255)
@@ -76,52 +73,27 @@ public class Person extends AbstractEntity<Integer> {
 	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
 	private Integer age;
 
-	public String getFirstName() {
-		return firstName;
-	}
+	@Attribute(searchable = true)
+	private Boolean professional;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	@Attribute(searchable = true)
+	@Enumerated(EnumType.STRING)
+	private Reputation reputation;
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
-	public Organization getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
+	public Integer getAge() {
+		return age;
 	}
 
 	public LocalDate getBorn() {
 		return born;
 	}
 
-	public void setBorn(LocalDate born) {
-		this.born = born;
-	}
-
 	public LocalDate getDied() {
 		return died;
 	}
 
-	public void setDied(LocalDate died) {
-		this.died = died;
+	public String getFirstName() {
+		return firstName;
 	}
 
 	@Attribute(editable = EditableType.READ_ONLY, main = true)
@@ -133,12 +105,78 @@ public class Person extends AbstractEntity<Integer> {
 		return builder.toString();
 	}
 
-	public Integer getAge() {
-		return age;
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public Organization getOrganization() {
+		return organization;
 	}
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public void setBorn(LocalDate born) {
+		this.born = born;
+	}
+
+	public void setDied(LocalDate died) {
+		this.died = died;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
+
+	public LocalDate getBirthWeek() {
+		return birthWeek;
+	}
+
+	public void setBirthWeek(LocalDate birthWeek) {
+		this.birthWeek = birthWeek;
+	}
+
+	public Boolean getProfessional() {
+		return professional;
+	}
+
+	public void setProfessional(Boolean professional) {
+		this.professional = professional;
+	}
+
+	public Reputation getReputation() {
+		return reputation;
+	}
+
+	public void setReputation(Reputation reputation) {
+		this.reputation = reputation;
 	}
 
 }
