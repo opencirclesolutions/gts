@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
 import com.ocs.dynamo.domain.model.EditableType;
 import com.ocs.dynamo.domain.model.NumberSelectMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
@@ -63,7 +64,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true, selectMode = AttributeSelectMode.LOOKUP, searchSelectMode = AttributeSelectMode.LOOKUP, multipleSearch = true)
 	private Organization organization;
 
 	@Attribute(searchable = true)
@@ -80,6 +81,11 @@ public class Person extends AbstractEntity<Integer> {
 	@Attribute(searchable = true)
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
+
+	@Attribute(searchable = true)
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role role;
 
 	public Integer getAge() {
 		return age;
@@ -178,6 +184,14 @@ public class Person extends AbstractEntity<Integer> {
 
 	public void setReputation(Reputation reputation) {
 		this.reputation = reputation;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }

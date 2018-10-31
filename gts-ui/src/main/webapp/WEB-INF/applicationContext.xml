@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -10,7 +12,8 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
-	<import resource="classpath:META-INF/spring/applicationContext-common.xml" />
+	<import
+		resource="classpath:META-INF/spring/applicationContext-common.xml" />
 
 	<!-- Version number -->
 	<bean id="versionNumber" class="java.lang.String">
@@ -24,8 +27,10 @@
 		<property name="packagesToScan"
 			value="com.ocs.gts.domain,com.ocs.dynamo.functional.domain" />
 		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform"
+					value="org.hibernate.dialect.PostgreSQLDialect" />
 				<property name="generateDdl" value="false" />
 				<property name="showSql" value="false" />
 			</bean>
@@ -33,16 +38,20 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<jee:jndi-lookup id="dataSource" jndi-name="${gts.datasource.name}"></jee:jndi-lookup>
+	<jee:jndi-lookup id="dataSource"
+		jndi-name="${gts.datasource.name}"></jee:jndi-lookup>
 
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" />
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager" />
 
 	<bean id="userDetailsService"
 		class="com.ocs.dynamo.service.impl.DefaultUserDetailsServiceImpl" />
-		
-	<bean id="viewAccessControl" class="com.ocs.dynamo.ui.auth.ViewAccessControl" />		
 
-	<bean id="countryService" class="com.ocs.dynamo.service.impl.DefaultServiceImpl">
+	<bean id="viewAccessControl"
+		class="com.ocs.dynamo.ui.auth.ViewAccessControl" />
+
+	<bean id="countryService"
+		class="com.ocs.dynamo.service.impl.DefaultServiceImpl">
 		<constructor-arg index="0">
 			<bean class="com.ocs.dynamo.dao.impl.DefaultDaoImpl">
 				<constructor-arg index="0"
@@ -53,6 +62,19 @@
 			</bean>
 		</constructor-arg>
 		<constructor-arg index="1" value="code" />
+	</bean>
+
+	<bean id="roleService"
+		class="com.ocs.dynamo.service.impl.DefaultServiceImpl">
+		<constructor-arg index="0">
+			<bean class="com.ocs.dynamo.dao.impl.DefaultDaoImpl">
+				<constructor-arg index="0"
+					value="#{T(com.ocs.gts.domain.QRole).role}" />
+				<constructor-arg index="1"
+					value="com.ocs.gts.domain.Role" />
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="1" value="name" />
 	</bean>
 
 </beans>

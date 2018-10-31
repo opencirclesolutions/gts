@@ -46,6 +46,7 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@NotNull
 	@Size(max = 255)
+	@Attribute(searchable = true)
 	private String name;
 
 	@NotNull
