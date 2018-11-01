@@ -1,6 +1,14 @@
 package com.ocs.gts.domain;
 
-import java.time.LocalDate;
+import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.EditableType;
+import com.ocs.dynamo.domain.model.NumberSelectMode;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
+import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.gts.domain.type.Reputation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,21 +24,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.AttributeSelectMode;
-import com.ocs.dynamo.domain.model.EditableType;
-import com.ocs.dynamo.domain.model.NumberSelectMode;
-import com.ocs.dynamo.domain.model.VisibilityType;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
-import com.ocs.dynamo.domain.model.annotation.Model;
-import com.ocs.gts.domain.type.Reputation;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "person")
 @Model(displayProperty = "fullName")
-@AttributeOrder(attributeNames = { "firstName", "lastName", "nickName", "organization", "born", "died" })
+@AttributeOrder(attributeNames = { "firstName", "lastName", "nickName", "organization", "born", "died", "someTime" })
 public class Person extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -71,6 +71,10 @@ public class Person extends AbstractEntity<Integer> {
 	private LocalDate born;
 
 	private LocalDate died;
+
+	@Column(name = "some_time")
+	@Attribute(searchable = true)
+	private LocalTime someTime;
 
 	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
 	private Integer age;
@@ -194,4 +198,11 @@ public class Person extends AbstractEntity<Integer> {
 		this.role = role;
 	}
 
+	public LocalTime getSomeTime() {
+		return someTime;
+	}
+
+	public void setSomeTime(final LocalTime someTime) {
+		this.someTime = someTime;
+	}
 }
