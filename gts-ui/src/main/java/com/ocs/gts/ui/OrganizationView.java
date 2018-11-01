@@ -1,11 +1,5 @@
 package com.ocs.gts.ui;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.google.gwt.thirdparty.guava.common.collect.Sets;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.domain.model.EntityModelFactory;
@@ -26,6 +20,8 @@ import com.ocs.dynamo.ui.component.TokenFieldSelect;
 import com.ocs.dynamo.ui.composite.dialog.SimpleModalDialog;
 import com.ocs.dynamo.ui.composite.form.ModelBasedSearchForm;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
+import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
+import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
 import com.ocs.gts.domain.Organization;
 import com.ocs.gts.domain.Person;
@@ -43,6 +39,14 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @UIScope
 @SpringView(name = Views.ORGANIZATION_VIEW)
@@ -182,6 +186,28 @@ public class OrganizationView extends BaseView {
 		dialog.setPosition(100, 100);
 		dialogButton.addClickListener(e -> getUI().addWindow(dialog));
 		main.addComponent(dialogButton);
+
+
+		SimpleSearchLayout<Integer, Organization> ssl = new SimpleSearchLayout<Integer, Organization>(organizationService, em,
+				QueryType.ID_BASED, new FormOptions().setShowSearchAnyButton(true), null) {
+
+			private static final long serialVersionUID = 6383158350570359504L;
+
+			@Override
+			protected void postProcessLayout(Layout main) {
+				super.postProcessLayout(main);
+				// setSearchValue("firstName", "vin");
+			}
+
+		};
+
+		List<SerializablePredicate<Organization>> defaultFilters = new ArrayList<>();
+		ssl.setDefaultFilters(defaultFilters);
+
+		Map<String, SerializablePredicate<?>> fieldFilters = new HashMap<>();
+		ssl.setFieldFilters(fieldFilters);
+
+		main.addComponent(ssl);
 
 	}
 }
