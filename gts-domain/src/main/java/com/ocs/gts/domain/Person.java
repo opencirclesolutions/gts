@@ -1,6 +1,8 @@
 package com.ocs.gts.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,12 +69,15 @@ public class Person extends AbstractEntity<Integer> {
 	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true, selectMode = AttributeSelectMode.LOOKUP, searchSelectMode = AttributeSelectMode.LOOKUP, multipleSearch = true)
 	private Organization organization;
 
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
 	private LocalDate born;
 
 	private LocalDate died;
 
-	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
+	@Column(name = "some_timestamp")
+	private LocalDateTime someTimestamp;
+
+	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.TEXTFIELD)
 	private Integer age;
 
 	@Attribute(searchable = true)
@@ -82,10 +87,13 @@ public class Person extends AbstractEntity<Integer> {
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
 
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, complexEditable = true, quickAddPropertyName = "name")
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
+
+	@Column(name = "some_time")
+	private LocalTime someTime;
 
 	public Integer getAge() {
 		return age;
@@ -103,7 +111,7 @@ public class Person extends AbstractEntity<Integer> {
 		return firstName;
 	}
 
-	@Attribute(editable = EditableType.READ_ONLY, main = true)
+	@Attribute(editable = EditableType.READ_ONLY, main = true, visible = VisibilityType.HIDE)
 	public String getFullName() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(firstName);
@@ -192,6 +200,22 @@ public class Person extends AbstractEntity<Integer> {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public LocalTime getSomeTime() {
+		return someTime;
+	}
+
+	public void setSomeTime(LocalTime someTime) {
+		this.someTime = someTime;
+	}
+
+	public LocalDateTime getSomeTimestamp() {
+		return someTimestamp;
+	}
+
+	public void setSomeTimestamp(LocalDateTime someTimestamp) {
+		this.someTimestamp = someTimestamp;
 	}
 
 }

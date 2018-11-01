@@ -26,6 +26,8 @@ import com.ocs.dynamo.ui.component.TokenFieldSelect;
 import com.ocs.dynamo.ui.composite.dialog.SimpleModalDialog;
 import com.ocs.dynamo.ui.composite.form.ModelBasedSearchForm;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
+import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
+import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
 import com.ocs.gts.domain.Organization;
 import com.ocs.gts.domain.Person;
@@ -86,15 +88,20 @@ public class OrganizationView extends BaseView {
 	public void enter(ViewChangeEvent event) {
 		Layout main = initLayout();
 
-		EntityModel<Person> personModel = getModelFactory().getModel(Person.class);
-		Searchable<Person> mySearchable = new MySearchable();
+//		EntityModel<Person> personModel = getModelFactory().getModel(Person.class);
+//		Searchable<Person> mySearchable = new MySearchable();
+//
+//		ModelBasedSearchForm<Integer, Person> personForm = new ModelBasedSearchForm<Integer, Person>(mySearchable,
+//				personModel, new FormOptions());
+//		main.addComponent(personForm);
+//
+//		searchResultsLayout = new VerticalLayout();
+//		main.addComponent(searchResultsLayout);
 
-		ModelBasedSearchForm<Integer, Person> personForm = new ModelBasedSearchForm<Integer, Person>(mySearchable,
-				personModel, new FormOptions());
-		main.addComponent(personForm);
-
-		searchResultsLayout = new VerticalLayout();
-		main.addComponent(searchResultsLayout);
+		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
+		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
+				QueryType.PAGING, new FormOptions(), null);
+		main.addComponent(layout);
 
 //		FormOptions fo = new FormOptions();
 //		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
@@ -103,85 +110,84 @@ public class OrganizationView extends BaseView {
 
 		// PropertyPredicate<Organization> filter = new
 		// EqualsPredicate<Organization>("name", "Coda Nostra");
-		PropertyPredicate<Organization> like = new SimpleStringPredicate<>("name", "Gar", false, false);
-		OrPredicate<Organization> or = new OrPredicate<>(new LikePredicate<Organization>("name", "%ca%", false),
-				new LikePredicate<>("name", "%co%", false));
-
-		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		EntityComboBox<Integer, Organization> combo = new EntityComboBox<>(em, null, organizationService, like,
-				new SortOrder<>("name", SortDirection.ASCENDING));
-		main.addComponent(combo);
-		// combo.setAdditionalFilter(new LikePredicate<>("name", "%cod%", false));
-
-		final InPredicate<Organization> organizationInPredicate = new InPredicate<>("name",
-				Arrays.asList("CamelCase Camorra", "Los Pollos Hermanos"));
-
-		EntityComboBox<Integer, Organization> combo2 = new EntityComboBox<>(em, null, organizationService,
-				organizationInPredicate, new SortOrder<>("name", SortDirection.ASCENDING));
-		main.addComponent(combo2);
-
-		EntityComboBox<Integer, Organization> fixed = new EntityComboBox<>(em, null, organizationService.findAll());
-		main.addComponent(fixed);
-
-		// filtered list select
-		EntityListSelect<Integer, Organization> listSelect = new EntityListSelect<>(em, null, organizationService, like,
-				new SortOrder<>("name", SortDirection.ASCENDING));
-		main.addComponent(listSelect);
-
-		PropertyPredicate<Person> likePerson = new LikePredicate<>("firstName", "%a%", false);
-
-		QuickAddEntityComboBox<Integer, Person> personQuickAdd = new QuickAddEntityComboBox<>(personModel, null,
-				personService, SelectMode.FILTERED, null, false, null);
-		main.addComponent(personQuickAdd);
-
-		Person person1 = personService.findById(1);
-		personQuickAdd.setValue(person1);
-		Person person2 = personService.findById(2);
-
-		Button button = new Button("Test");
-		button.addClickListener(evt -> {
-			Person person = personQuickAdd.getValue();
-			if (person != null) {
-				Notification.show(person.getFullName(), Notification.Type.ERROR_MESSAGE);
-			}
-		});
-		main.addComponent(button);
-
-		QuickAddListSelect<Integer, Person> personListSelect = new QuickAddListSelect<Integer, Person>(personModel,
-				null, personService, null, true, 5);
-		main.addComponent(personListSelect);
-		personListSelect.setValue(Sets.newHashSet(person1, person2));
-
-		TokenFieldSelect<Integer, Person> tokenField = new TokenFieldSelect<>(personModel, null, personService, null,
-				true);
-		main.addComponent(tokenField);
-		tokenField.setValue(Sets.newHashSet(person1, person2));
-
-		FancyListSelect<Integer, Organization> organizationFancyListSelect = new FancyListSelect<>(organizationService,
-				em, null, null, true);
-		main.addComponent(organizationFancyListSelect);
-
-		Button dialogButton = new Button("Popup please!");
-		final SimpleModalDialog dialog = new SimpleModalDialog(true) {
-
-			@Override
-			protected void doBuild(final Layout parent) {
-				final VerticalLayout layout = new VerticalLayout();
-				layout.addComponent(new Label("Guten Tag!"));
-				parent.addComponent(layout);
-			}
-
-			@Override
-			protected String getTitle() {
-				return "popup";
-			}
-
-		};
-
-		dialog.build();
-		dialog.setPosition(100, 100);
-		dialogButton.addClickListener(e -> getUI().addWindow(dialog));
-		main.addComponent(dialogButton);
+//		PropertyPredicate<Organization> like = new SimpleStringPredicate<>("name", "Gar", false, false);
+//		OrPredicate<Organization> or = new OrPredicate<>(new LikePredicate<Organization>("name", "%ca%", false),
+//				new LikePredicate<>("name", "%co%", false));
+//
+//		EntityComboBox<Integer, Organization> combo = new EntityComboBox<>(em, null, organizationService, like,
+//				new SortOrder<>("name", SortDirection.ASCENDING));
+//		main.addComponent(combo);
+//		// combo.setAdditionalFilter(new LikePredicate<>("name", "%cod%", false));
+//
+//		final InPredicate<Organization> organizationInPredicate = new InPredicate<>("name",
+//				Arrays.asList("CamelCase Camorra", "Los Pollos Hermanos"));
+//
+//		EntityComboBox<Integer, Organization> combo2 = new EntityComboBox<>(em, null, organizationService,
+//				organizationInPredicate, new SortOrder<>("name", SortDirection.ASCENDING));
+//		main.addComponent(combo2);
+//
+//		EntityComboBox<Integer, Organization> fixed = new EntityComboBox<>(em, null, organizationService.findAll());
+//		main.addComponent(fixed);
+//
+//		// filtered list select
+//		EntityListSelect<Integer, Organization> listSelect = new EntityListSelect<>(em, null, organizationService, like,
+//				new SortOrder<>("name", SortDirection.ASCENDING));
+//		main.addComponent(listSelect);
+//
+//		PropertyPredicate<Person> likePerson = new LikePredicate<>("firstName", "%a%", false);
+//
+//		QuickAddEntityComboBox<Integer, Person> personQuickAdd = new QuickAddEntityComboBox<>(personModel, null,
+//				personService, SelectMode.FILTERED, null, false, null);
+//		main.addComponent(personQuickAdd);
+//
+//		Person person1 = personService.findById(1);
+//		personQuickAdd.setValue(person1);
+//		Person person2 = personService.findById(2);
+//
+//		Button button = new Button("Test");
+//		button.addClickListener(evt -> {
+//			Person person = personQuickAdd.getValue();
+//			if (person != null) {
+//				Notification.show(person.getFullName(), Notification.Type.ERROR_MESSAGE);
+//			}
+//		});
+//		main.addComponent(button);
+//
+//		QuickAddListSelect<Integer, Person> personListSelect = new QuickAddListSelect<Integer, Person>(personModel,
+//				null, personService, null, true, 5);
+//		main.addComponent(personListSelect);
+//		personListSelect.setValue(Sets.newHashSet(person1, person2));
+//
+//		TokenFieldSelect<Integer, Person> tokenField = new TokenFieldSelect<>(personModel, null, personService, null,
+//				true);
+//		main.addComponent(tokenField);
+//		tokenField.setValue(Sets.newHashSet(person1, person2));
+//
+//		FancyListSelect<Integer, Organization> organizationFancyListSelect = new FancyListSelect<>(organizationService,
+//				em, null, null, true);
+//		main.addComponent(organizationFancyListSelect);
+//
+//		Button dialogButton = new Button("Popup please!");
+//		final SimpleModalDialog dialog = new SimpleModalDialog(true) {
+//
+//			@Override
+//			protected void doBuild(final Layout parent) {
+//				final VerticalLayout layout = new VerticalLayout();
+//				layout.addComponent(new Label("Guten Tag!"));
+//				parent.addComponent(layout);
+//			}
+//
+//			@Override
+//			protected String getTitle() {
+//				return "popup";
+//			}
+//
+//		};
+//
+//		dialog.build();
+//		dialog.setPosition(100, 100);
+//		dialogButton.addClickListener(e -> getUI().addWindow(dialog));
+//		main.addComponent(dialogButton);
 
 	}
 }

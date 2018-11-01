@@ -15,6 +15,7 @@ import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
+import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Organization;
 import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.OrganizationService;
@@ -23,11 +24,13 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.SerializablePredicate;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
+import com.vaadin.v7.ui.VerticalLayout;
 
 @UIScope
 @SpringView(name = Views.PERSON_VIEW)
-public class PersonView extends BaseView {
+public class PersonView extends LazyBaseView {
 
 	private static final long serialVersionUID = 5368745165020200786L;
 
@@ -41,12 +44,12 @@ public class PersonView extends BaseView {
 	private BaseService<Integer, Country> countryService;
 
 	@Override
-	public void enter(ViewChangeEvent event) {
-		Layout main = initLayout();
+	protected Component build() {
+		Layout main = new com.vaadin.ui.VerticalLayout();
 
 		EntityModel<Person> model = getModelFactory().getModel(Person.class);
 		SimpleSearchLayout<Integer, Person> ssl = new SimpleSearchLayout<Integer, Person>(personService, model,
-				QueryType.ID_BASED, new FormOptions().setShowSearchAnyButton(true), null) {
+				QueryType.ID_BASED, new FormOptions().setShowSearchAnyButton(true).setEditAllowed(true), null) {
 
 			private static final long serialVersionUID = 6383158350570359504L;
 
@@ -58,12 +61,13 @@ public class PersonView extends BaseView {
 
 		};
 
-		List<SerializablePredicate<Person>> defaultFilters = new ArrayList<>();
-		//defaultFilters.add(new com.ocs.dynamo.filter.LikePredicate<>("firstName", "%vin%", false));
-		ssl.setDefaultFilters(defaultFilters);
+		// List<SerializablePredicate<Person>> defaultFilters = new ArrayList<>();
+		// defaultFilters.add(new com.ocs.dynamo.filter.LikePredicate<>("firstName",
+		// "%vin%", false));
+		// ssl.setDefaultFilters(defaultFilters);
 
 		Map<String, SerializablePredicate<?>> fieldFilters = new HashMap<>();
-		fieldFilters.put("organization", new LikePredicate<Organization>("name", "%am%", false));
+		//fieldFilters.put("organization", new LikePredicate<Organization>("name", "%am%", false));
 		ssl.setFieldFilters(fieldFilters);
 
 		main.addComponent(ssl);
@@ -95,5 +99,7 @@ public class PersonView extends BaseView {
 //			cTable.clearSortOrder();
 //		});
 //		main.addComponent(refresh);
+
+		return main;
 	}
 }
