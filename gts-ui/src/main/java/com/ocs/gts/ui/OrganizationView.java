@@ -3,6 +3,7 @@ package com.ocs.gts.ui;
 import com.google.gwt.thirdparty.guava.common.collect.Sets;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.domain.model.EntityModelFactory;
+import com.ocs.dynamo.filter.AndPredicate;
 import com.ocs.dynamo.filter.FilterConverter;
 import com.ocs.dynamo.filter.InPredicate;
 import com.ocs.dynamo.filter.LikePredicate;
@@ -112,7 +113,7 @@ public class OrganizationView extends BaseView {
 				new LikePredicate<>("name", "%co%", false));
 
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		EntityComboBox<Integer, Organization> combo = new EntityComboBox<>(em, null, organizationService, like,
+		EntityComboBox<Integer, Organization> combo = new EntityComboBox<>(em, null, organizationService, new AndPredicate<>(),
 				new SortOrder<>("name", SortDirection.ASCENDING));
 		main.addComponent(combo);
 		// combo.setAdditionalFilter(new LikePredicate<>("name", "%cod%", false));
@@ -128,7 +129,8 @@ public class OrganizationView extends BaseView {
 		main.addComponent(fixed);
 
 		// filtered list select
-		EntityListSelect<Integer, Organization> listSelect = new EntityListSelect<>(em, null, organizationService, like,
+		main.addComponent(new Label("Entity list select:"));
+		EntityListSelect<Integer, Organization> listSelect = new EntityListSelect<>(em, null, organizationService, new AndPredicate<>(),
 				new SortOrder<>("name", SortDirection.ASCENDING));
 		main.addComponent(listSelect);
 
@@ -152,7 +154,7 @@ public class OrganizationView extends BaseView {
 		main.addComponent(button);
 
 		QuickAddListSelect<Integer, Person> personListSelect = new QuickAddListSelect<Integer, Person>(personModel,
-				null, personService, null, true, 5);
+				null, personService, null, 5);
 		main.addComponent(personListSelect);
 		personListSelect.setValue(Sets.newHashSet(person1, person2));
 
