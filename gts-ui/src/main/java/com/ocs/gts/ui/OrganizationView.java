@@ -1,6 +1,7 @@
 package com.ocs.gts.ui;
 
 import com.google.gwt.thirdparty.guava.common.collect.Sets;
+import com.ocs.dynamo.dao.FetchJoinInformation;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.domain.model.EntityModelFactory;
 import com.ocs.dynamo.filter.AndPredicate;
@@ -21,6 +22,7 @@ import com.ocs.dynamo.ui.component.TokenFieldSelect;
 import com.ocs.dynamo.ui.composite.dialog.SimpleModalDialog;
 import com.ocs.dynamo.ui.composite.form.ModelBasedSearchForm;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
+import com.ocs.dynamo.ui.composite.layout.SimpleEditLayout;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
@@ -140,7 +142,7 @@ public class OrganizationView extends BaseView {
 				personService, SelectMode.FILTERED, null, false, null);
 		main.addComponent(personQuickAdd);
 
-		Person person1 = personService.findById(1);
+		Person person1 = personService.fetchById(1, new FetchJoinInformation("organization"));
 		personQuickAdd.setValue(person1);
 		Person person2 = personService.findById(2);
 
@@ -152,6 +154,10 @@ public class OrganizationView extends BaseView {
 			}
 		});
 		main.addComponent(button);
+
+		main.addComponent(new Label("Simple Edit Layout"));
+
+		main.addComponent(new SimpleEditLayout<>(person1, personService, personModel, new FormOptions(), new FetchJoinInformation("organization")));
 
 		QuickAddListSelect<Integer, Person> personListSelect = new QuickAddListSelect<Integer, Person>(personModel,
 				null, personService, null, 5);
