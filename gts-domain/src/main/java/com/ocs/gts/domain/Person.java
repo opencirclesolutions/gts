@@ -64,7 +64,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.LIST, multipleSearch = true)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
 	private Organization organization;
 
 	@Attribute(searchable = true)
