@@ -1,54 +1,27 @@
 package com.ocs.gts.ui;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.gwt.thirdparty.guava.common.collect.Sets;
 import com.ocs.dynamo.domain.model.EntityModel;
-import com.ocs.dynamo.domain.model.EntityModelFactory;
-import com.ocs.dynamo.filter.FilterConverter;
-import com.ocs.dynamo.filter.InPredicate;
-import com.ocs.dynamo.filter.LikePredicate;
-import com.ocs.dynamo.filter.OrPredicate;
-import com.ocs.dynamo.filter.PropertyPredicate;
-import com.ocs.dynamo.filter.SimpleStringPredicate;
-import com.ocs.dynamo.ui.Searchable;
-import com.ocs.dynamo.ui.component.EntityComboBox;
-import com.ocs.dynamo.ui.component.EntityComboBox.SelectMode;
-import com.ocs.dynamo.ui.component.EntityListSelect;
-import com.ocs.dynamo.ui.component.FancyListSelect;
-import com.ocs.dynamo.ui.component.QuickAddEntityComboBox;
-import com.ocs.dynamo.ui.component.QuickAddListSelect;
-import com.ocs.dynamo.ui.component.TokenFieldSelect;
-import com.ocs.dynamo.ui.composite.dialog.SimpleModalDialog;
-import com.ocs.dynamo.ui.composite.form.ModelBasedSearchForm;
+import com.ocs.dynamo.service.MessageService;
+import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
-import com.ocs.dynamo.ui.view.BaseView;
+import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Organization;
-import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.OrganizationService;
 import com.ocs.gts.service.PersonService;
-import com.vaadin.data.provider.SortOrder;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.SerializablePredicate;
-import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.VerticalLayout;
 
 @UIScope
 @SpringView(name = Views.ORGANIZATION_VIEW)
-public class OrganizationView extends BaseView {
+public class OrganizationView extends LazyBaseView {
 
 	@Autowired
 	private OrganizationService organizationService;
@@ -56,37 +29,18 @@ public class OrganizationView extends BaseView {
 	@Autowired
 	private PersonService personService;
 
-	@Autowired
-	private EntityModelFactory factory;
-
 	private static final long serialVersionUID = 3310122000037867336L;
 
 	private Layout searchResultsLayout;
 
-	private class MySearchable implements Searchable<Person> {
-
-		@Override
-		public void search(SerializablePredicate<Person> filter) {
-
-			EntityModel<Person> model = factory.getModel(Person.class);
-			FilterConverter<Person> converter = new FilterConverter<Person>(model);
-
-			List<Person> persons = personService.fetch(converter.convert(filter));
-
-			searchResultsLayout.removeAllComponents();
-			TextArea area = new TextArea();
-			area.setSizeFull();
-			searchResultsLayout.addComponent(area);
-
-			String value = persons.stream().map(p -> p.getFullName()).collect(Collectors.joining("\n"));
-			area.setValue(value);
-		}
-
-	}
+	@Autowired
+	private MessageService messageService;
 
 	@Override
-	public void enter(ViewChangeEvent event) {
-		Layout main = initLayout();
+	public Component build() {
+		Layout main = new DefaultVerticalLayout();
+
+		System.out.println(messageService.getMessage("bob.ross", new Locale("nl")));
 
 //		EntityModel<Person> personModel = getModelFactory().getModel(Person.class);
 //		Searchable<Person> mySearchable = new MySearchable();
@@ -100,7 +54,7 @@ public class OrganizationView extends BaseView {
 
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
 		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
-				QueryType.PAGING, new FormOptions(), null);
+				QueryType.PAGING, new FormOptions().setEditAllowed(true), null);
 		main.addComponent(layout);
 
 //		FormOptions fo = new FormOptions();
@@ -188,6 +142,8 @@ public class OrganizationView extends BaseView {
 //		dialog.setPosition(100, 100);
 //		dialogButton.addClickListener(e -> getUI().addWindow(dialog));
 //		main.addComponent(dialogButton);
+
+		return main;
 
 	}
 }

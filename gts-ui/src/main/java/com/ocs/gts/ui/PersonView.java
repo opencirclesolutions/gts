@@ -61,13 +61,17 @@ public class PersonView extends LazyBaseView {
 
 		};
 
+		ssl.setDividerProperty("organization");
+		ssl.setSortEnabled(false);
+
 		// List<SerializablePredicate<Person>> defaultFilters = new ArrayList<>();
 		// defaultFilters.add(new com.ocs.dynamo.filter.LikePredicate<>("firstName",
 		// "%vin%", false));
 		// ssl.setDefaultFilters(defaultFilters);
 
 		Map<String, SerializablePredicate<?>> fieldFilters = new HashMap<>();
-		//fieldFilters.put("organization", new LikePredicate<Organization>("name", "%am%", false));
+		// fieldFilters.put("organization", new LikePredicate<Organization>("name",
+		// "%am%", false));
 		ssl.setFieldFilters(fieldFilters);
 
 		main.addComponent(ssl);

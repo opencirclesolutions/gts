@@ -60,6 +60,7 @@ public class Organization extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Attribute(searchable = true)
 	private Country countryOfOrigin;
 
 	@NotNull
@@ -70,7 +71,7 @@ public class Organization extends AbstractEntity<Integer> {
 	private Boolean governmentSponsored = Boolean.FALSE;
 
 	@Column(name = "yearly_mortality_rate")
-	@Attribute(currency = true)
+	@Attribute(percentage = true)
 	private BigDecimal yearlyMortalityRate;
 
 	@Enumerated(EnumType.STRING)

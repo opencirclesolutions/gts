@@ -21,6 +21,7 @@ import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.CheckboxMode;
 import com.ocs.dynamo.domain.model.EditableType;
 import com.ocs.dynamo.domain.model.NumberSelectMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
@@ -32,7 +33,7 @@ import com.ocs.gts.domain.type.Reputation;
 @Entity
 @Table(name = "person")
 @Model(displayProperty = "fullName")
-@AttributeOrder(attributeNames = { "firstName", "lastName", "nickName", "organization", "born", "died" })
+@AttributeOrder(attributeNames = { "firstName", "lastName", "nickName", "organization", "born", "died", "someTime" })
 public class Person extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -75,25 +76,27 @@ public class Person extends AbstractEntity<Integer> {
 	private LocalDate died;
 
 	@Column(name = "some_timestamp")
+	@Attribute(searchable = true)
 	private LocalDateTime someTimestamp;
 
-	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.TEXTFIELD)
+	@Column(name = "some_time")
+	@Attribute(searchable = true)
+	private LocalTime someTime;
+
+	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
 	private Integer age;
 
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, checkboxMode = CheckboxMode.SWITCH)
 	private Boolean professional;
 
 	@Attribute(searchable = true)
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
 
-	@Attribute(searchable = true, complexEditable = true, quickAddPropertyName = "name")
+	@Attribute(searchable = true, complexEditable = true, quickAddPropertyName = "name", selectMode = AttributeSelectMode.LOOKUP)
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
-
-	@Column(name = "some_time")
-	private LocalTime someTime;
 
 	public Integer getAge() {
 		return age;
