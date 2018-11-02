@@ -1,14 +1,6 @@
 package com.ocs.gts.ui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.ocs.dynamo.domain.model.EntityModel;
-import com.ocs.dynamo.filter.LikePredicate;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
@@ -26,7 +18,16 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
+<<<<<<< HEAD
 import com.vaadin.v7.ui.VerticalLayout;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+>>>>>>> 5ab688629bc45c7f78f1cc6e79cdd22b13d58292
 
 @UIScope
 @SpringView(name = Views.PERSON_VIEW)
@@ -70,8 +71,12 @@ public class PersonView extends LazyBaseView {
 		// ssl.setDefaultFilters(defaultFilters);
 
 		Map<String, SerializablePredicate<?>> fieldFilters = new HashMap<>();
+<<<<<<< HEAD
 		// fieldFilters.put("organization", new LikePredicate<Organization>("name",
 		// "%am%", false));
+=======
+		//fieldFilters.put("organization", new LikePredicate<Organization>("name", "%am%", false));
+>>>>>>> 5ab688629bc45c7f78f1cc6e79cdd22b13d58292
 		ssl.setFieldFilters(fieldFilters);
 
 		main.addComponent(ssl);
