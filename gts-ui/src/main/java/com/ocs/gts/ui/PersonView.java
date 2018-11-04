@@ -1,33 +1,24 @@
 package com.ocs.gts.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.dynamo.service.BaseService;
+import com.ocs.dynamo.ui.composite.dialog.EntityPopupDialog;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
-import com.ocs.dynamo.ui.view.BaseView;
 import com.ocs.dynamo.ui.view.LazyBaseView;
-import com.ocs.gts.domain.Organization;
 import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.OrganizationService;
 import com.ocs.gts.service.PersonService;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.SerializablePredicate;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
-<<<<<<< HEAD
-import com.vaadin.v7.ui.VerticalLayout;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
->>>>>>> 5ab688629bc45c7f78f1cc6e79cdd22b13d58292
+import com.vaadin.ui.UI;
 
 @UIScope
 @SpringView(name = Views.PERSON_VIEW)
@@ -50,7 +41,8 @@ public class PersonView extends LazyBaseView {
 
 		EntityModel<Person> model = getModelFactory().getModel(Person.class);
 		SimpleSearchLayout<Integer, Person> ssl = new SimpleSearchLayout<Integer, Person>(personService, model,
-				QueryType.ID_BASED, new FormOptions().setShowSearchAnyButton(true).setEditAllowed(true), null) {
+				QueryType.ID_BASED,
+				new FormOptions().setShowSearchAnyButton(true).setOpenInViewMode(true).setEditAllowed(true), null) {
 
 			private static final long serialVersionUID = 6383158350570359504L;
 
@@ -60,54 +52,25 @@ public class PersonView extends LazyBaseView {
 				// setSearchValue("firstName", "vin");
 			}
 
+			@Override
+			protected void postProcessButtonBar(Layout buttonBar) {
+				Button popup = new Button("Popup");
+				popup.addClickListener(event -> {
+					EntityPopupDialog<Integer, Person> pop = new EntityPopupDialog<>(personService, getSelectedItem(),
+							model, new FormOptions());
+					pop.build();
+					UI.getCurrent().addWindow(pop);
+				});
+				registerButton(popup);
+				buttonBar.addComponent(popup);
+			}
 		};
+
+		// ssl.addFieldEntityModel("organization", "ModifiedOrganization");
 
 		ssl.setDividerProperty("organization");
 		ssl.setSortEnabled(false);
-
-		// List<SerializablePredicate<Person>> defaultFilters = new ArrayList<>();
-		// defaultFilters.add(new com.ocs.dynamo.filter.LikePredicate<>("firstName",
-		// "%vin%", false));
-		// ssl.setDefaultFilters(defaultFilters);
-
-		Map<String, SerializablePredicate<?>> fieldFilters = new HashMap<>();
-<<<<<<< HEAD
-		// fieldFilters.put("organization", new LikePredicate<Organization>("name",
-		// "%am%", false));
-=======
-		//fieldFilters.put("organization", new LikePredicate<Organization>("name", "%am%", false));
->>>>>>> 5ab688629bc45c7f78f1cc6e79cdd22b13d58292
-		ssl.setFieldFilters(fieldFilters);
-
 		main.addComponent(ssl);
-
-//		List<Person> persons = personService.fetch(null);
-//		ListDataProvider<Person> provider = new ListDataProvider<>(persons);
-//		ModelBasedGrid<Integer, Person> table = new ModelBasedGrid<>(provider, model, false);
-//		main.addComponent(table);
-
-		// List<Organization> organizations = organizationService.fetch(null);
-		// ListDataProvider<Organization> orgProvider = new
-		// ListDataProvider<>(organizations);
-		EntityModel<Organization> oModel = getModelFactory().getModel(Organization.class);
-
-//		PagingDataProvider<Integer, Organization> pagingProvider = new PagingDataProvider<>(organizationService,
-//				oModel);
-//		ModelBasedGrid<Integer, Organization> orgTable = new ModelBasedGrid<>(pagingProvider, oModel, false);
-//		orgTable.setCurrencySymbol("$");
-//
-//		main.addComponent(orgTable);
-//
-//		EntityModel<Country> cModel = getModelFactory().getModel(Country.class);
-//		IdBasedDataProvider<Integer, Country> countryProvider = new IdBasedDataProvider<>(countryService, cModel);
-//		ModelBasedGrid<Integer, Country> cTable = new ModelBasedGrid<>(countryProvider, cModel, false);
-//		main.addComponent(cTable);
-//
-//		Button refresh = new Button("Refresh");
-//		refresh.addClickListener(evt -> {
-//			cTable.clearSortOrder();
-//		});
-//		main.addComponent(refresh);
 
 		return main;
 	}
