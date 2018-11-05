@@ -17,13 +17,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.Cascade;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.functional.domain.Country;
+import com.ocs.dynamo.functional.domain.Region;
 import com.ocs.gts.domain.type.Reputation;
 
 /**
@@ -60,7 +65,13 @@ public class Organization extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.LIST, complexEditable = true)
 	private Country countryOfOrigin;
+
+	@Transient
+	@Attribute(searchable = true, complexEditable = true, cascade = {
+			@Cascade(cascadeTo = "countryOfOrigin", filterPath = "parent") }, replacementSearchPath = "countryOfOrigin.parent")
+	private Region region;
 
 	@NotNull
 	@Column(name = "member_count")
@@ -70,13 +81,14 @@ public class Organization extends AbstractEntity<Integer> {
 	private Boolean governmentSponsored = Boolean.FALSE;
 
 	@Column(name = "yearly_mortality_rate")
-	@Attribute(currency = true)
+	@Attribute(percentage = true)
 	private BigDecimal yearlyMortalityRate;
 
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
 
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+	@Attribute(searchable = true, showInTable = VisibilityType.SHOW)
 	private Set<Person> members = new HashSet<>();
 
 	@Attribute(url = true)
@@ -180,5 +192,13 @@ public class Organization extends AbstractEntity<Integer> {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 }

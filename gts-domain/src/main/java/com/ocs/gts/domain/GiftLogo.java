@@ -10,6 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.EditableType;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 
@@ -26,10 +27,11 @@ public class GiftLogo extends AbstractEntity<Integer> {
 	private Integer id;
 
 	@Lob
+	@Attribute(image = true, fileNameProperty = "logo.fileName")
 	private byte[] image;
 
 	// hide in table to prevent fetch issues
-	@Attribute(showInTable = VisibilityType.HIDE)
+	@Attribute(editable = EditableType.READ_ONLY, showInTable = VisibilityType.HIDE)
 	private String fileName;
 
 	@Override

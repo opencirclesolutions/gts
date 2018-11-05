@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 
 /**
  * An expensive gift
@@ -29,6 +30,7 @@ import com.ocs.dynamo.domain.model.annotation.Attribute;
  */
 @Entity
 @Table(name = "gift")
+@AttributeOrder(attributeNames = { "name", "description" })
 public class Gift extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -45,6 +47,7 @@ public class Gift extends AbstractEntity<Integer> {
 
 	@NotNull
 	@Size(max = 255)
+	@Attribute(main = true)
 	private String name;
 
 	@NotNull
@@ -52,7 +55,9 @@ public class Gift extends AbstractEntity<Integer> {
 	private String description;
 
 	@Valid
-	@OneToMany(mappedBy = "gift", fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+	@OneToMany(mappedBy = "gift", fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.PERSIST }, orphanRemoval = true)
+	@Attribute(complexEditable = true)
 	private Set<GiftTranslation> translations = new HashSet<>();
 
 	public void addTranslation(GiftTranslation translation) {

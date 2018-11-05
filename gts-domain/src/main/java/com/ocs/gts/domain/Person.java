@@ -1,14 +1,8 @@
 package com.ocs.gts.domain;
 
-import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.AttributeSelectMode;
-import com.ocs.dynamo.domain.model.EditableType;
-import com.ocs.dynamo.domain.model.NumberSelectMode;
-import com.ocs.dynamo.domain.model.VisibilityType;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
-import com.ocs.dynamo.domain.model.annotation.Model;
-import com.ocs.gts.domain.type.Reputation;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +18,17 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.CheckboxMode;
+import com.ocs.dynamo.domain.model.EditableType;
+import com.ocs.dynamo.domain.model.NumberSelectMode;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
+import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.gts.domain.type.Reputation;
 
 @Entity
 @Table(name = "person")
@@ -67,10 +70,14 @@ public class Person extends AbstractEntity<Integer> {
 	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
 	private Organization organization;
 
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
 	private LocalDate born;
 
 	private LocalDate died;
+
+	@Column(name = "some_timestamp")
+	@Attribute(searchable = true)
+	private LocalDateTime someTimestamp;
 
 	@Column(name = "some_time")
 	@Attribute(searchable = true)
@@ -79,14 +86,14 @@ public class Person extends AbstractEntity<Integer> {
 	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
 	private Integer age;
 
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, checkboxMode = CheckboxMode.SWITCH)
 	private Boolean professional;
 
 	@Attribute(searchable = true)
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
 
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, complexEditable = true, quickAddPropertyName = "name", selectMode = AttributeSelectMode.LOOKUP)
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
@@ -107,7 +114,7 @@ public class Person extends AbstractEntity<Integer> {
 		return firstName;
 	}
 
-	@Attribute(editable = EditableType.READ_ONLY, main = true)
+	@Attribute(editable = EditableType.READ_ONLY, main = true, visible = VisibilityType.HIDE)
 	public String getFullName() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(firstName);
@@ -202,7 +209,16 @@ public class Person extends AbstractEntity<Integer> {
 		return someTime;
 	}
 
-	public void setSomeTime(final LocalTime someTime) {
+	public void setSomeTime(LocalTime someTime) {
 		this.someTime = someTime;
 	}
+
+	public LocalDateTime getSomeTimestamp() {
+		return someTimestamp;
+	}
+
+	public void setSomeTimestamp(LocalDateTime someTimestamp) {
+		this.someTimestamp = someTimestamp;
+	}
+
 }
