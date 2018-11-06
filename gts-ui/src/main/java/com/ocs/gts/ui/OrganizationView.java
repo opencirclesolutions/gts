@@ -1,15 +1,10 @@
 package com.ocs.gts.ui;
 
-import java.util.Locale;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.service.MessageService;
 import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
 import com.ocs.dynamo.ui.composite.layout.FlexibleSearchLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
-import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Organization;
@@ -19,6 +14,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @UIScope
 @SpringView(name = Views.ORGANIZATION_VIEW)
@@ -52,7 +48,7 @@ public class OrganizationView extends LazyBaseView {
 //		main.addComponent(searchResultsLayout);
 
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
+		FlexibleSearchLayout<Integer, Organization> layout = new FlexibleSearchLayout<>(organizationService, em,
 				QueryType.ID_BASED, new FormOptions().setOpenInViewMode(true).setEditAllowed(true), null);
 		main.addComponent(layout);
 

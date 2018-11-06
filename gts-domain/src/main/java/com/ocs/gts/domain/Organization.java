@@ -34,6 +34,7 @@ import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.dynamo.functional.domain.Region;
 import com.ocs.gts.domain.type.Reputation;
 
+
 /**
  * A criminal organization operating in Javapolis
  * 

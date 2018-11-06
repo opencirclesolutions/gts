@@ -1,15 +1,10 @@
 package com.ocs.gts.ui;
 
-import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.ocs.dynamo.dao.FetchJoinInformation;
 import com.ocs.dynamo.domain.model.AttributeModel;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.filter.LikePredicate;
 import com.ocs.dynamo.ui.composite.form.DetailsEditTable;
-import com.ocs.dynamo.ui.composite.layout.BaseSplitLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.ServiceBasedSplitLayout;
 import com.ocs.dynamo.ui.container.QueryType;
@@ -23,6 +18,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.Layout;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @UIScope
 @SpringView(name = Views.GIFT_VIEW)
@@ -57,7 +53,7 @@ public class GiftView extends BaseView {
 				if ("translations".equals(attributeModel.getPath())) {
 					DetailsEditTable<Integer, GiftTranslation> table = new DetailsEditTable<Integer, GiftTranslation>(
 							getSelectedItem().getTranslations(), getModelFactory().getModel(GiftTranslation.class),
-							viewMode, new FormOptions()) {
+							viewMode, new FormOptions().setShowRemoveButton(true)) {
 
 						private static final long serialVersionUID = 7328970228276713442L;
 
