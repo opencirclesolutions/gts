@@ -1,8 +1,14 @@
 package com.ocs.gts.domain;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.Cascade;
+import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.dynamo.functional.domain.Country;
+import com.ocs.dynamo.functional.domain.Region;
+import com.ocs.gts.domain.type.Reputation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,16 +26,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.AttributeSelectMode;
-import com.ocs.dynamo.domain.model.VisibilityType;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.Cascade;
-import com.ocs.dynamo.domain.model.annotation.Model;
-import com.ocs.dynamo.functional.domain.Country;
-import com.ocs.dynamo.functional.domain.Region;
-import com.ocs.gts.domain.type.Reputation;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A criminal organization operating in Javapolis
@@ -65,7 +64,7 @@ public class Organization extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.LIST, complexEditable = true)
+	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.TOKEN, complexEditable = true)
 	private Country countryOfOrigin;
 
 	@Transient
