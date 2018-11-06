@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.service.MessageService;
 import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
+import com.ocs.dynamo.ui.composite.layout.FlexibleSearchLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;

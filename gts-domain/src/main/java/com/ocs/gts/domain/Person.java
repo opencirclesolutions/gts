@@ -3,6 +3,7 @@ package com.ocs.gts.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -67,7 +71,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, navigable = true, searchable = true, selectMode = AttributeSelectMode.COMBO)
 	private Organization organization;
 
 	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
@@ -82,6 +86,10 @@ public class Person extends AbstractEntity<Integer> {
 	@Column(name = "some_time")
 	@Attribute(searchable = true)
 	private LocalTime someTime;
+
+	@Attribute(searchable = true)
+	@Column(name = "created_on")
+	private ZonedDateTime createdOn;
 
 	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
 	private Integer age;
@@ -221,4 +229,18 @@ public class Person extends AbstractEntity<Integer> {
 		this.someTimestamp = someTimestamp;
 	}
 
+	public ZonedDateTime getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(ZonedDateTime createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	@PreUpdate
+	@PrePersist
+	@PostPersist
+	public void preUpdate() {
+		this.createdOn = ZonedDateTime.now();
+	}
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,6 +29,7 @@ import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.Cascade;
 import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.dynamo.domain.model.validator.URL;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.dynamo.functional.domain.Region;
 import com.ocs.gts.domain.type.Reputation;
@@ -56,16 +59,18 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@NotNull
 	@Size(max = 255)
+	@Attribute(searchable = true)
 	private String headQuarters;
 
 	@NotNull
 	@Size(max = 255)
+	@Attribute(searchable = true)
 	private String address;
 
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.LIST, complexEditable = true)
+	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.TOKEN, complexEditable = true)
 	private Country countryOfOrigin;
 
 	@Transient
@@ -73,25 +78,30 @@ public class Organization extends AbstractEntity<Integer> {
 			@Cascade(cascadeTo = "countryOfOrigin", filterPath = "parent") }, replacementSearchPath = "countryOfOrigin.parent")
 	private Region region;
 
+	@Attribute(searchable = true)
 	@NotNull
 	@Column(name = "member_count")
 	private Integer memberCount;
 
+	@Attribute(searchable = true)
 	@Column(name = "government_sponsored")
 	private Boolean governmentSponsored = Boolean.FALSE;
 
 	@Column(name = "yearly_mortality_rate")
-	@Attribute(percentage = true)
+	@Attribute(percentage = true, searchable = true)
+	@Max(100)
 	private BigDecimal yearlyMortalityRate;
 
 	@Enumerated(EnumType.STRING)
+	@Attribute(searchable = true)
 	private Reputation reputation;
 
-	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
-	@Attribute(searchable = true, showInTable = VisibilityType.SHOW)
+	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Attribute(searchable = true, showInTable = VisibilityType.SHOW, complexEditable = true, selectMode = AttributeSelectMode.TOKEN)
 	private Set<Person> members = new HashSet<>();
 
 	@Attribute(url = true)
+	@URL
 	private String url;
 
 	public String getAddress() {
