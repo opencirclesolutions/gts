@@ -1,6 +1,5 @@
 package com.ocs.gts.domain;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -33,6 +32,7 @@ import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.dynamo.domain.model.validator.Email;
 import com.ocs.gts.domain.type.Reputation;
 
 @Entity
@@ -72,7 +72,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.COMBO, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
 	private Organization organization;
 
 	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
@@ -106,6 +106,9 @@ public class Person extends AbstractEntity<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
+
+	@Email
+	private String email;
 
 	public Integer getAge() {
 		return age;
@@ -244,4 +247,13 @@ public class Person extends AbstractEntity<Integer> {
 	public void preUpdate() {
 		this.createdOn = ZonedDateTime.now();
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }

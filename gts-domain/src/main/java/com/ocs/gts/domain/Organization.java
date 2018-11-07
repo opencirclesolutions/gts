@@ -34,7 +34,6 @@ import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.dynamo.functional.domain.Region;
 import com.ocs.gts.domain.type.Reputation;
 
-
 /**
  * A criminal organization operating in Javapolis
  * 
@@ -43,7 +42,7 @@ import com.ocs.gts.domain.type.Reputation;
  */
 @Entity
 @Table(name = "organization")
-@Model(displayProperty = "name")
+@Model(displayProperty = "name", sortOrder = "name asc")
 public class Organization extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -71,7 +70,7 @@ public class Organization extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.TOKEN, complexEditable = true)
+	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.FANCY_LIST, complexEditable = true, showInTable = VisibilityType.SHOW)
 	private Country countryOfOrigin;
 
 	@Transient
@@ -97,8 +96,9 @@ public class Organization extends AbstractEntity<Integer> {
 	@Attribute(searchable = true)
 	private Reputation reputation;
 
+	@Size(min = 1)
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@Attribute(searchable = true, showInTable = VisibilityType.SHOW, complexEditable = true, selectMode = AttributeSelectMode.TOKEN)
+	@Attribute(searchable = true, showInTable = VisibilityType.SHOW, complexEditable = true, selectMode = AttributeSelectMode.FANCY_LIST, sortable = false)
 	private Set<Person> members = new HashSet<>();
 
 	@Attribute(url = true)
