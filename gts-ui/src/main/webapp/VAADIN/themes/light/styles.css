@@ -15077,6 +15077,15 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
+.light .v-customcomponent-error .v-caption-hasdescription span {
+	color: #ed473b;
+}
+
+.light .exttokenfield-error {
+	border-color: #ed473b !important;
+	background: #fffbfb;
+}
+
 .light div.v-customcomponent span.v-errorindicator-error {
 	display: none;
 }

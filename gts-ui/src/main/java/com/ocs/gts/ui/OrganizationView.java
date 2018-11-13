@@ -1,9 +1,10 @@
 package com.ocs.gts.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.service.MessageService;
 import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
-import com.ocs.dynamo.ui.composite.layout.FlexibleSearchLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
@@ -15,7 +16,6 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @UIScope
 @SpringView(name = Views.ORGANIZATION_VIEW)

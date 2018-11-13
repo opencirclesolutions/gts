@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -109,6 +113,7 @@ public class Person extends AbstractEntity<Integer> {
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
 
+	@NotNull
 	@Attribute(searchable = true, complexEditable = true, quickAddPropertyName = "name", selectMode = AttributeSelectMode.LOOKUP)
 	@ManyToOne
 	@JoinColumn(name = "role_id")
@@ -120,6 +125,12 @@ public class Person extends AbstractEntity<Integer> {
 	@ManyToMany
 	@JoinTable(name = "person_domain", joinColumns = @JoinColumn(name = "person"), inverseJoinColumns = @JoinColumn(name = "domain"))
 	private List<Domain> domains = new ArrayList<>();
+
+	@ElementCollection
+	@CollectionTable(name = "person_lucky_numbers")
+	@Column(name = "lucky_number")
+	@Attribute(complexEditable = true)
+	private Set<String> luckyNumbers = new HashSet<>();
 
 	public Integer getAge() {
 		return age;
@@ -267,13 +278,22 @@ public class Person extends AbstractEntity<Integer> {
 		this.email = email;
 	}
 
-	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.TOKEN, quickAddPropertyName = "name")
+	@Size(min = 1)
+	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LOOKUP, quickAddPropertyName = "name")
 	public List<Trait> getTraits() {
 		return Lists.newArrayList(DomainUtil.filterDomains(Trait.class, domains));
 	}
 
 	public void setTraits(List<Trait> traits) {
 		DomainUtil.updateDomains(Trait.class, domains, traits);
+	}
+
+	public Set<String> getLuckyNumbers() {
+		return luckyNumbers;
+	}
+
+	public void setLuckyNumbers(Set<String> luckyNumbers) {
+		this.luckyNumbers = luckyNumbers;
 	}
 
 }
