@@ -30,11 +30,9 @@ public class OrganizationServiceImpl extends BaseServiceImpl<Integer, Organizati
 	@Transactional
 	@Override
 	public Organization save(Organization t) {
-		if (t.getMembers() != null) {
-			for (Person p : t.getMembers()) {
-				p.setOrganization(t);
-				p = personService.save(p);
-			}
+		for (Person p : t.getMembers()) {
+			p.setOrganization(t);
+			p = personService.save(p);
 		}
 		return super.save(t);
 	}

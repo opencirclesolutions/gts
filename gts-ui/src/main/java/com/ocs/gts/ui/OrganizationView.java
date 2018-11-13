@@ -5,6 +5,7 @@ import com.ocs.dynamo.service.MessageService;
 import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
 import com.ocs.dynamo.ui.composite.layout.FlexibleSearchLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
+import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Organization;
@@ -48,7 +49,7 @@ public class OrganizationView extends LazyBaseView {
 //		main.addComponent(searchResultsLayout);
 
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		FlexibleSearchLayout<Integer, Organization> layout = new FlexibleSearchLayout<>(organizationService, em,
+		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
 				QueryType.ID_BASED, new FormOptions().setOpenInViewMode(true).setEditAllowed(true), null);
 		main.addComponent(layout);
 

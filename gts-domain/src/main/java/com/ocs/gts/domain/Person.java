@@ -1,10 +1,11 @@
 package com.ocs.gts.domain;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
@@ -24,6 +27,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.google.common.collect.Lists;
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.AttributeSelectMode;
 import com.ocs.dynamo.domain.model.CheckboxMode;
@@ -33,6 +37,9 @@ import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.dynamo.domain.model.validator.Email;
+import com.ocs.dynamo.functional.domain.Domain;
+import com.ocs.dynamo.functional.util.DomainUtil;
 import com.ocs.gts.domain.type.Reputation;
 
 @Entity
@@ -72,7 +79,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.COMBO, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
 	private Organization organization;
 
 	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
@@ -106,6 +113,13 @@ public class Person extends AbstractEntity<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
+
+	@Email
+	private String email;
+
+	@ManyToMany
+	@JoinTable(name = "person_domain", joinColumns = @JoinColumn(name = "person"), inverseJoinColumns = @JoinColumn(name = "domain"))
+	private List<Domain> domains = new ArrayList<>();
 
 	public Integer getAge() {
 		return age;
@@ -244,4 +258,22 @@ public class Person extends AbstractEntity<Integer> {
 	public void preUpdate() {
 		this.createdOn = ZonedDateTime.now();
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.TOKEN, quickAddPropertyName = "name")
+	public List<Trait> getTraits() {
+		return Lists.newArrayList(DomainUtil.filterDomains(Trait.class, domains));
+	}
+
+	public void setTraits(List<Trait> traits) {
+		DomainUtil.updateDomains(Trait.class, domains, traits);
+	}
+
 }
