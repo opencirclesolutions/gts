@@ -1,6 +1,6 @@
 package com.ocs.gts.domain;
 
-import java.util.Date;
+import com.ocs.dynamo.domain.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.ocs.dynamo.domain.AbstractEntity;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "delivery")
@@ -55,8 +52,7 @@ public class Delivery extends AbstractEntity<Integer> {
 	private Gift gift;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	private Date date;
+	private LocalDate date;
 
 	@Size(max = 255)
 	private String remarks;
@@ -85,11 +81,11 @@ public class Delivery extends AbstractEntity<Integer> {
 		this.gift = gift;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
