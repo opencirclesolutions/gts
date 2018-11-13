@@ -1,14 +1,11 @@
 package com.ocs.gts.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.ui.composite.dialog.EntityPopupDialog;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
-import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
-import com.ocs.dynamo.ui.container.QueryType;
+import com.ocs.dynamo.ui.composite.layout.TabularEditLayout;
 import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.OrganizationService;
@@ -19,6 +16,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.UI;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @UIScope
 @SpringView(name = Views.PERSON_VIEW)
@@ -40,8 +38,7 @@ public class PersonView extends LazyBaseView {
 		Layout main = new com.vaadin.ui.VerticalLayout();
 
 		EntityModel<Person> model = getModelFactory().getModel(Person.class);
-		SimpleSearchLayout<Integer, Person> ssl = new SimpleSearchLayout<Integer, Person>(personService, model,
-				QueryType.ID_BASED,
+		TabularEditLayout<Integer, Person> ssl = new TabularEditLayout<Integer, Person>(personService, model,
 				new FormOptions().setShowSearchAnyButton(true).setOpenInViewMode(true).setEditAllowed(true), null) {
 
 			private static final long serialVersionUID = 6383158350570359504L;
@@ -67,9 +64,12 @@ public class PersonView extends LazyBaseView {
 		};
 
 		// ssl.addFieldEntityModel("organization", "ModifiedOrganization");
-
+		//ssl.setMaxResults(10);
 		ssl.setDividerProperty("organization");
 		ssl.setSortEnabled(false);
+		ssl.getGridWrapper().getLayout().setHeight(200, Unit.PIXELS);
+
+		//ssl.getGridWrapper().setHeight(100, Unit.PIXELS);
 		main.addComponent(ssl);
 
 		return main;
