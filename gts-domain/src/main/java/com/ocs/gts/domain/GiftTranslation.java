@@ -1,7 +1,5 @@
 package com.ocs.gts.domain;
 
-import com.ocs.dynamo.domain.AbstractEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.ocs.dynamo.domain.AbstractEntity;
 
 /**
  * The translation of the name of a gift
@@ -39,6 +39,9 @@ public class GiftTranslation extends AbstractEntity<Integer> {
 
 	@NotNull
 	private String language;
+
+	@NotNull
+	private Integer relevance;
 
 	@Override
 	public Integer getId() {
@@ -96,4 +99,13 @@ public class GiftTranslation extends AbstractEntity<Integer> {
 		}
 		return this.id.equals(other.id);
 	}
+
+	public Integer getRelevance() {
+		return relevance;
+	}
+
+	public void setRelevance(Integer relevance) {
+		this.relevance = relevance;
+	}
+
 }

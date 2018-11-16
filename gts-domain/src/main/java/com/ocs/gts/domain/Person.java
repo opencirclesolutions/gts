@@ -113,7 +113,6 @@ public class Person extends AbstractEntity<Integer> {
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
 
-	@NotNull
 	@Attribute(searchable = true, complexEditable = true, quickAddPropertyName = "name", selectMode = AttributeSelectMode.LOOKUP)
 	@ManyToOne
 	@JoinColumn(name = "role_id")
@@ -278,7 +277,6 @@ public class Person extends AbstractEntity<Integer> {
 		this.email = email;
 	}
 
-	@Size(min = 1)
 	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LOOKUP, quickAddPropertyName = "name")
 	public List<Trait> getTraits() {
 		return Lists.newArrayList(DomainUtil.filterDomains(Trait.class, domains));
@@ -293,6 +291,7 @@ public class Person extends AbstractEntity<Integer> {
 	}
 
 	public void setLuckyNumbers(Set<String> luckyNumbers) {
+		System.out.println("Lucky: " + luckyNumbers);
 		this.luckyNumbers = luckyNumbers;
 	}
 

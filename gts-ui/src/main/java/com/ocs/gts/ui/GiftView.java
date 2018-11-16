@@ -1,10 +1,12 @@
 package com.ocs.gts.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ocs.dynamo.dao.FetchJoinInformation;
 import com.ocs.dynamo.domain.model.AttributeModel;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.filter.LikePredicate;
-import com.ocs.dynamo.ui.composite.form.DetailsEditTable;
+import com.ocs.dynamo.ui.composite.form.DetailsEditGrid;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.ServiceBasedSplitLayout;
 import com.ocs.dynamo.ui.container.QueryType;
@@ -16,9 +18,11 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.SerializablePredicate;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Layout;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vaadin.ui.Notification;
 
 @UIScope
 @SpringView(name = Views.GIFT_VIEW)
@@ -51,9 +55,9 @@ public class GiftView extends BaseView {
 			protected AbstractField<?> constructCustomField(EntityModel<Gift> entityModel,
 					AttributeModel attributeModel, boolean viewMode, boolean searchMode) {
 				if ("translations".equals(attributeModel.getPath())) {
-					DetailsEditTable<Integer, GiftTranslation> table = new DetailsEditTable<Integer, GiftTranslation>(
-							getSelectedItem().getTranslations(), getModelFactory().getModel(GiftTranslation.class),
-							viewMode, new FormOptions().setShowRemoveButton(true)) {
+					DetailsEditGrid<Integer, GiftTranslation> table = new DetailsEditGrid<Integer, GiftTranslation>(
+							getModelFactory().getModel(GiftTranslation.class), attributeModel, viewMode,
+							new FormOptions().setShowRemoveButton(true)) {
 
 						private static final long serialVersionUID = 7328970228276713442L;
 
@@ -66,8 +70,23 @@ public class GiftView extends BaseView {
 
 						@Override
 						protected void removeEntity(GiftTranslation toRemove) {
-							// TODO Auto-generated method stub
+							giftLayout.getSelectedItem().removeTranslation(toRemove);
+						}
 
+						protected AbstractComponent constructCustomField(
+								com.ocs.dynamo.domain.model.EntityModel<GiftTranslation> entityModel,
+								AttributeModel attributeModel, boolean viewMode) {
+//							if ("relevance".equals(attributeModel.getPath())) {
+//								return new Slider();
+//							}
+							return null;
+						};
+
+						protected void postProcessButtonBar(Layout buttonBar) {
+							Button viewButton = new Button("View");
+							viewButton.addClickListener(event -> Notification.show(getSelectedItem().getDescription()));
+							buttonBar.addComponent(viewButton);
+							registerButton(viewButton);
 						}
 
 					};

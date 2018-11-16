@@ -2,18 +2,22 @@ package com.ocs.gts.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ocs.dynamo.domain.model.AttributeModel;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.service.MessageService;
 import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
+import com.ocs.dynamo.ui.composite.form.DetailsEditGrid;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.container.QueryType;
 import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Organization;
+import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.OrganizationService;
 import com.ocs.gts.service.PersonService;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
 
@@ -34,6 +38,8 @@ public class OrganizationView extends LazyBaseView {
 	@Autowired
 	private MessageService messageService;
 
+	private SimpleSearchLayout<Integer, Organization> layout;
+
 	@Override
 	public Component build() {
 		Layout main = new DefaultVerticalLayout();
@@ -49,8 +55,40 @@ public class OrganizationView extends LazyBaseView {
 //		main.addComponent(searchResultsLayout);
 
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
-				QueryType.ID_BASED, new FormOptions().setOpenInViewMode(true).setEditAllowed(true), null);
+		layout = new SimpleSearchLayout<Integer, Organization>(organizationService, em, QueryType.ID_BASED,
+				new FormOptions().setOpenInViewMode(true).setEditAllowed(true), null) {
+
+			private static final long serialVersionUID = 1718400289156392757L;
+
+			@Override
+			protected AbstractField<?> constructCustomField(EntityModel<Organization> entityModel,
+					AttributeModel attributeModel, boolean viewMode, boolean searchMode) {
+				if ("members".equals(attributeModel.getPath()) && !searchMode) {
+					DetailsEditGrid<Integer, Person> pTable = new DetailsEditGrid<Integer, Person>(
+							getModelFactory().getModel(Person.class), attributeModel, viewMode,
+							new FormOptions().setDetailsGridSearchMode(true)) {
+
+						private static final long serialVersionUID = 8191183827952564275L;
+
+						@Override
+						protected void removeEntity(Person toRemove) {
+							layout.getSelectedItem().removeMember(toRemove);
+						}
+
+						@Override
+						protected Person createEntity() {
+							Person person = new Person();
+							layout.getSelectedItem().addMember(person);
+							return person;
+						}
+					};
+					pTable.setService(personService);
+					return pTable;
+				}
+				return null;
+			}
+		};
+		layout.setPageLength(10);
 		main.addComponent(layout);
 
 		return main;
