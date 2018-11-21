@@ -15077,6 +15077,10 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
+.light div.attributePanel .v-verticallayout-formContainerSameLine td.v-formlayout-captioncell {
+	width: inherit !important;
+}
+
 .light .v-customcomponent-error .v-caption-hasdescription span {
 	color: #ed473b;
 }

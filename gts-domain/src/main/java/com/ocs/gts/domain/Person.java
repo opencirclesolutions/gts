@@ -83,7 +83,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.COMBO, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true)
+	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.LIST, multipleSearch = true, quickAddPropertyName = "name", directNavigation = true)
 	private Organization organization;
 
 	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
@@ -277,7 +277,8 @@ public class Person extends AbstractEntity<Integer> {
 		this.email = email;
 	}
 
-	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LOOKUP, quickAddPropertyName = "name")
+	@Size(min = 1)
+	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LIST, quickAddPropertyName = "name")
 	public List<Trait> getTraits() {
 		return Lists.newArrayList(DomainUtil.filterDomains(Trait.class, domains));
 	}

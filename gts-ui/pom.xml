@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>gts-ui</artifactId>
@@ -17,14 +18,19 @@
 		</dependency>
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
+			<artifactId>dynamo-functional-domain-frontend</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-api</artifactId>
 			<exclusions>
-				<!--  exclude compiler to avoid class path problems when compiling widget set -->
+				<!-- exclude compiler to avoid class path problems when compiling widget 
+					set -->
 				<exclusion>
 					<groupId>org.eclipse.jdt.core.compiler</groupId>
 					<artifactId>ecj</artifactId>
 				</exclusion>
-			</exclusions>	
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.ocs</groupId>
@@ -156,20 +162,13 @@
 			<groupId>org.vaadin.addon</groupId>
 			<artifactId>confirmdialog</artifactId>
 		</dependency>
-		<!--  
+		<!-- <dependency> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
+			</dependency> <dependency> <groupId>jaxen</groupId> <artifactId>jaxen</artifactId> 
+			</dependency> -->
 		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jaxen</groupId>
-			<artifactId>jaxen</artifactId>
-		</dependency>
-		-->
-		<dependency>
-		   <groupId>org.reactivestreams</groupId>
-		   <artifactId>reactive-streams</artifactId>
-		   <version>1.0.1</version>
+			<groupId>org.reactivestreams</groupId>
+			<artifactId>reactive-streams</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 	<build>

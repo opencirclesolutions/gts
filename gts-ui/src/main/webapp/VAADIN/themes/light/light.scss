@@ -30,6 +30,10 @@ $v-selection-color: #ff0000;
   @include valo;
   // Insert your own theme rules here
 
+	div.attributePanel .v-verticallayout-formContainerSameLine td.v-formlayout-captioncell {
+		width: inherit !important;
+	}
+
 	.v-customcomponent-error .v-caption-hasdescription span {
 		color: #ed473b;
 	}

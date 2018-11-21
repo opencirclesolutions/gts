@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.annotation.Model;
 
 /**
  * The translation of the name of a gift
@@ -21,6 +22,7 @@ import com.ocs.dynamo.domain.AbstractEntity;
  */
 @Entity
 @Table(name = "gift_translations")
+@Model(displayProperty = "description")
 public class GiftTranslation extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = 1600667730778955026L;
