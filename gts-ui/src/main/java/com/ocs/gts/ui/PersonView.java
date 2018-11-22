@@ -8,7 +8,7 @@ import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.ui.composite.dialog.EntityPopupDialog;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
-import com.ocs.dynamo.ui.container.QueryType;
+import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.OrganizationService;

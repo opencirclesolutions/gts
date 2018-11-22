@@ -15,7 +15,7 @@ import com.ocs.dynamo.functional.ui.MultiDomainEditLayout;
 import com.ocs.dynamo.ui.composite.form.DetailsEditLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.ServiceBasedSplitLayout;
-import com.ocs.dynamo.ui.container.QueryType;
+import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
 import com.ocs.gts.domain.Gift;
 import com.ocs.gts.domain.GiftTranslation;
@@ -128,15 +128,14 @@ public class GiftView extends BaseView {
 		giftLayout.setDetailJoins(new FetchJoinInformation[] { new FetchJoinInformation("logo"),
 				new FetchJoinInformation("translations") });
 		giftLayout.setSortEnabled(false);
-
-		//main.addComponent(giftLayout);
+		main.addComponent(giftLayout);
 
 		List<Class<? extends Domain>> classes = new ArrayList<>();
 		classes.add(Role.class);
 		classes.add(Country.class);
 
-		MultiDomainEditLayout domainLayout = new MultiDomainEditLayout(new FormOptions(), classes);
-		main.addComponent(domainLayout);
+		//MultiDomainEditLayout domainLayout = new MultiDomainEditLayout(new FormOptions(), classes);
+		//main.addComponent(domainLayout);
 	}
 
 }

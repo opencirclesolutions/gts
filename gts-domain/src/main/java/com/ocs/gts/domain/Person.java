@@ -66,7 +66,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "first_name")
-	@Attribute(searchable = true, requiredForSearching = false)
+	@Attribute(searchable = true, requiredForSearching = false, searchSelectMode = AttributeSelectMode.TOKEN)
 	private String firstName;
 
 	@NotNull
@@ -128,7 +128,7 @@ public class Person extends AbstractEntity<Integer> {
 	@ElementCollection
 	@CollectionTable(name = "person_lucky_numbers")
 	@Column(name = "lucky_number")
-	@Attribute(complexEditable = true)
+	@Attribute(complexEditable = true, minLength = 5, maxLength = 10, searchable = true)
 	private Set<String> luckyNumbers = new HashSet<>();
 
 	public Integer getAge() {
@@ -277,8 +277,8 @@ public class Person extends AbstractEntity<Integer> {
 		this.email = email;
 	}
 
-	@Size(min = 1)
-	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LIST, quickAddPropertyName = "name")
+	@Size(min = 1, max = 3)
+	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LOOKUP, quickAddPropertyName = "name")
 	public List<Trait> getTraits() {
 		return Lists.newArrayList(DomainUtil.filterDomains(Trait.class, domains));
 	}
@@ -292,7 +292,6 @@ public class Person extends AbstractEntity<Integer> {
 	}
 
 	public void setLuckyNumbers(Set<String> luckyNumbers) {
-		System.out.println("Lucky: " + luckyNumbers);
 		this.luckyNumbers = luckyNumbers;
 	}
 

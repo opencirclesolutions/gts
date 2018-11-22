@@ -27,6 +27,9 @@ import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.AttributeSelectMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
+import com.ocs.dynamo.domain.model.annotation.AttributeGroups;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.domain.model.annotation.Cascade;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.domain.model.validator.URL;
@@ -43,6 +46,11 @@ import com.ocs.gts.domain.type.Reputation;
 @Entity
 @Table(name = "organization")
 @Model(displayProperty = "name", sortOrder = "name asc")
+@AttributeOrder(attributeNames = "countryOfOrigin")
+@AttributeGroups(attributeGroups = {
+		@AttributeGroup(messageKey = "organization.first", attributeNames = { "name", "address", "headQuarters",
+				"countryOfOrigin" }),
+		@AttributeGroup(messageKey = "organization.second", attributeNames = { "reputation" }) })
 public class Organization extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;

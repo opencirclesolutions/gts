@@ -9,7 +9,8 @@ import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
 import com.ocs.dynamo.ui.composite.form.DetailsEditGrid;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
-import com.ocs.dynamo.ui.container.QueryType;
+import com.ocs.dynamo.ui.composite.type.AttributeGroupMode;
+import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Organization;
 import com.ocs.gts.domain.Person;
@@ -56,7 +57,9 @@ public class OrganizationView extends LazyBaseView {
 
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
 		layout = new SimpleSearchLayout<Integer, Organization>(organizationService, em, QueryType.ID_BASED,
-				new FormOptions().setOpenInViewMode(true).setEditAllowed(true), null) {
+				new FormOptions().setOpenInViewMode(true).setEditAllowed(true)
+						.setAttributeGroupMode(AttributeGroupMode.TABSHEET),
+				null) {
 
 			private static final long serialVersionUID = 1718400289156392757L;
 
