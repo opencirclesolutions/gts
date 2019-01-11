@@ -20,17 +20,12 @@
 			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-functional-domain-frontend</artifactId>
 		</dependency>
+		<!-- include explicit version of ECJ here to make sure widget set compiles -->
 		<dependency>
-			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-api</artifactId>
-			<exclusions>
-				<!-- exclude compiler to avoid class path problems when compiling widget 
-					set -->
-				<exclusion>
-					<groupId>org.eclipse.jdt.core.compiler</groupId>
-					<artifactId>ecj</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.eclipse.jdt.core.compiler</groupId>
+			<artifactId>ecj</artifactId>
+			<version>4.6.1</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.ocs</groupId>
@@ -62,14 +57,6 @@
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.deltaspike.core</groupId>
-			<artifactId>deltaspike-core-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.deltaspike.core</groupId>
-			<artifactId>deltaspike-core-impl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -119,6 +106,16 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.hibernate.javax.persistence</artifactId>
+					<groupId>hibernate-jpa-2.1-api</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -126,7 +123,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
 		</dependency>
@@ -145,16 +142,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit-addons</groupId>
-			<artifactId>junit-addons</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 		</dependency>
@@ -162,13 +149,14 @@
 			<groupId>org.vaadin.addon</groupId>
 			<artifactId>confirmdialog</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
-			</dependency> <dependency> <groupId>jaxen</groupId> <artifactId>jaxen</artifactId> 
-			</dependency> -->
 		<dependency>
 			<groupId>org.reactivestreams</groupId>
 			<artifactId>reactive-streams</artifactId>
 			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.monitorjbl</groupId>
+			<artifactId>xlsx-streamer</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
@@ -206,7 +194,7 @@
 				<artifactId>vaadin-maven-plugin</artifactId>
 				<version>${vaadin.plugin.version}</version>
 				<configuration>
-					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+					<extraJvmArgs>-Xmx1024M -Xss2048k</extraJvmArgs>
 					<webappDirectory>${project.basedir}/target/classes/VAADIN/widgetsets</webappDirectory>
 					<hostedWebapp>${project.basedir}/target/classes/VAADIN/widgetsets</hostedWebapp>
 					<compileReport>false</compileReport>
@@ -249,7 +237,7 @@
 											vaadin-maven-plugin
 										</artifactId>
 										<versionRange>
-											[7.5.6,)
+											[8.6.2,)
 										</versionRange>
 										<goals>
 											<goal>resources</goal>

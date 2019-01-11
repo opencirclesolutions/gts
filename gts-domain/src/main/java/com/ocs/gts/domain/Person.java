@@ -66,7 +66,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "first_name")
-	@Attribute(searchable = true, requiredForSearching = false, searchSelectMode = AttributeSelectMode.TOKEN)
+	@Attribute(searchable = true, requiredForSearching = false, defaultValue = "Bas")
 	private String firstName;
 
 	@NotNull
@@ -83,7 +83,7 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, showInTable = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.LIST, multipleSearch = true, quickAddPropertyName = "name", directNavigation = true)
+	@Attribute(complexEditable = true, visibleInGrid = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.LIST, multipleSearch = true, quickAddPropertyName = "name", navigable = true)
 	private Organization organization;
 
 	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
@@ -95,6 +95,7 @@ public class Person extends AbstractEntity<Integer> {
 	@Attribute(searchable = true)
 	private LocalDateTime someTimestamp;
 
+	@NotNull
 	@Column(name = "some_time")
 	@Attribute(searchable = true)
 	private LocalTime someTime;
@@ -106,7 +107,7 @@ public class Person extends AbstractEntity<Integer> {
 	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
 	private Integer age;
 
-	@Attribute(searchable = true, checkboxMode = CheckboxMode.SWITCH)
+	@Attribute(searchable = true, checkboxMode = CheckboxMode.CHECKBOX)
 	private Boolean professional;
 
 	@Attribute(searchable = true)
@@ -278,7 +279,7 @@ public class Person extends AbstractEntity<Integer> {
 	}
 
 	@Size(min = 1, max = 3)
-	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LOOKUP, quickAddPropertyName = "name")
+	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LIST, quickAddPropertyName = "name", rows = 7)
 	public List<Trait> getTraits() {
 		return Lists.newArrayList(DomainUtil.filterDomains(Trait.class, domains));
 	}

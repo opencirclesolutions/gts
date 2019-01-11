@@ -25,7 +25,6 @@ public class PersonServiceImpl extends BaseServiceImpl<Integer, Person> implemen
 	@Override
 	@Transactional
 	public Person save(Person t) {
-		System.out.println("To save: " + t.getLuckyNumbers());
 		return super.save(t);
 	}
 }

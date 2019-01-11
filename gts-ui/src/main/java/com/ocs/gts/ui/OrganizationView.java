@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ocs.dynamo.domain.model.AttributeModel;
 import com.ocs.dynamo.domain.model.EntityModel;
+import com.ocs.dynamo.functional.domain.Country;
+import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.service.MessageService;
 import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
-import com.ocs.dynamo.ui.composite.form.DetailsEditGrid;
+import com.ocs.dynamo.ui.component.DetailsEditGrid;
+import com.ocs.dynamo.ui.composite.layout.EditableGridLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
-import com.ocs.dynamo.ui.composite.type.AttributeGroupMode;
 import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Organization;
@@ -32,9 +34,10 @@ public class OrganizationView extends LazyBaseView {
 	@Autowired
 	private PersonService personService;
 
-	private static final long serialVersionUID = 3310122000037867336L;
+	@Autowired
+	private BaseService<Integer, Country> countryService;
 
-	private Layout searchResultsLayout;
+	private static final long serialVersionUID = 3310122000037867336L;
 
 	@Autowired
 	private MessageService messageService;
@@ -45,23 +48,64 @@ public class OrganizationView extends LazyBaseView {
 	public Component build() {
 		Layout main = new DefaultVerticalLayout();
 
-//		EntityModel<Person> personModel = getModelFactory().getModel(Person.class);
-//		Searchable<Person> mySearchable = new MySearchable();
-//
-//		ModelBasedSearchForm<Integer, Person> personForm = new ModelBasedSearchForm<Integer, Person>(mySearchable,
-//				personModel, new FormOptions());
-//		main.addComponent(personForm);
-//
-//		searchResultsLayout = new VerticalLayout();
-//		main.addComponent(searchResultsLayout);
-
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
 		layout = new SimpleSearchLayout<Integer, Organization>(organizationService, em, QueryType.ID_BASED,
-				new FormOptions().setOpenInViewMode(true).setEditAllowed(true)
-						.setAttributeGroupMode(AttributeGroupMode.TABSHEET),
-				null) {
+				new FormOptions().setOpenInViewMode(true).setShowRemoveButton(true), null) {
 
 			private static final long serialVersionUID = 1718400289156392757L;
+
+//			@Override
+//			protected String[] getDetailModeTabCaptions() {
+//				return new String[] { "Details", "Members" };
+//			}
+//
+//			@Override
+//			protected Component initTab(Organization entity, int index, FormOptions parentFormOptions,
+//					boolean newEntity) {
+//				if (index == 0) {
+//					SimpleEditLayout<Integer, Organization> editLayout = new SimpleEditLayout<Integer, Organization>(
+//							entity, organizationService, em, parentFormOptions) {
+//
+//						private static final long serialVersionUID = 119480415996212935L;
+//
+//						@Override
+//						protected void afterEditDone(boolean cancel, boolean newEntity, Organization entity) {
+//							if (cancel) {
+//								layout.searchMode();
+//							} else if (newEntity) {
+//								detailsMode(entity);
+//							}
+//						}
+//					};
+//					return editLayout;
+//				} else if (index == 1) {
+//					// grid for editing members
+//					FormOptions df = new FormOptions().setOpenInViewMode(false)
+//							.setGridEditMode(GridEditMode.SIMULTANEOUS);
+//					EditableGridDetailLayout<Integer, Person, Integer, Organization> layout = new EditableGridDetailLayout<Integer, Person, Integer, Organization>(
+//							personService, entity, organizationService,
+//							getModelFactory().getModel("PersonGrid", Person.class), df, null) {
+//
+//						private static final long serialVersionUID = 4438776368553060357L;
+//
+//						@Override
+//						protected Person createEntity() {
+//							Person person = super.createEntity();
+//							person.setOrganization(getParentEntity());
+//							return person;
+//						};
+//
+//					};
+//					layout.setParentFilterSupplier(parent -> new EqualsPredicate<>("organization", parent));
+//					return layout;
+//				}
+//				return null;
+//			}
+
+//			@Override
+//			protected Resource getIconForTab(int index) {
+//				return null;
+//			}
 
 			@Override
 			protected AbstractField<?> constructCustomField(EntityModel<Organization> entityModel,
@@ -92,6 +136,8 @@ public class OrganizationView extends LazyBaseView {
 			}
 		};
 		layout.setPageLength(10);
+		layout.setMaxResults(3);
+		layout.setSearchValue("name", "Tr");
 		main.addComponent(layout);
 
 		return main;

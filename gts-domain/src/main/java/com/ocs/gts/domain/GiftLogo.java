@@ -31,7 +31,7 @@ public class GiftLogo extends AbstractEntity<Integer> {
 	private byte[] image;
 
 	// hide in table to prevent fetch issues
-	@Attribute(editable = EditableType.READ_ONLY, showInTable = VisibilityType.HIDE)
+	@Attribute(editable = EditableType.READ_ONLY, visibleInGrid = VisibilityType.HIDE)
 	private String fileName;
 
 	@Override

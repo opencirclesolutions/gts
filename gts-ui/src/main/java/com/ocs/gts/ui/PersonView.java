@@ -1,5 +1,7 @@
 package com.ocs.gts.ui;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ocs.dynamo.domain.model.EntityModel;
@@ -13,6 +15,7 @@ import com.ocs.dynamo.ui.view.LazyBaseView;
 import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.OrganizationService;
 import com.ocs.gts.service.PersonService;
+import com.vaadin.server.SerializablePredicate;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
@@ -41,8 +44,8 @@ public class PersonView extends LazyBaseView {
 
 		EntityModel<Person> model = getModelFactory().getModel(Person.class);
 		SimpleSearchLayout<Integer, Person> ssl = new SimpleSearchLayout<Integer, Person>(personService, model,
-				QueryType.ID_BASED, new FormOptions().setShowSearchAnyButton(true).setOpenInViewMode(true)
-						.setEditAllowed(true).setShowRemoveButton(true),
+				QueryType.ID_BASED,
+				new FormOptions().setShowSearchAnyButton(true).setOpenInViewMode(true).setShowRemoveButton(true),
 				null) {
 
 			private static final long serialVersionUID = 6383158350570359504L;
@@ -50,7 +53,6 @@ public class PersonView extends LazyBaseView {
 			@Override
 			protected void postProcessLayout(Layout main) {
 				super.postProcessLayout(main);
-				// setSearchValue("firstName", "vin");
 			}
 
 			@Override
@@ -58,22 +60,21 @@ public class PersonView extends LazyBaseView {
 				Button popup = new Button("Popup");
 				popup.addClickListener(event -> {
 					EntityPopupDialog<Integer, Person> pop = new EntityPopupDialog<>(personService, getSelectedItem(),
-							model, new FormOptions());
+							model, new HashMap<String, SerializablePredicate<?>>(), new FormOptions());
 					pop.build();
 					UI.getCurrent().addWindow(pop);
 				});
-				registerButton(popup);
+				registerComponent(popup);
 				buttonBar.addComponent(popup);
 			}
 		};
 
-		// ssl.addFieldEntityModel("organization", "ModifiedOrganization");
 		ssl.setPageLength(5);
-		ssl.setDividerProperty("organization");
+		//ssl.setDividerProperty("organization");
 		ssl.setSortEnabled(false);
 		ssl.getGridWrapper().getLayout().setHeight(200, Unit.PIXELS);
-
-		// ssl.getGridWrapper().setHeight(100, Unit.PIXELS);
+		ssl.setSearchValue("firstName", "Bob");
+		
 		main.addComponent(ssl);
 
 		return main;

@@ -30,6 +30,75 @@ $v-selection-color: #ff0000;
   @include valo;
   // Insert your own theme rules here
 
+    .v-button-link {
+    	color: #fab566 !important;
+    	background: none !important;
+    	box-shadow: none !important;
+    	border: none !important;
+    	white-space: nowrap !important;
+    	text-align: left;
+    	padding-left: 0px !important;
+    }
+
+  .exttokenfield .v-filterselect {
+ 	background: #f5f5f5;
+ 	width: 98% !important;
+ 	margin-left: 3px;
+ 	margin-bottom: 3px;
+  }
+
+  .leftAlign {
+	text-align: left;
+  }
+
+  .v-caption-approval {
+    color: red;
+  }
+
+  .extraWide{
+    min-width:200px;
+  }
+  
+  .v-slot.v-slot-first {
+    min-width: 125px;
+  }
+  
+  .v-slot.v-slot-additional {
+    width: 135px;
+  }
+  
+  .bottomMargin {
+  	margin-bottom: 35px;
+  }
+	  
+	  .v-customcomponent-error .v-filterselect-button::before {
+	    color: red;
+	  }  
+	  
+	  .v-customcomponent-error .v-caption-hasdescription span {
+	    color: red;
+	  }  
+	  
+	  .v-customcomponent-error .exttokenfield {
+	  	border-color: red;
+	  }
+	  
+	  .v-customcomponent-error .v-filterselect-input {
+	  		border-color: red;
+	  }  
+	  
+	  .v-customcomponent-error .v-select-select {
+	  		border-color: red;
+	  } 
+
+	  .parentRow {
+	  	font-weight: bold;
+	  }
+	  
+	.v-customcomponent-error .exttokenfield.v-widget {
+	    border-color: red;
+	}	  
+
 	div.attributePanel .v-verticallayout-formContainerSameLine td.v-formlayout-captioncell {
 		width: inherit !important;
 	}
@@ -54,6 +123,10 @@ $v-selection-color: #ff0000;
 	div.v-horizontallayout-nested .v-formlayout-first span.v-required-field-indicator {
 		display: none;
 	}
+	
+	div.v-horizontallayout-nested .v-formlayout-first span.v-required-field-indicator {
+     	display: none;
+  	}
   
 	.v-caption-required:after {
 		content: "*"; 
@@ -61,15 +134,6 @@ $v-selection-color: #ff0000;
 		padding-left:2px;
 	}
   
-  .v-button-link {
-    	color: red !important;
-    	background: none !important;
-    	box-shadow: none !important;
-    	border: none !important;
-    	white-space: nowrap !important;
-    	text-align: left;
-    	padding-left: 0px !important;
-  }
 
   div.v-button {
 	@include valo-button-style($background-color: #ff0000);

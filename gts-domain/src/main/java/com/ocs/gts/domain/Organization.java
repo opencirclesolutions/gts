@@ -25,6 +25,7 @@ import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.AttributeTextFieldMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
@@ -62,7 +63,7 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@NotNull
 	@Size(max = 255)
-	@Attribute(searchable = true)
+	@Attribute(searchable = true, textFieldMode = AttributeTextFieldMode.TEXTAREA, rows = 7)
 	private String name;
 
 	@NotNull
@@ -78,7 +79,7 @@ public class Organization extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(searchable = true, multipleSearch = true, searchSelectMode = AttributeSelectMode.FANCY_LIST, complexEditable = true, showInTable = VisibilityType.SHOW)
+	@Attribute(searchable = true, multipleSearch = true, selectMode = AttributeSelectMode.LOOKUP, complexEditable = true, visibleInGrid = VisibilityType.SHOW)
 	private Country countryOfOrigin;
 
 	@Transient
@@ -104,9 +105,8 @@ public class Organization extends AbstractEntity<Integer> {
 	@Attribute(searchable = true)
 	private Reputation reputation;
 
-	@Size(min = 1)
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@Attribute(searchable = true, showInTable = VisibilityType.SHOW, complexEditable = true, selectMode = AttributeSelectMode.FANCY_LIST, sortable = false)
+	@Attribute(searchable = true, visibleInGrid = VisibilityType.HIDE, complexEditable = false, selectMode = AttributeSelectMode.FANCY_LIST, sortable = false)
 	private Set<Person> members = new HashSet<>();
 
 	@Attribute(url = true)
