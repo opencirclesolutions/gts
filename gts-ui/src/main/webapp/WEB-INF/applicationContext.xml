@@ -90,30 +90,4 @@
 		<constructor-arg index="1" value="code" />
 	</bean>
 
-	<bean id="roleService"
-		class="com.ocs.dynamo.service.impl.DefaultServiceImpl">
-		<constructor-arg index="0">
-			<bean class="com.ocs.dynamo.dao.impl.DefaultDaoImpl">
-				<constructor-arg index="0"
-					value="#{T(com.ocs.gts.domain.QRole).role}" />
-				<constructor-arg index="1"
-					value="com.ocs.gts.domain.Role" />
-			</bean>
-		</constructor-arg>
-		<constructor-arg index="1" value="name" />
-	</bean>
-
-	<bean id="traitService"
-		class="com.ocs.dynamo.service.impl.DefaultServiceImpl">
-		<constructor-arg index="0">
-			<bean class="com.ocs.dynamo.dao.impl.DefaultDaoImpl">
-				<constructor-arg index="0"
-					value="#{T(com.ocs.gts.domain.QTrait).trait}" />
-				<constructor-arg index="1"
-					value="com.ocs.gts.domain.Trait" />
-			</bean>
-		</constructor-arg>
-		<constructor-arg index="1" value="name" />
-	</bean>
-
 </beans>
