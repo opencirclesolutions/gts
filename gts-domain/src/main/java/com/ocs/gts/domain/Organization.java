@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,24 +17,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.AttributeSelectMode;
-import com.ocs.dynamo.domain.model.AttributeTextFieldMode;
-import com.ocs.dynamo.domain.model.VisibilityType;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
-import com.ocs.dynamo.domain.model.annotation.AttributeGroups;
-import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
-import com.ocs.dynamo.domain.model.annotation.Cascade;
 import com.ocs.dynamo.domain.model.annotation.Model;
-import com.ocs.dynamo.domain.model.validator.URL;
 import com.ocs.dynamo.functional.domain.Country;
-import com.ocs.dynamo.functional.domain.Region;
 import com.ocs.gts.domain.type.Reputation;
 
 /**
@@ -46,12 +33,7 @@ import com.ocs.gts.domain.type.Reputation;
  */
 @Entity
 @Table(name = "organization")
-@Model(displayProperty = "name", sortOrder = "name asc")
-@AttributeOrder(attributeNames = "countryOfOrigin")
-@AttributeGroups(attributeGroups = {
-		@AttributeGroup(messageKey = "organization.first", attributeNames = { "name", "address", "headQuarters",
-				"countryOfOrigin" }),
-		@AttributeGroup(messageKey = "organization.second", attributeNames = { "reputation" }) })
+@Model(displayProperty = "name")
 public class Organization extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -63,55 +45,36 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@NotNull
 	@Size(max = 255)
-	@Attribute(searchable = true, textFieldMode = AttributeTextFieldMode.TEXTAREA, rows = 7)
 	private String name;
 
 	@NotNull
 	@Size(max = 255)
-	@Attribute(searchable = true)
 	private String headQuarters;
 
 	@NotNull
 	@Size(max = 255)
-	@Attribute(searchable = true)
 	private String address;
 
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(searchable = true, multipleSearch = true, selectMode = AttributeSelectMode.LOOKUP, complexEditable = true, visibleInGrid = VisibilityType.SHOW)
 	private Country countryOfOrigin;
 
-	@Transient
-	@Attribute(searchable = true, complexEditable = true, cascade = {
-			@Cascade(cascadeTo = "countryOfOrigin", filterPath = "parent") }, replacementSearchPath = "countryOfOrigin.parent")
-	private Region region;
-
-	@Attribute(searchable = true)
 	@NotNull
 	@Column(name = "member_count")
 	private Integer memberCount;
 
-	@Attribute(searchable = true)
 	@Column(name = "government_sponsored")
 	private Boolean governmentSponsored = Boolean.FALSE;
 
 	@Column(name = "yearly_mortality_rate")
-	@Attribute(percentage = true, searchable = true)
-	@Max(100)
 	private BigDecimal yearlyMortalityRate;
 
 	@Enumerated(EnumType.STRING)
-	@Attribute(searchable = true)
 	private Reputation reputation;
 
-	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@Attribute(searchable = true, visibleInGrid = VisibilityType.HIDE, complexEditable = false, selectMode = AttributeSelectMode.FANCY_LIST, sortable = false)
+	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
 	private Set<Person> members = new HashSet<>();
-
-	@Attribute(url = true)
-	@URL
-	private String url;
 
 	public String getAddress() {
 		return address;
@@ -203,21 +166,5 @@ public class Organization extends AbstractEntity<Integer> {
 	public void removeMember(Person person) {
 		this.members.remove(person);
 		person.setOrganization(null);
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public Region getRegion() {
-		return region;
-	}
-
-	public void setRegion(Region region) {
-		this.region = region;
 	}
 }

@@ -3,7 +3,6 @@ package com.ocs.gts.service.impl;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ocs.dynamo.dao.BaseDao;
 import com.ocs.dynamo.service.impl.BaseServiceImpl;
@@ -22,9 +21,4 @@ public class OrganizationServiceImpl extends BaseServiceImpl<Integer, Organizati
 		return dao;
 	}
 
-	@Transactional
-	@Override
-	public Organization save(Organization t) {
-		return super.save(t);
-	}
 }

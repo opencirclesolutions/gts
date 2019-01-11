@@ -1,55 +1,33 @@
 package com.ocs.gts.domain;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostPersist;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.google.common.collect.Lists;
 import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.AttributeSelectMode;
-import com.ocs.dynamo.domain.model.CheckboxMode;
 import com.ocs.dynamo.domain.model.EditableType;
-import com.ocs.dynamo.domain.model.NumberSelectMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.domain.model.annotation.Model;
-import com.ocs.dynamo.domain.model.validator.Email;
-import com.ocs.dynamo.functional.domain.Domain;
-import com.ocs.dynamo.functional.util.DomainUtil;
-import com.ocs.gts.domain.type.Reputation;
 
 @Entity
 @Table(name = "person")
 @Model(displayProperty = "fullName")
-@AttributeOrder(attributeNames = { "firstName", "lastName", "nickName", "organization", "born", "died", "someTime" })
+@AttributeOrder(attributeNames = { "firstName", "lastName", "nickName", "organization", "born", "died" })
 public class Person extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -59,20 +37,24 @@ public class Person extends AbstractEntity<Integer> {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_id_gen")
 	private Integer id;
 
-	@Attribute(week = true, searchable = true)
-	@Column(name = "birth_week")
-	private LocalDate birthWeek;
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "first_name")
-	@Attribute(searchable = true, requiredForSearching = false, defaultValue = "Bas")
 	private String firstName;
 
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "last_name")
-	@Attribute(searchable = true)
 	private String lastName;
 
 	@NotNull
@@ -83,217 +65,70 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, visibleInGrid = VisibilityType.SHOW, searchable = true, selectMode = AttributeSelectMode.LIST, searchSelectMode = AttributeSelectMode.LIST, multipleSearch = true, quickAddPropertyName = "name", navigable = true)
+	@Attribute(complexEditable = true, visibleInGrid = VisibilityType.SHOW)
 	private Organization organization;
 
-	@Attribute(searchable = true, displayFormat = "yyyy/MM/dd")
-	private LocalDate born;
+	@Temporal(TemporalType.DATE)
+	private Date born;
 
-	private LocalDate died;
-
-	@Column(name = "some_timestamp")
-	@Attribute(searchable = true)
-	private LocalDateTime someTimestamp;
-
-	@NotNull
-	@Column(name = "some_time")
-	@Attribute(searchable = true)
-	private LocalTime someTime;
-
-	@Attribute(searchable = true)
-	@Column(name = "created_on")
-	private ZonedDateTime createdOn;
-
-	@Attribute(searchable = true, numberSelectMode = NumberSelectMode.SLIDER)
-	private Integer age;
-
-	@Attribute(searchable = true, checkboxMode = CheckboxMode.CHECKBOX)
-	private Boolean professional;
-
-	@Attribute(searchable = true)
-	@Enumerated(EnumType.STRING)
-	private Reputation reputation;
-
-	@Attribute(searchable = true, complexEditable = true, quickAddPropertyName = "name", selectMode = AttributeSelectMode.LOOKUP)
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
-
-	@Email
-	private String email;
-
-	@ManyToMany
-	@JoinTable(name = "person_domain", joinColumns = @JoinColumn(name = "person"), inverseJoinColumns = @JoinColumn(name = "domain"))
-	private List<Domain> domains = new ArrayList<>();
-
-	@ElementCollection
-	@CollectionTable(name = "person_lucky_numbers")
-	@Column(name = "lucky_number")
-	@Attribute(complexEditable = true, minLength = 5, maxLength = 10, searchable = true)
-	private Set<String> luckyNumbers = new HashSet<>();
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public LocalDate getBorn() {
-		return born;
-	}
-
-	public LocalDate getDied() {
-		return died;
-	}
+	@Temporal(TemporalType.DATE)
+	private Date died;
 
 	public String getFirstName() {
 		return firstName;
-	}
-
-	@Attribute(editable = EditableType.READ_ONLY, main = true, visible = VisibilityType.HIDE)
-	public String getFullName() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(firstName);
-		builder.append(" '" + nickName + "' ");
-		builder.append(lastName);
-		return builder.toString();
-	}
-
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public Organization getOrganization() {
-		return organization;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public void setBorn(LocalDate born) {
-		this.born = born;
-	}
-
-	public void setDied(LocalDate died) {
-		this.died = died;
 	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
+	public String getLastName() {
+		return lastName;
 	}
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	public String getNickName() {
+		return nickName;
+	}
+
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+
+	public Organization getOrganization() {
+		return organization;
 	}
 
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
 	}
 
-	public LocalDate getBirthWeek() {
-		return birthWeek;
+	public Date getBorn() {
+		return born;
 	}
 
-	public void setBirthWeek(LocalDate birthWeek) {
-		this.birthWeek = birthWeek;
+	public void setBorn(Date born) {
+		this.born = born;
 	}
 
-	public Boolean getProfessional() {
-		return professional;
+	public Date getDied() {
+		return died;
 	}
 
-	public void setProfessional(Boolean professional) {
-		this.professional = professional;
+	public void setDied(Date died) {
+		this.died = died;
 	}
 
-	public Reputation getReputation() {
-		return reputation;
-	}
-
-	public void setReputation(Reputation reputation) {
-		this.reputation = reputation;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public LocalTime getSomeTime() {
-		return someTime;
-	}
-
-	public void setSomeTime(LocalTime someTime) {
-		this.someTime = someTime;
-	}
-
-	public LocalDateTime getSomeTimestamp() {
-		return someTimestamp;
-	}
-
-	public void setSomeTimestamp(LocalDateTime someTimestamp) {
-		this.someTimestamp = someTimestamp;
-	}
-
-	public ZonedDateTime getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(ZonedDateTime createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	@PreUpdate
-	@PrePersist
-	@PostPersist
-	public void preUpdate() {
-		this.createdOn = ZonedDateTime.now();
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Size(min = 1, max = 3)
-	@Attribute(memberType = Trait.class, sortable = false, replacementSearchPath = "domains", complexEditable = true, selectMode = AttributeSelectMode.LIST, quickAddPropertyName = "name", rows = 7)
-	public List<Trait> getTraits() {
-		return Lists.newArrayList(DomainUtil.filterDomains(Trait.class, domains));
-	}
-
-	public void setTraits(List<Trait> traits) {
-		DomainUtil.updateDomains(Trait.class, domains, traits);
-	}
-
-	public Set<String> getLuckyNumbers() {
-		return luckyNumbers;
-	}
-
-	public void setLuckyNumbers(Set<String> luckyNumbers) {
-		this.luckyNumbers = luckyNumbers;
+	@Attribute(editable = EditableType.READ_ONLY, main = true)
+	public String getFullName() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(firstName);
+		builder.append(" '" + nickName + "' ");
+		builder.append(lastName);
+		return builder.toString();
 	}
 
 }

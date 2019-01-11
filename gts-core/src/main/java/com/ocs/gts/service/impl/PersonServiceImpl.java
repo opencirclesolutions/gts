@@ -3,7 +3,6 @@ package com.ocs.gts.service.impl;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ocs.dynamo.dao.BaseDao;
 import com.ocs.dynamo.service.impl.BaseServiceImpl;
@@ -20,11 +19,5 @@ public class PersonServiceImpl extends BaseServiceImpl<Integer, Person> implemen
 	@Override
 	protected BaseDao<Integer, Person> getDao() {
 		return dao;
-	}
-
-	@Override
-	@Transactional
-	public Person save(Person t) {
-		return super.save(t);
 	}
 }
