@@ -1,6 +1,6 @@
 package com.ocs.gts.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,22 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.EditableType;
-import com.ocs.dynamo.domain.model.VisibilityType;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
-import com.ocs.dynamo.domain.model.annotation.Model;
 
 @Entity
 @Table(name = "person")
-@Model(displayProperty = "fullName")
-@AttributeOrder(attributeNames = { "firstName", "lastName", "nickName", "organization", "born", "died" })
 public class Person extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -65,14 +56,11 @@ public class Person extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "organization")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, visibleInGrid = VisibilityType.SHOW)
 	private Organization organization;
 
-	@Temporal(TemporalType.DATE)
-	private Date born;
+	private LocalDate born;
 
-	@Temporal(TemporalType.DATE)
-	private Date died;
+	private LocalDate died;
 
 	public String getFirstName() {
 		return firstName;
@@ -106,29 +94,19 @@ public class Person extends AbstractEntity<Integer> {
 		this.organization = organization;
 	}
 
-	public Date getBorn() {
+	public LocalDate getBorn() {
 		return born;
 	}
 
-	public void setBorn(Date born) {
+	public void setBorn(LocalDate born) {
 		this.born = born;
 	}
 
-	public Date getDied() {
+	public LocalDate getDied() {
 		return died;
 	}
 
-	public void setDied(Date died) {
+	public void setDied(LocalDate died) {
 		this.died = died;
 	}
-
-	@Attribute(editable = EditableType.READ_ONLY, main = true)
-	public String getFullName() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(firstName);
-		builder.append(" '" + nickName + "' ");
-		builder.append(lastName);
-		return builder.toString();
-	}
-
 }

@@ -300,6 +300,7 @@ CREATE TABLE organization
 	version              INTEGER NULL,
 	yearly_mortality_rate NUMERIC(18,9),
 	reputation           VARCHAR(100) NULL,
+	url 				 VARCHAR(255);	
 	PRIMARY KEY (id)
 );
 

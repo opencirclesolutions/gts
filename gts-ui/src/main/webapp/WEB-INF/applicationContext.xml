@@ -76,18 +76,4 @@
 		<constructor-arg index="1" value="code" />
 	</bean>
 
-	<bean id="countryService"
-		class="com.ocs.dynamo.service.impl.DefaultServiceImpl">
-		<constructor-arg index="0">
-			<bean class="com.ocs.dynamo.dao.impl.DefaultDaoImpl">
-				<constructor-arg index="0"
-					value="#{T(com.ocs.dynamo.functional.domain.QCountry).country}" />
-				<constructor-arg index="1"
-					value="com.ocs.dynamo.functional.domain.Country" />
-				<constructor-arg index="2" value="parent" />
-			</bean>
-		</constructor-arg>
-		<constructor-arg index="1" value="code" />
-	</bean>
-
 </beans>

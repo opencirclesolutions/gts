@@ -57,7 +57,6 @@ public class Gift extends AbstractEntity<Integer> {
 	@Valid
 	@OneToMany(mappedBy = "gift", fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
 			CascadeType.PERSIST }, orphanRemoval = true)
-	@Attribute(complexEditable = true)
 	private Set<GiftTranslation> translations = new HashSet<>();
 
 	public void addTranslation(GiftTranslation translation) {
