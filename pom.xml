@@ -71,6 +71,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.dynamoframework</groupId>
+				<artifactId>dynamo-frontend-export</artifactId>
+				<version>${com.ocs.dynamo.version}</version>
+			</dependency>			
+			<dependency>
+				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-test</artifactId>
 				<version>${com.ocs.dynamo.version}</version>
 				<scope>test</scope>
