@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.context.ContextLoaderListener;
 
 import com.ocs.dynamo.service.MessageService;
@@ -55,6 +57,7 @@ public class GtsUI extends BaseUI {
 
 	@EnableVaadin
 	@Configuration()
+	@Import(ApplicationConfig.class)
 	public static class MyConfiguration {
 		// this is needed to kick off the Spring integration
 	}
@@ -77,8 +80,7 @@ public class GtsUI extends BaseUI {
 	/**
 	 * The version number - retrieved from pom file via application.properties
 	 */
-	@Autowired
-	@Qualifier("versionNumber")
+	@Value("${application.version}")
 	private String versionNumber;
 
 	private Panel viewPanel;

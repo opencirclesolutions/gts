@@ -7,8 +7,15 @@
 	<display-name>Gift Tracking System</display-name>
 
 	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>
+      		org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+    	</param-value>
+	</context-param>
+
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/applicationContext.xml</param-value>
+		<param-value>com.ocs.gts.ui.ApplicationConfig</param-value>
 	</context-param>
 
 	<context-param>

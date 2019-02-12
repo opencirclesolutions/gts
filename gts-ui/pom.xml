@@ -164,6 +164,7 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
 				<includes>
 					<include>**/*.xlsx</include>
 					<include>**/*.js</include>
