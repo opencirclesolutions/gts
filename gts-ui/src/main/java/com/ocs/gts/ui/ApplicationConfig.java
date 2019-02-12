@@ -162,7 +162,7 @@ public class ApplicationConfig {
 
 	@Bean
 	public BaseDao<Integer, Country> countryDao() {
-		return new DefaultDaoImpl<>(QCountry.country, Country.class);
+		return new DefaultDaoImpl<>(QCountry.country, Country.class, "parent");
 	}
 
 	@Bean
