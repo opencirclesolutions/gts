@@ -38,25 +38,19 @@ public class GiftLayout extends ServiceBasedSplitLayout<Integer, Gift> {
 
 			// create the table - notice how we pass the "viewMode" parameter
 			DetailsEditGrid<Integer, GiftTranslation> dt = new DetailsEditGrid<Integer, GiftTranslation>(
-					getEntityModelFactory().getModel(GiftTranslation.class), attributeModel, viewMode, fo) {
+					getEntityModelFactory().getModel(GiftTranslation.class), attributeModel, viewMode, fo);
 
-				private static final long serialVersionUID = -3578481153580615529L;
+			dt.setCreateEntitySupplier(() -> {
+				Gift gift = GiftLayout.this.getSelectedItem();
+				GiftTranslation translation = new GiftTranslation();
+				gift.addTranslation(translation);
+				return translation;
+			});
+			dt.setRemoveEntityConsumer(t -> {
+				Gift gift = GiftLayout.this.getSelectedItem();
+				gift.removeTranslation(t);
+			});
 
-				// method for adding a new row to the table
-				@Override
-				protected GiftTranslation createEntity() {
-					Gift gift = GiftLayout.this.getSelectedItem();
-					GiftTranslation translation = new GiftTranslation();
-					gift.addTranslation(translation);
-					return translation;
-				}
-
-				@Override
-				protected void removeEntity(GiftTranslation toRemove) {
-					Gift gift = GiftLayout.this.getSelectedItem();
-					gift.removeTranslation(toRemove);
-				}
-			};
 			return dt;
 		}
 		return null;
