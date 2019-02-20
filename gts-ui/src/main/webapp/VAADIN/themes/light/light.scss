@@ -115,6 +115,10 @@ $v-selection-color: #ff0000;
 	div.v-customcomponent span.v-errorindicator-error {
 		display: none;
 	}
+	
+	div.v-horizontallayout-nested .v-formlayout-first td.v-formlayout-captioncell {
+	     display: none;
+	} 	
 
 	div.v-horizontallayout-nested .v-formlayout-first td.v-formlayout-errorcell {
 	     display: none;

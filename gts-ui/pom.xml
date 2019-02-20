@@ -154,6 +154,7 @@
 			<artifactId>reactive-streams</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>com.monitorjbl</groupId>
 			<artifactId>xlsx-streamer</artifactId>
@@ -161,7 +162,8 @@
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-frontend-export</artifactId>
-		</dependency>			
+		</dependency>
+		-->			
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>

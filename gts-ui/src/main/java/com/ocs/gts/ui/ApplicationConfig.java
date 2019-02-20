@@ -6,13 +6,11 @@ import javax.sql.DataSource;
 import javax.validation.ValidatorFactory;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -116,15 +114,6 @@ public class ApplicationConfig {
 	@Bean
 	public PermissionChecker permissionChecker() {
 		return new DefaultPermissionCheckerImpl("com.ocs.gts");
-	}
-
-	@Bean
-	public PropertyPlaceholderConfigurer placeHolderConfigurer() {
-		PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
-		configurer.setSystemPropertiesMode(PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE);
-		configurer.setLocation(new ClassPathResource("application.properties"));
-		configurer.setIgnoreResourceNotFound(false);
-		return configurer;
 	}
 
 	@Bean

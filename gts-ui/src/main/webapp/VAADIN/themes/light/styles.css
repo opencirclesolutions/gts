@@ -15436,6 +15436,10 @@ div.v-layout.v-horizontal.v-widget {
 	display: none;
 }
 
+.light div.v-horizontallayout-nested .v-formlayout-first td.v-formlayout-captioncell {
+	display: none;
+}
+
 .light div.v-horizontallayout-nested .v-formlayout-first td.v-formlayout-errorcell {
 	display: none;
 }
