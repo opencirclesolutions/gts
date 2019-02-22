@@ -1,12 +1,12 @@
 package com.ocs.gts.ui;
 
 import java.security.Principal;
+import java.util.Locale;
 
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -96,6 +96,8 @@ public class GtsUI extends BaseUI {
 
 		// handle a login
 		Principal principal = request.getUserPrincipal();
+		
+		VaadinUtils.storeLocale(new Locale("en"));
 
 		main = new VerticalLayout();
 		setContent(main);
