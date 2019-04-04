@@ -18,19 +18,18 @@ import com.vaadin.ui.Layout;
 @SpringView(name = Views.ORGANIZATION_VIEW)
 public class OrganizationView extends BaseView {
 
-	@Autowired
-	private OrganizationService organizationService;
+    @Autowired
+    private OrganizationService organizationService;
 
-	private static final long serialVersionUID = 3310122000037867336L;
+    private static final long serialVersionUID = 3310122000037867336L;
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		Layout main = initLayout();
+    @Override
+    public void enter(ViewChangeEvent event) {
+        Layout main = initLayout();
 
-		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		FormOptions fo = new FormOptions();
-		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
-		        QueryType.ID_BASED, fo, null);
-		main.addComponent(layout);
-	}
+        EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
+        FormOptions fo = new FormOptions();
+        SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em, QueryType.ID_BASED, fo, null);
+        main.addComponent(layout);
+    }
 }

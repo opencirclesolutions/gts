@@ -17,8 +17,20 @@
 			<artifactId>dynamo-frontend</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-functional-domain-frontend</artifactId>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 		</dependency>
 		<!-- include explicit version of ECJ here to make sure widget set compiles -->
 		<dependency>
@@ -37,69 +49,27 @@
 			<artifactId>gts-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-server</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-client-compiled</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-client</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-themes</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-expression</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
+		<!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-server</artifactId> 
+			</dependency> <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiled</artifactId> 
+			</dependency> <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client</artifactId> 
+			<scope>provided</scope> </dependency> <dependency> <groupId>com.vaadin</groupId> 
+			<artifactId>vaadin-spring</artifactId> </dependency> <dependency> <groupId>com.vaadin</groupId> 
+			<artifactId>vaadin-themes</artifactId> </dependency> <dependency> <groupId>javax.servlet</groupId> 
+			<artifactId>javax.servlet-api</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-web</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-expression</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-context</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-tx</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-aop</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-orm</artifactId> </dependency> -->
 		<!-- logging -->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
+			<scope>provided</scope> </dependency> <dependency> <groupId>log4j</groupId> 
+			<artifactId>log4j</artifactId> </dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
 		</dependency>
 		<!-- Hibernate (provided, it is included in the application server) -->
 		<dependency>
@@ -154,16 +124,6 @@
 			<artifactId>reactive-streams</artifactId>
 			<version>1.0.1</version>
 		</dependency>
-		<!--  
-		<dependency>
-			<groupId>com.monitorjbl</groupId>
-			<artifactId>xlsx-streamer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-frontend-export</artifactId>
-		</dependency>
-		-->			
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>

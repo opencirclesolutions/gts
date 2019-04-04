@@ -19,13 +19,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<aspectj.version>1.9.2</aspectj.version>
-		<com.ocs.dynamo.version>2.1-SNAPSHOT</com.ocs.dynamo.version>
+		<com.ocs.dynamo.version>2.1-BOOT-SNAPSHOT</com.ocs.dynamo.version>
 		<confirmdialog.version>3.2.0</confirmdialog.version>
 		<hibernate.version>5.3.7.Final</hibernate.version>
 		<hibernate.validator.version>6.0.13.Final</hibernate.validator.version>
 		<javax.servlet.version>4.0.0</javax.servlet.version>
 		<junit.version>4.12</junit.version>
-		<log4j.version>1.2.17</log4j.version>
 		<querydsl.version>4.2.1</querydsl.version>
 		<spring.version>5.1.1.RELEASE</spring.version>
 		<vaadin.version>8.6.2</vaadin.version>
@@ -34,7 +33,8 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<com.maven.plugins.apt.version>1.1.3</com.maven.plugins.apt.version>
 		<poi.version>4.0.0</poi.version>
-		<xlsx-streamer.version>2.1.0</xlsx-streamer.version>		
+		<xlsx-streamer.version>2.1.0</xlsx-streamer.version>
+		<spring.boot.version>1.4.7.RELEASE</spring.boot.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -55,6 +55,42 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.9.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>42.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-spring-boot-starter</artifactId>
+				<version>3.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring.boot.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.tomcat.embed</groupId>
+						<artifactId>tomcat-embed-websocket</artifactId>
+					</exclusion>	
+				</exclusions>
+			</dependency>
+			<dependency>
 				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-api</artifactId>
 				<version>${com.ocs.dynamo.version}</version>
@@ -73,7 +109,7 @@
 				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-frontend-export</artifactId>
 				<version>${com.ocs.dynamo.version}</version>
-			</dependency>			
+			</dependency>
 			<dependency>
 				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-test</artifactId>
@@ -90,32 +126,15 @@
 				<artifactId>dynamo-functional-domain-frontend</artifactId>
 				<version>${com.ocs.dynamo.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-server</artifactId>
-				<version>${vaadin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-client-compiled</artifactId>
-				<version>${vaadin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-client</artifactId>
-				<version>${vaadin.version}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-themes</artifactId>
-				<version>${vaadin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-spring</artifactId>
-				<version>${vaadin-spring.version}</version>
-			</dependency>
+			<!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-server</artifactId> 
+				<version>${vaadin.version}</version> </dependency> -->
+			<!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiled</artifactId> 
+				<version>${vaadin.version}</version> </dependency> <dependency> <groupId>com.vaadin</groupId> 
+				<artifactId>vaadin-client</artifactId> <version>${vaadin.version}</version> 
+				<scope>provided</scope> </dependency> <dependency> <groupId>com.vaadin</groupId> 
+				<artifactId>vaadin-themes</artifactId> <version>${vaadin.version}</version> 
+				</dependency> <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-spring</artifactId> 
+				<version>${vaadin-spring.version}</version> </dependency> -->
 			<dependency>
 				<groupId>com.monitorjbl</groupId>
 				<artifactId>xlsx-streamer</artifactId>
@@ -184,16 +203,6 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${log4j.version}</version>
 			</dependency>
 			<!-- Hibernate -->
 			<dependency>
