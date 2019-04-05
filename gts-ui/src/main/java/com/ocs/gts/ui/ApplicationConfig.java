@@ -15,7 +15,7 @@ import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.service.impl.DefaultServiceImpl;
 
 /**
- * Spring Java configuration
+ * Spring Boot Java configuration
  * 
  * @author Bas Rutten
  *

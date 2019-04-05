@@ -36,7 +36,6 @@
 		<dependency>
 			<groupId>org.eclipse.jdt.core.compiler</groupId>
 			<artifactId>ecj</artifactId>
-			<version>4.6.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -49,23 +48,14 @@
 			<artifactId>gts-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		<!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-server</artifactId> 
-			</dependency> <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiled</artifactId> 
-			</dependency> <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client</artifactId> 
-			<scope>provided</scope> </dependency> <dependency> <groupId>com.vaadin</groupId> 
-			<artifactId>vaadin-spring</artifactId> </dependency> <dependency> <groupId>com.vaadin</groupId> 
-			<artifactId>vaadin-themes</artifactId> </dependency> <dependency> <groupId>javax.servlet</groupId> 
-			<artifactId>javax.servlet-api</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
-			<artifactId>spring-web</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
-			<artifactId>spring-expression</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
-			<artifactId>spring-context</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
-			<artifactId>spring-tx</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
-			<artifactId>spring-aop</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
-			<artifactId>spring-orm</artifactId> </dependency> -->
-		<!-- logging -->
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
-			<scope>provided</scope> </dependency> <dependency> <groupId>log4j</groupId> 
-			<artifactId>log4j</artifactId> </dependency> -->
+		<dependency>
+			<groupId>org.dynamoframework</groupId>
+			<artifactId>dynamo-frontend-export</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.monitorjbl</groupId>
+			<artifactId>xlsx-streamer</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

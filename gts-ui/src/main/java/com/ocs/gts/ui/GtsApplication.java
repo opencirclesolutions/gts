@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 /**
- * Spring boot application class
+ * Spring Boot application class
  * @author Bas Rutten
  *
  */

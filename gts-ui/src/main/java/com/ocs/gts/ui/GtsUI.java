@@ -3,8 +3,6 @@ package com.ocs.gts.ui;
 import java.security.Principal;
 import java.util.Locale;
 
-import javax.servlet.annotation.WebServlet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,10 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.spring.annotation.EnableVaadin;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.spring.navigator.SpringViewProvider;
-import com.vaadin.spring.server.SpringVaadinServlet;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -42,17 +40,9 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("light")
 @SuppressWarnings("serial")
 @UIScope
-@Widgetset(value = "com.ocs.dynamo.DynamoWidgetSet")
 public class GtsUI extends BaseUI {
 
     private static final Logger LOG = LoggerFactory.getLogger(GtsUI.class);
-
-    @WebServlet(value = { "/*" }, asyncSupported = true)
-    public static class CustomServlet extends SpringVaadinServlet {
-
-        public CustomServlet() {
-        }
-    }
 
     private VerticalLayout main;
 
@@ -80,8 +70,6 @@ public class GtsUI extends BaseUI {
      */
     @Override
     protected void init(VaadinRequest request) {
-
-        LOG.info("Logging");
 
         // handle a login
         Principal principal = request.getUserPrincipal();
