@@ -22,9 +22,6 @@
         <dependent-module archiveName="gts-core-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gts-core/gts-core">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="dynamo-frontend-export-2.1-BOOT-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-frontend-export/dynamo-frontend-export">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="gts-ui"/>
         <property name="java-output-path" value="/gts-ui/target/classes"/>
     </wb-module>

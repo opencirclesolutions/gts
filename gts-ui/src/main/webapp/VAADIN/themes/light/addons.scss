@@ -5,13 +5,8 @@
 @import "../../../VAADIN/addons/vaadin-icons/vaadin-icons.scss";
 
 
-/* Provided by gantt-addon-1.0.4.jar */
-@import "../../../VAADIN/addons/gantt/gantt.scss";
-
-
 /* Import and include this mixin into your project theme to include the addon themes */
 @mixin addons {
 	@include vaadin-icons;
-	@include gantt;
 }
 
