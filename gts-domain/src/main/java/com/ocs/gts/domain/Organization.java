@@ -21,7 +21,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
@@ -37,140 +36,135 @@ import com.ocs.gts.domain.type.Reputation;
 @Model(displayProperty = "name")
 public class Organization extends AbstractEntity<Integer> {
 
-    private static final long serialVersionUID = -3436199710873943375L;
+	private static final long serialVersionUID = -3436199710873943375L;
 
-    @Id
-    @SequenceGenerator(name = "organization_id_gen", sequenceName = "organization_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_id_gen")
-    private Integer id;
+	@Id
+	@SequenceGenerator(name = "organization_id_gen", sequenceName = "organization_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_id_gen")
+	private Integer id;
 
-    @NotNull
-    @Size(max = 255)
-    @Attribute(searchable = true)
-    private String name;
+	@NotNull
+	@Size(max = 255)
+	private String name;
 
-    @NotNull
-    @Size(max = 255)
-    @Column(name = "headquarters")
-    @Attribute(searchable = true)
-    private String headQuarters;
+	@NotNull
+	@Size(max = 255)
+	private String headQuarters;
 
-    @NotNull
-    @Size(max = 255)
-    @Attribute(searchable = true)
-    private String address;
+	@NotNull
+	@Size(max = 255)
+	private String address;
 
-    @NotNull
-    @JoinColumn(name = "country_of_origin")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Country countryOfOrigin;
+	@NotNull
+	@JoinColumn(name = "country_of_origin")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Country countryOfOrigin;
 
-    @NotNull
-    @Column(name = "member_count")
-    private Integer memberCount;
+	@NotNull
+	@Column(name = "member_count")
+	private Integer memberCount;
 
-    @Column(name = "government_sponsored")
-    private Boolean governmentSponsored = Boolean.FALSE;
+	@Column(name = "government_sponsored")
+	private Boolean governmentSponsored = Boolean.FALSE;
 
-    @Column(name = "yearly_mortality_rate")
-    private BigDecimal yearlyMortalityRate;
+	@Column(name = "yearly_mortality_rate")
+	private BigDecimal yearlyMortalityRate;
 
-    @Enumerated(EnumType.STRING)
-    private Reputation reputation;
+	@Enumerated(EnumType.STRING)
+	private Reputation reputation;
 
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
-    @Attribute(searchable = true)
-    private Set<Person> members = new HashSet<>();
+	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+	private Set<Person> members = new HashSet<>();
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public Country getCountryOfOrigin() {
-        return countryOfOrigin;
-    }
+	public Country getCountryOfOrigin() {
+		return countryOfOrigin;
+	}
 
-    public Boolean getGovernmentSponsored() {
-        return governmentSponsored;
-    }
+	public Boolean getGovernmentSponsored() {
+		return governmentSponsored;
+	}
 
-    public String getHeadQuarters() {
-        return headQuarters;
-    }
+	public String getHeadQuarters() {
+		return headQuarters;
+	}
 
-    @Override
-    public Integer getId() {
-        return id;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getMemberCount() {
-        return memberCount;
-    }
+	public Integer getMemberCount() {
+		return memberCount;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Reputation getReputation() {
-        return reputation;
-    }
+	public Reputation getReputation() {
+		return reputation;
+	}
 
-    public BigDecimal getYearlyMortalityRate() {
-        return yearlyMortalityRate;
-    }
+	public BigDecimal getYearlyMortalityRate() {
+		return yearlyMortalityRate;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public void setCountryOfOrigin(Country countryOfOrigin) {
-        this.countryOfOrigin = countryOfOrigin;
-    }
+	public void setCountryOfOrigin(Country countryOfOrigin) {
+		this.countryOfOrigin = countryOfOrigin;
+	}
 
-    public void setGovernmentSponsored(Boolean governmentSponsored) {
-        this.governmentSponsored = governmentSponsored;
-    }
+	public void setGovernmentSponsored(Boolean governmentSponsored) {
+		this.governmentSponsored = governmentSponsored;
+	}
 
-    public void setHeadQuarters(String headQuarters) {
-        this.headQuarters = headQuarters;
-    }
+	public void setHeadQuarters(String headQuarters) {
+		this.headQuarters = headQuarters;
+	}
 
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setMemberCount(Integer memberCount) {
-        this.memberCount = memberCount;
-    }
+	public void setMemberCount(Integer memberCount) {
+		this.memberCount = memberCount;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setReputation(Reputation reputation) {
-        this.reputation = reputation;
-    }
+	public void setReputation(Reputation reputation) {
+		this.reputation = reputation;
+	}
 
-    public void setYearlyMortalityRate(BigDecimal yearlyMortalityRate) {
-        this.yearlyMortalityRate = yearlyMortalityRate;
-    }
+	public void setYearlyMortalityRate(BigDecimal yearlyMortalityRate) {
+		this.yearlyMortalityRate = yearlyMortalityRate;
+	}
 
-    public Set<Person> getMembers() {
-        return members;
-    }
+	public Set<Person> getMembers() {
+		return members;
+	}
 
-    public void setMembers(Set<Person> members) {
-        this.members = members;
-    }
+	public void setMembers(Set<Person> members) {
+		this.members = members;
+	}
 
-    public void addMember(Person person) {
-        this.members.add(person);
-        person.setOrganization(this);
-    }
+	public void addMember(Person person) {
+		this.members.add(person);
+		person.setOrganization(this);
+	}
 
-    public void removeMember(Person person) {
-        this.members.remove(person);
-        person.setOrganization(null);
-    }
+	public void removeMember(Person person) {
+		this.members.remove(person);
+		person.setOrganization(null);
+	}
 }

@@ -16,11 +16,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.annotation.Model;
 
 @Entity
 @Table(name = "person")
-@Model(displayProperty = "nickName")
 public class Person extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;

@@ -74,7 +74,7 @@ public class GtsUI extends BaseUI {
 
         VaadinUtils.storeLocale(new Locale("en"));
 
-        main = new VerticalLayout();
+        main = new DefaultVerticalLayout(false,false);
         setContent(main);
 
         BaseBanner banner = new BaseBanner("../../images/img-logo.png");
