@@ -24,7 +24,7 @@ public class GtsSecurityAdapter extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Dynamo").password("{noop}Dynamo").authorities("user");
+        auth.inMemoryAuthentication().withUser("Dynamo").password("{noop}Dynamo").authorities("user", "admin");
     }
 
     @Override

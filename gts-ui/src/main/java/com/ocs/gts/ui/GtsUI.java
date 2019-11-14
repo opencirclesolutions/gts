@@ -1,32 +1,28 @@
 package com.ocs.gts.ui;
 
-import java.security.Principal;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.ocs.dynamo.service.MessageService;
-import com.ocs.dynamo.ui.BaseUI;
-import com.ocs.dynamo.ui.component.BaseBanner;
-import com.ocs.dynamo.ui.component.DefaultVerticalLayout;
-import com.ocs.dynamo.ui.component.ErrorView;
+import com.ocs.dynamo.ui.UIHelper;
 import com.ocs.dynamo.ui.menu.MenuService;
 import com.ocs.dynamo.ui.utils.VaadinUtils;
-import com.vaadin.annotations.Theme;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.shared.ui.ContentMode;
-import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.spring.annotation.UIScope;
-import com.vaadin.spring.navigator.SpringViewProvider;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
+import com.ocs.gts.domain.Organization;
+import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.Viewport;
+import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.spring.annotation.UIScope;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
 /**
  * Main class
@@ -34,15 +30,14 @@ import com.vaadin.ui.VerticalLayout;
  * @author bas.rutten
  * 
  */
-@SpringUI()
-@Theme("light")
-@SuppressWarnings("serial")
 @UIScope
-public class GtsUI extends BaseUI {
+@Theme(Lumo.class)
+@CssImport("./styles/shared-styles.css")
+@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
+@CssImport("./styles/vaadin-custom-field.html")
+public class GtsUI extends VerticalLayout implements RouterLayout {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GtsUI.class);
-
-    private VerticalLayout main;
+    private static final long serialVersionUID = -4652393330832382449L;
 
     private MenuBar menu;
 
@@ -52,76 +47,63 @@ public class GtsUI extends BaseUI {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private UIHelper uiHelper;
+
     /**
-     * The version number - retrieved from pom file via application.properties
+     * The version number - retrieved from POM file via application.properties
      */
     @Value("${application.version}")
     private String versionNumber;
 
-    private Panel viewPanel;
-
-    @Autowired
-    private SpringViewProvider viewProvider;
-
     /**
      * Main method - sets up the application
      */
-    @Override
-    protected void init(VaadinRequest request) {
-
-        // handle a login
-        Principal principal = request.getUserPrincipal();
+    @PostConstruct
+    protected void init() {
 
         VaadinUtils.storeLocale(new Locale("en"));
+        VaadinUtils.storeDateLocale(new Locale("en"));
 
-        main = new DefaultVerticalLayout(false,false);
-        setContent(main);
+        HorizontalLayout flex = new HorizontalLayout();
+        // flex.setWrapMode(WrapMode.WRAP);
+        flex.setSizeFull();
 
-        BaseBanner banner = new BaseBanner("../../images/img-logo.png");
-        main.addComponent(banner);
+        add(flex);
 
-        // the center block
-        HorizontalLayout hCenter = new HorizontalLayout();
-        banner.addComponent(hCenter);
-
-        VerticalLayout center = new DefaultVerticalLayout(true, false);
-        hCenter.addComponent(center);
-        hCenter.setPrimaryStyleName("");
-        hCenter.setComponentAlignment(center, Alignment.MIDDLE_LEFT);
-        hCenter.setSizeUndefined();
-
-        // user name and logout button
-        VerticalLayout titleLayout = new DefaultVerticalLayout(false, true);
-        center.addComponent(titleLayout);
+        Image image = VaadinUtils.createImage("img-logo.png");
+        flex.add(image);
+        flex.setFlexGrow(2, image);
 
         // first line: application title
-        Label titleLabel = new Label(
-                "<b>" + messageService.getMessage("gts.application.name", VaadinUtils.getLocale()) + " v" + versionNumber + "</b>",
-                ContentMode.HTML);
-        titleLayout.addComponent(titleLabel);
 
-        String userName = principal.getName();
-        titleLayout.addComponent(
-                new Label(messageService.getMessage("gts.logged.in.as", VaadinUtils.getLocale(), userName), ContentMode.HTML));
+        VerticalLayout center = new VerticalLayout();
+        center.setAlignItems(Alignment.CENTER);
+        center.setJustifyContentMode(JustifyContentMode.CENTER);
 
-        banner.setExpandRatio(banner.getImage(), 0.3f);
-        banner.setExpandRatio(hCenter, 2.0f);
-        banner.setComponentAlignment(hCenter, Alignment.MIDDLE_RIGHT);
+        flex.add(center);
+        flex.setFlexGrow(5, center);
 
-        // set up navigation
-        VerticalLayout viewLayout = new VerticalLayout();
-        viewPanel = new Panel();
-        viewPanel.setContent(viewLayout);
+        Text titleLabel = new Text(messageService.getMessage("gts.application.name", VaadinUtils.getLocale()) + " v" + versionNumber);
+        VerticalLayout titleLayout = new VerticalLayout();
+        titleLayout.add(titleLabel);
+        center.add(titleLayout);
 
-        initNavigation(viewProvider, viewPanel, Views.ORGANIZATION_VIEW, true);
-
-        getNavigator().setErrorView(new ErrorView());
+        Text titleLabel2 = new Text("Line2");
+        VerticalLayout titleLayout2 = new VerticalLayout();
+        titleLayout2.add(titleLabel2);
+        center.add(titleLayout2);
 
         // construct the menu
-        menu = menuService.constructMenu("gts.menu", getNavigator());
-        main.addComponent(menu);
+        menu = menuService.constructMenu("gts.menu");
+        add(menu);
 
-        main.addComponent(viewPanel);
+        menuService.setLastVisited(menu, Views.ORGANIZATION_VIEW);
+
+        uiHelper.addEntityNavigationMapping(Organization.class, item -> {
+            uiHelper.setSelectedEntity(item);
+            uiHelper.navigate(Views.ORGANIZATION_VIEW);
+        });
 
     }
 }

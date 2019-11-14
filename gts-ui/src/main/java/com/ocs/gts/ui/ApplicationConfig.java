@@ -13,6 +13,8 @@ import com.ocs.dynamo.functional.domain.QRegion;
 import com.ocs.dynamo.functional.domain.Region;
 import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.service.impl.DefaultServiceImpl;
+import com.ocs.gts.domain.MainActivity;
+import com.ocs.gts.domain.QMainActivity;
 
 /**
  * Spring Boot Java configuration
@@ -50,6 +52,16 @@ public class ApplicationConfig extends ApplicationConfigurationSupport {
     public BaseService<Integer, Country> countryService(BaseDao<Integer, Country> dao) {
         DefaultServiceImpl<Integer, Country> countryService = new DefaultServiceImpl<>(dao, "code");
         return countryService;
+    }
+
+    @Bean
+    public BaseDao<Integer, MainActivity> mainActivityDao() {
+        return new DefaultDaoImpl<>(QMainActivity.mainActivity, MainActivity.class);
+    }
+
+    @Bean
+    public BaseService<Integer, MainActivity> mainActivityService(BaseDao<Integer, MainActivity> dao) {
+        return new DefaultServiceImpl<>(dao, "name");
     }
 
 }

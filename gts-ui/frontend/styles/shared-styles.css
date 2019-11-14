@@ -1,0 +1,29 @@
+vaadin-vertical-layout {
+	margin: 0px;
+	padding-left: 4px;
+	padding-bottom: 4px;
+	padding-right: 4px;
+}
+
+img.imagePreview {
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.ocsDialog {
+	width: 800px !important;
+}
+
+.dialogTitle {
+	background-color: var(- -lumo-primary-color) !important;
+	color: white !important;
+}
+
+vaadin-custom-field div * {
+	margin-right: 4px !important;
+}
+
+div vaadin-button {
+	margin-right: 4px !important;
+}
+

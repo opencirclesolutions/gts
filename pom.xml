@@ -16,26 +16,22 @@
 	<properties>
 		<sonar.language>java</sonar.language>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<aspectj.version>1.9.2</aspectj.version>
-		<com.ocs.dynamo.version>2.1-BOOT-SNAPSHOT</com.ocs.dynamo.version>
-		<confirmdialog.version>3.2.0</confirmdialog.version>
+		<com.ocs.dynamo.version>2.2-SNAPSHOT</com.ocs.dynamo.version>
 		<hibernate.version>5.3.7.Final</hibernate.version>
 		<hibernate.validator.version>6.0.13.Final</hibernate.validator.version>
 		<javax.servlet.version>4.0.0</javax.servlet.version>
 		<junit.version>4.12</junit.version>
 		<querydsl.version>4.2.1</querydsl.version>
 		<spring.version>5.1.5.RELEASE</spring.version>
-		<vaadin.version>8.7.2</vaadin.version>
+		<vaadin.version>14.0.7</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-		<vaadin-spring.version>3.1.1</vaadin-spring.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<com.maven.plugins.apt.version>1.1.3</com.maven.plugins.apt.version>
 		<poi.version>4.0.0</poi.version>
 		<xlsx-streamer.version>2.1.0</xlsx-streamer.version>
 		<spring.boot.version>2.1.3.RELEASE</spring.boot.version>
-		<ecj.version>4.6.1</ecj.version>
 		<commons.lang.version>3.8.1</commons.lang.version>
 		<postgresql.version>42.2.5</postgresql.version>
 		<flyway.version>5.2.4</flyway.version>
@@ -74,39 +70,16 @@
 				<version>${postgresql.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.eclipse.jdt.core.compiler</groupId>
-				<artifactId>ecj</artifactId>
-				<version>${ecj.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.vaadin</groupId>
 				<artifactId>vaadin-spring-boot-starter</artifactId>
-				<version>3.1.1</version>
-				<exclusions>
-					<!-- Exclude onder version of spring boot -->
-					<exclusion>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot</artifactId>
-					</exclusion>
-				</exclusions>
+				<version>${vaadin.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
 				<version>${spring.boot.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.apache.tomcat.embed</groupId>
-						<artifactId>tomcat-embed-websocket</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<!-- Explicitly include newer version of spring-webmvc -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-api</artifactId>
@@ -147,53 +120,18 @@
 				<groupId>com.monitorjbl</groupId>
 				<artifactId>xlsx-streamer</artifactId>
 				<version>${xlsx-streamer.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.poi</groupId>
+						<artifactId>poi-ooxml-schemas</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${javax.servlet.version}</version>
 				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-expression</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${spring.version}</version>
-				<exclusions>
-					<exclusion>
-						<artifactId>commons-logging</artifactId>
-						<groupId>commons-logging</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${spring.version}</version>
 			</dependency>
 			<!-- Aspect -->
 			<dependency>
@@ -290,14 +228,9 @@
 				<version>${junit.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.vaadin.addon</groupId>
-				<artifactId>confirmdialog</artifactId>
-				<version>${confirmdialog.version}</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.flywaydb</groupId>
-			    <artifactId>flyway-core</artifactId>
-			    <version>${flyway.version}</version>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>${flyway.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -312,23 +245,10 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<!-- As we are doing "inplace" GWT compilation, ensure the widgetset -->
-			<!-- directory is cleaned properly -->
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>src/main/webapp/VAADIN/widgetsets</directory>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.4.201502262128</version>
+				<version>0.8.5</version>
 				<executions>
 					<execution>
 						<id>jacoco-initialize</id>
@@ -363,6 +283,11 @@
 					<failOnError>false</failOnError>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -382,7 +307,7 @@
 											jacoco-maven-plugin
 										</artifactId>
 										<versionRange>
-											[0.7.4.201502262128,)
+											[0.8.5,)
 										</versionRange>
 										<goals>
 											<goal>prepare-agent</goal>

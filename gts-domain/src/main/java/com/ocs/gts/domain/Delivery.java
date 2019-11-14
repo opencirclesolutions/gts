@@ -15,87 +15,96 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
+import com.ocs.dynamo.domain.model.annotation.Model;
 
 @Entity
 @Table(name = "delivery")
+@AttributeOrder(attributeNames = { "date", "fromPerson", "toPerson", "gift", "remarks" })
+@Model(displayNamePlural = "Deliveries")
 public class Delivery extends AbstractEntity<Integer> {
 
-	private static final long serialVersionUID = -3362281378174257729L;
+    private static final long serialVersionUID = -3362281378174257729L;
 
-	@Id
-	@SequenceGenerator(name = "delivery_id_gen", sequenceName = "delivery_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "delivery_id_gen")
-	private Integer id;
+    @Id
+    @SequenceGenerator(name = "delivery_id_gen", sequenceName = "delivery_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "delivery_id_gen")
+    private Integer id;
 
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "from_person")
-	private Person fromPerson;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_person")
+    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true)
+    private Person fromPerson;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "to_person")
-	private Person toPerson;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_person")
+    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true)
+    private Person toPerson;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "gift")
-	private Gift gift;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gift")
+    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true)
+    private Gift gift;
 
-	@NotNull
-	private LocalDate date;
+    @NotNull
+    private LocalDate date;
 
-	@Size(max = 255)
-	private String remarks;
+    @Size(max = 255)
+    private String remarks;
 
-	public Person getFromPerson() {
-		return fromPerson;
-	}
+    public Person getFromPerson() {
+        return fromPerson;
+    }
 
-	public void setFromPerson(Person fromPerson) {
-		this.fromPerson = fromPerson;
-	}
+    public void setFromPerson(Person fromPerson) {
+        this.fromPerson = fromPerson;
+    }
 
-	public Person getToPerson() {
-		return toPerson;
-	}
+    public Person getToPerson() {
+        return toPerson;
+    }
 
-	public void setToPerson(Person toPerson) {
-		this.toPerson = toPerson;
-	}
+    public void setToPerson(Person toPerson) {
+        this.toPerson = toPerson;
+    }
 
-	public Gift getGift() {
-		return gift;
-	}
+    public Gift getGift() {
+        return gift;
+    }
 
-	public void setGift(Gift gift) {
-		this.gift = gift;
-	}
+    public void setGift(Gift gift) {
+        this.gift = gift;
+    }
 
-	public LocalDate getDate() {
-		return date;
-	}
+    public LocalDate getDate() {
+        return date;
+    }
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-	public String getRemarks() {
-		return remarks;
-	}
+    public String getRemarks() {
+        return remarks;
+    }
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
 }
