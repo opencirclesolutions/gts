@@ -29,6 +29,7 @@ import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
+import com.ocs.dynamo.domain.model.annotation.Cascade;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
@@ -72,7 +73,7 @@ public class Organization extends AbstractEntity<Integer> {
     @NotNull
     @JoinColumn(name = "country_of_origin")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Attribute(searchable = true, visibleInGrid = VisibilityType.SHOW, complexEditable = true, selectMode = AttributeSelectMode.LOOKUP, multipleSearch = true, navigable = true)
+    @Attribute(searchable = true, visibleInGrid = VisibilityType.SHOW, complexEditable = true, searchSelectMode = AttributeSelectMode.TOKEN, multipleSearch = true, navigable = true)
     private Country countryOfOrigin;
 
     @NotNull
@@ -90,7 +91,7 @@ public class Organization extends AbstractEntity<Integer> {
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    @Attribute(searchable = true, requiredForSearching = true)
+    @Attribute(searchable = true)
     private Reputation reputation;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
@@ -99,12 +100,12 @@ public class Organization extends AbstractEntity<Integer> {
 
     @NotNull
     @Column(name = "last_updated_zone")
-    @Attribute(searchable = true)
+    @Attribute(searchable = true, searchDateOnly = true)
     private ZonedDateTime lastUpdatedZone;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "main_activity_id")
-    @Attribute(searchable = true, quickAddPropertyName = "name", complexEditable = false)
+    @Attribute(searchable = true, quickAddPropertyName = "name", complexEditable = true)
     private MainActivity mainActivity;
 
     @Attribute(url = true)

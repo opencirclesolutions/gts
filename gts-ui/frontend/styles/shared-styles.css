@@ -5,18 +5,29 @@ vaadin-vertical-layout {
 	padding-right: 4px;
 }
 
-img.imagePreview {
+img.dynamoImagePreview {
 	max-width: 100px;
 	max-height: 100px;
 }
 
-.ocsDialog {
+.dynamoDialog {
 	width: 800px !important;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
-.dialogTitle {
-	background-color: var(- -lumo-primary-color) !important;
+.dynamoPanel {
+	border: 1px solid var(--lumo-primary-color) !important;
+	border-radius: 4px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.dynamoDialogTitle {
+	background-color: var(--lumo-primary-color) !important;
 	color: white !important;
+	padding-left: 4px;
+	padding-right: 4px;
 }
 
 vaadin-custom-field div * {
@@ -25,5 +36,18 @@ vaadin-custom-field div * {
 
 div vaadin-button {
 	margin-right: 4px !important;
+}
+
+div.dynamoFlexRow * {
+	margin-right: 4px !important;
+}
+
+img.banner {
+	padding: 10px;
+}
+
+[part~="cell"] ::slotted(vaadin-grid-cell-content) {
+    padding-left: 4px;
+    padding-right: 4px;
 }
 

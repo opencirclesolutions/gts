@@ -35,6 +35,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @CssImport("./styles/shared-styles.css")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 @CssImport("./styles/vaadin-custom-field.html")
+@CssImport("./styles/vaadin-menu-bar.html")
+@CssImport("./styles/vaadin-dialog.html")
 public class GtsUI extends VerticalLayout implements RouterLayout {
 
     private static final long serialVersionUID = -4652393330832382449L;

@@ -2,16 +2,13 @@ const documentContainer = document
         .createElement('template');
 
 documentContainer.innerHTML =
-`<dom-module id="vaadin-custom-field-theme"
-             theme-for="vaadin-custom-field">
+`<dom-module id="vaadin-dialog-overlay-theme"
+             theme-for="vaadin-dialog-overlay">
     <template>
         <style>
-		      .container {
-		        display: flex;
-		        flex-direction: column;
-		        width: 100%;
+		      [part="content"] {
+		      	 padding: 0px !important;
 		      }
-	      
         </style>
     </template>
 </dom-module>`;

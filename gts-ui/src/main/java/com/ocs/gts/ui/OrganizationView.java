@@ -115,6 +115,7 @@ public class OrganizationView extends BaseView {
 //            }
 
         };
+        layout.setGridHeight("600px");
         main.add(layout);
 
         if (getUiHelper().getSelectedEntity() != null) {

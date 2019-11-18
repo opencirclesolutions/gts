@@ -24,7 +24,8 @@ public class PersonDaoImpl extends BaseDaoImpl<Integer, Person> implements Perso
 
     @Override
     protected FetchJoinInformation[] getFetchJoins() {
-        return FetchJoinInformation.of(new FetchJoinInformation("organization"), new FetchJoinInformation("luckyNumbers"));
+        return FetchJoinInformation.of(new FetchJoinInformation("organization"), new FetchJoinInformation("luckyNumbers"),
+                new FetchJoinInformation("countryOfOrigin"));
     }
 
 }

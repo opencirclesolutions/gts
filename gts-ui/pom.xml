@@ -153,7 +153,7 @@
 					<execution>
 						<goals>
 							<goal>prepare-frontend</goal>
-							<goal>build-frontend</goal>
+							<!-- <goal>build-frontend</goal>-->
 						</goals>
 					</execution>
 				</executions>
@@ -196,30 +196,6 @@
 					</images>
 				</configuration>
 			</plugin>
-			<!--  
-			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>fabric8-maven-plugin</artifactId>
-				<version>4.3.1</version>
-				<executions>
-					<execution>
-						<id>fabric8</id>
-						<goals>
-							<goal>resource</goal>
-							<goal>build</goal>
-							<goal>deploy</goal>
-						</goals>
-						<configuration>
-							<images>
-								<image>
-									<name>opencirclesolutions/gts:latest</name>
-								</image>
-							</images>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			-->
 		</plugins>
 		<pluginManagement>
 			<plugins>

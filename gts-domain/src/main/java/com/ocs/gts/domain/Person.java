@@ -24,6 +24,7 @@ import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.dynamo.functional.domain.Country;
 
 @Entity
 @Table(name = "person")
@@ -73,6 +74,12 @@ public class Person extends AbstractEntity<Integer> {
     private LocalDate born;
 
     private LocalDate died;
+
+    @NotNull
+    @JoinColumn(name = "country_of_origin")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Attribute(searchable = true, visibleInGrid = VisibilityType.SHOW, complexEditable = true)
+    private Country countryOfOrigin;
 
     @ElementCollection
     @CollectionTable(name = "person_lucky_numbers")
@@ -134,5 +141,13 @@ public class Person extends AbstractEntity<Integer> {
 
     public void setLuckyNumbers(Set<Integer> luckyNumbers) {
         this.luckyNumbers = luckyNumbers;
+    }
+
+    public Country getCountryOfOrigin() {
+        return countryOfOrigin;
+    }
+
+    public void setCountryOfOrigin(Country countryOfOrigin) {
+        this.countryOfOrigin = countryOfOrigin;
     }
 }
