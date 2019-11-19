@@ -68,7 +68,6 @@ public class GtsUI extends VerticalLayout implements RouterLayout {
         VaadinUtils.storeDateLocale(new Locale("en"));
 
         HorizontalLayout flex = new HorizontalLayout();
-        // flex.setWrapMode(WrapMode.WRAP);
         flex.setSizeFull();
 
         add(flex);
@@ -90,11 +89,6 @@ public class GtsUI extends VerticalLayout implements RouterLayout {
         VerticalLayout titleLayout = new VerticalLayout();
         titleLayout.add(titleLabel);
         center.add(titleLayout);
-
-        Text titleLabel2 = new Text("Line2");
-        VerticalLayout titleLayout2 = new VerticalLayout();
-        titleLayout2.add(titleLabel2);
-        center.add(titleLayout2);
 
         // construct the menu
         menu = menuService.constructMenu("gts.menu");

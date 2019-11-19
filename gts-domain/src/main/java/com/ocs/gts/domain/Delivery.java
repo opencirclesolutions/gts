@@ -15,15 +15,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.VisibilityType;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
-import com.ocs.dynamo.domain.model.annotation.Model;
 
 @Entity
 @Table(name = "delivery")
-@AttributeOrder(attributeNames = { "date", "fromPerson", "toPerson", "gift", "remarks" })
-@Model(displayNamePlural = "Deliveries")
 public class Delivery extends AbstractEntity<Integer> {
 
     private static final long serialVersionUID = -3362281378174257729L;
@@ -46,19 +40,16 @@ public class Delivery extends AbstractEntity<Integer> {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_person")
-    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true)
     private Person fromPerson;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_person")
-    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true)
     private Person toPerson;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gift")
-    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true)
     private Gift gift;
 
     @NotNull

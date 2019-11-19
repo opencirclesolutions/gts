@@ -2,7 +2,6 @@ package com.ocs.gts.domain.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.ocs.dynamo.dao.FetchJoinInformation;
 import com.ocs.dynamo.dao.impl.BaseDaoImpl;
 import com.ocs.gts.domain.Organization;
 import com.ocs.gts.domain.QOrganization;
@@ -24,8 +23,4 @@ public class OrganizationDaoImpl extends BaseDaoImpl<Integer, Organization> impl
         return qOrganization;
     }
 
-    @Override
-    protected FetchJoinInformation[] getFetchJoins() {
-        return FetchJoinInformation.of(new FetchJoinInformation("countryOfOrigin"), new FetchJoinInformation("members"));
-    }
 }

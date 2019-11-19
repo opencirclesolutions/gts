@@ -26,12 +26,6 @@ public class GiftView extends BaseView {
     public void doInit() {
         VerticalLayout main = initLayout();
 
-        // add your code here;
-        EntityModel<Gift> em = getModelFactory().getModel(Gift.class);
-        FormOptions fo = new FormOptions().setShowRemoveButton(true);
-        GiftLayout layout = new GiftLayout(giftService, em, fo, null);
-        layout.setDetailJoins(new FetchJoinInformation[] { new FetchJoinInformation("logo"), new FetchJoinInformation("translations") });
-        main.add(layout);
     }
 
 }

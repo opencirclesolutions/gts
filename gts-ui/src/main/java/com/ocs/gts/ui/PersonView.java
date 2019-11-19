@@ -13,12 +13,13 @@ import com.ocs.gts.service.PersonService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
 @Route(value = Views.PERSON_VIEW, layout = GtsUI.class)
-//@Authorized(roles = { "admin" })
+@PageTitle("Members")
 public class PersonView extends BaseView {
 
     private static final long serialVersionUID = 5368745165020200786L;

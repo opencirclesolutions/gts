@@ -29,28 +29,24 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Integer, Delivery> impl
     @Override
     @Transactional
     public List<Delivery> fetch(Filter filter, FetchJoinInformation... joins) {
-        // TODO Auto-generated method stub
         return super.fetch(filter, joins);
     }
 
     @Override
     @Transactional
     public List<Delivery> fetch(Filter filter, int pageNumber, int pageSize, FetchJoinInformation... joins) {
-        // TODO Auto-generated method stub
         return super.fetch(filter, pageNumber, pageSize, joins);
     }
     
     @Override
     @Transactional
     public List<Delivery> fetch(Filter filter, int pageNumber, int pageSize, SortOrders sortOrders, FetchJoinInformation... joins) {
-        // TODO Auto-generated method stub
         return super.fetch(filter, pageNumber, pageSize, sortOrders, joins);
     }
     
     @Override
     @Transactional
     public List<Delivery> fetch(Filter filter, SortOrders orders, FetchJoinInformation... joins) {
-        // TODO Auto-generated method stub
         return super.fetch(filter, orders, joins);
     }
 }
