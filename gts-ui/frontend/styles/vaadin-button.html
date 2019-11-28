@@ -1,0 +1,17 @@
+const documentContainer = document
+        .createElement('template');
+
+documentContainer.innerHTML =
+`<dom-module id="vaadin-button-theme"
+             theme-for="vaadin-button">
+    <template>
+        <style>
+		      :host(.collapsiblePanelButton) .vaadin-button-container {
+		      	 justify-content: left;
+		      }
+        </style>
+    </template>
+</dom-module>`;
+
+document.head.appendChild(documentContainer.content);
+
