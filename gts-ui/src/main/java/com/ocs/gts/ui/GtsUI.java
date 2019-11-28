@@ -15,7 +15,6 @@ import com.ocs.dynamo.ui.menu.MenuService;
 import com.ocs.dynamo.ui.utils.VaadinUtils;
 import com.ocs.gts.domain.Organization;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Image;
@@ -65,12 +64,6 @@ public class GtsUI extends VerticalLayout implements RouterLayout {
     @Value("${application.version}")
     private String versionNumber;
 
-    @Value("${oauth.service.url}")
-    private String oauthServiceUrl;
-
-    @Value("${security.oauth2.resource.logout-uri}")
-    private String logoutUri;
-
     /**
      * Main method - sets up the application
      */
@@ -111,8 +104,7 @@ public class GtsUI extends VerticalLayout implements RouterLayout {
 
         Button logoutButton = new Button("Logout");
         logoutButton.addClickListener(event -> {
-            // String redirect = logoutUri + "?redirect_uri=" + oauthServiceUrl;
-            UI.getCurrent().getPage().setLocation("/logout");
+            VaadinUtils.showErrorNotification("This functionality has not been implemented");
         });
         rightNested.add(logoutButton);
 

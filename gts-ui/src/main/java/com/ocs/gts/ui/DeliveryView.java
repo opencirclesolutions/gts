@@ -26,9 +26,6 @@ public class DeliveryView extends BaseView {
 
     @Override
     public void doInit(VerticalLayout main) {
-        EntityModel<Delivery> em = getModelFactory().getModel(Delivery.class);
-        EditableGridLayout<Integer, Delivery> layout = new EditableGridLayout<>(deliveryService, em,
-                new FormOptions().setGridEditMode(GridEditMode.SINGLE_ROW), new SortOrder<String>("date", SortDirection.ASCENDING));
-        main.add(layout);
+
     }
 }

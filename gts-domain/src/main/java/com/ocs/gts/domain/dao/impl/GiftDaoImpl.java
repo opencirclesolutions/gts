@@ -12,18 +12,18 @@ import com.querydsl.core.types.dsl.EntityPathBase;
 @Repository("giftDao")
 public class GiftDaoImpl extends BaseDaoImpl<Integer, Gift> implements GiftDao {
 
-    @Override
-    public Class<Gift> getEntityClass() {
-        return Gift.class;
-    }
+	@Override
+	public Class<Gift> getEntityClass() {
+		return Gift.class;
+	}
 
-    @Override
-    protected EntityPathBase<Gift> getDslRoot() {
-        return QGift.gift;
-    }
+	@Override
+	protected EntityPathBase<Gift> getDslRoot() {
+		return QGift.gift;
+	}
 
-    @Override
-    protected FetchJoinInformation[] getFetchJoins() {
-        return new FetchJoinInformation[] { new FetchJoinInformation("translations"), new FetchJoinInformation("logo") };
-    }
+	@Override
+	protected FetchJoinInformation[] getFetchJoins() {
+		return new FetchJoinInformation[] { new FetchJoinInformation("translations") };
+	}
 }

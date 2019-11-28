@@ -1,11 +1,10 @@
 package com.ocs.gts.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
@@ -17,22 +16,20 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
  *
  */
 @EnableWebSecurity
-@EnableOAuth2Sso
 @Configuration
 public class GtsSecurityAdapter extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyBasicAuthenticationEntryPoint entryPoint;
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("Dynamo").password("{noop}Dynamo").authorities("user");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() //
-                .authorizeRequests() //
-                .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll() //
-                .anyRequest().authenticated() //
-                .and(). //
-                logout().logoutUrl("/logout").invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID");
-
+        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic().authenticationEntryPoint(entryPoint);
     }
 
     /**
@@ -44,11 +41,4 @@ public class GtsSecurityAdapter extends WebSecurityConfigurerAdapter {
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");
     }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/VAADIN/**", "/favicon.ico", "/robots.txt", "/manifest.webmanifest", "/sw.js", "/offline-page.html",
-                "/frontend/**", "/webjars/**", "/frontend-es5/**", "/frontend-es6/**");
-    }
-
 }

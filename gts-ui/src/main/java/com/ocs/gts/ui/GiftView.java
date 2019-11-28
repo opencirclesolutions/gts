@@ -25,12 +25,7 @@ public class GiftView extends BaseView {
 
     @Override
     protected void doInit(VerticalLayout main) {
-        EntityModel<Gift> em = getModelFactory().getModel(Gift.class);
-        FormOptions fo = new FormOptions();
-        ServiceBasedSplitLayout<Integer, Gift> layout = new GiftLayout(giftService, em, fo, null);
-        layout.setDetailJoins(new FetchJoinInformation[] { new FetchJoinInformation("logo"), new FetchJoinInformation("translations") });
 
-        main.add(layout);
     }
 
 }

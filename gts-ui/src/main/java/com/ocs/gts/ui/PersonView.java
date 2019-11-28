@@ -38,19 +38,6 @@ public class PersonView extends BaseView {
 
     @Override
     protected void doInit(VerticalLayout main) {
-
-        EntityModel<Person> entityModel = getModelFactory().getModel(Person.class);
-        FormOptions fo = new FormOptions().setScreenMode(ScreenMode.HORIZONTAL).setOpenInViewMode(true).setShowQuickSearchField(true);
-        layout = new ServiceBasedSplitLayout<Integer, Person>(personService, entityModel, QueryType.ID_BASED, fo, null) {
-
-            private static final long serialVersionUID = -2456133540305599906L;
-
-        };
-        main.add(layout);
     }
 
-    @Override
-    protected boolean isEditing() {
-        return layout.isEditing();
-    }
 }

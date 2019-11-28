@@ -2,14 +2,19 @@ const documentContainer = document
         .createElement('template');
 
 documentContainer.innerHTML =
-`<dom-module id="vaadin-button-theme"
-             theme-for="vaadin-button">
+`<dom-module id="vaadin-grid-theme"
+             theme-for="vaadin-grid">
     <template>
         <style>
-		      :host(.collapsiblePanelButton) .vaadin-button-container {
-		      	 justify-content: left;
-		      	 
-		      }
+			.dynamoParentRow {
+				font-weight: bold;
+			}
+			
+			.alignRight {
+				text-align: right;
+			}
+			
+		      
         </style>
     </template>
 </dom-module>`;
