@@ -45,8 +45,6 @@ public class GiftLayout extends ServiceBasedSplitLayout<Integer, Gift> {
             // create the table - notice how we pass the "viewMode" parameter
             DetailsEditGrid<Integer, GiftTranslation> dt = new DetailsEditGrid<Integer, GiftTranslation>(
                     getEntityModelFactory().getModel(GiftTranslation.class), attributeModel, viewMode, fo);
-            dt.setService(giftTranslationService);
-
             dt.setCreateEntitySupplier(() -> {
                 Gift gift = GiftLayout.this.getSelectedItem();
                 GiftTranslation translation = new GiftTranslation();

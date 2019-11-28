@@ -13,8 +13,10 @@ import com.ocs.dynamo.functional.domain.QRegion;
 import com.ocs.dynamo.functional.domain.Region;
 import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.service.impl.DefaultServiceImpl;
+import com.ocs.dynamo.ui.UIHelper;
 import com.ocs.gts.domain.MainActivity;
 import com.ocs.gts.domain.QMainActivity;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 /**
  * Spring Boot Java configuration
@@ -29,7 +31,7 @@ public class ApplicationConfig extends ApplicationConfigurationSupport {
     @Override
     protected String[] getBaseNames() {
         return new String[] { "classpath:/META-INF/entitymodel", "classpath:/menu", "classpath:/ui.messages", "classpath:/ocscommon",
-                "classpath:/ValidationMessages", "classpath:/blcommon" };
+                "classpath:/ValidationMessages" };
     }
 
     @Bean
@@ -64,4 +66,9 @@ public class ApplicationConfig extends ApplicationConfigurationSupport {
         return new DefaultServiceImpl<>(dao, "name");
     }
 
+    @Bean
+    @UIScope
+    public UIHelper uiHelper() {
+        return new UIHelper();
+    }
 }

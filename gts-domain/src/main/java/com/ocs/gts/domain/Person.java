@@ -1,8 +1,12 @@
 package com.ocs.gts.domain;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,9 +20,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.Model;
 
 @Entity
 @Table(name = "person")
+@Model(displayProperty = "nickName")
 public class Person extends AbstractEntity<Integer> {
 
     private static final long serialVersionUID = -3436199710873943375L;
@@ -41,11 +49,13 @@ public class Person extends AbstractEntity<Integer> {
     @NotNull
     @Size(max = 255)
     @Column(name = "first_name")
+    @Attribute(searchable = true)
     private String firstName;
 
     @NotNull
     @Size(max = 255)
     @Column(name = "last_name")
+    @Attribute(searchable = true)
     private String lastName;
 
     @NotNull
@@ -53,14 +63,23 @@ public class Person extends AbstractEntity<Integer> {
     @Column(name = "nickname")
     private String nickName;
 
-    @NotNull
+    //@NotNull
     @JoinColumn(name = "organization")
     @ManyToOne(fetch = FetchType.LAZY)
+    @Attribute(navigable = true, visibleInGrid = VisibilityType.SHOW)
     private Organization organization;
 
+    @Attribute(week = true)
     private LocalDate born;
 
+    @Attribute(week = true)
     private LocalDate died;
+
+    @ElementCollection
+    @CollectionTable(name = "person_lucky_numbers")
+    @Column(name = "lucky_number")
+    @Attribute(complexEditable = true)
+    private Set<Integer> luckyNumbers = new HashSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -108,5 +127,13 @@ public class Person extends AbstractEntity<Integer> {
 
     public void setDied(LocalDate died) {
         this.died = died;
+    }
+
+    public Set<Integer> getLuckyNumbers() {
+        return luckyNumbers;
+    }
+
+    public void setLuckyNumbers(Set<Integer> luckyNumbers) {
+        this.luckyNumbers = luckyNumbers;
     }
 }

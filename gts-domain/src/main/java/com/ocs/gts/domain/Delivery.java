@@ -15,9 +15,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
+import com.ocs.dynamo.domain.model.annotation.Model;
 
 @Entity
 @Table(name = "delivery")
+@AttributeOrder(attributeNames = { "date", "fromPerson", "toPerson", "gift" })
+@Model(displayProperty = "gift", displayNamePlural = "Deliveries")
 public class Delivery extends AbstractEntity<Integer> {
 
     private static final long serialVersionUID = -3362281378174257729L;
@@ -40,15 +47,18 @@ public class Delivery extends AbstractEntity<Integer> {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_person")
+    @Attribute(complexEditable = true, visibleInGrid = VisibilityType.SHOW, replacementSortPath = "fromPerson.nickName", gridSelectMode = AttributeSelectMode.LOOKUP)
     private Person fromPerson;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_person")
+    @Attribute(complexEditable = true, visibleInGrid = VisibilityType.SHOW, replacementSortPath = "toPerson.nickName")
     private Person toPerson;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @Attribute(complexEditable = true, visibleInGrid = VisibilityType.SHOW, replacementSortPath = "gift.name")
     @JoinColumn(name = "gift")
     private Gift gift;
 

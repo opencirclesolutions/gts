@@ -4,24 +4,21 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import com.ocs.dynamo.functional.ui.MultiDomainEditLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
-import com.ocs.dynamo.ui.view.LazyBaseView;
+import com.ocs.dynamo.ui.view.BaseView;
 import com.ocs.gts.domain.MainActivity;
-import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
 @Route(value = Views.DOMAIN_VIEW, layout = GtsUI.class)
-public class DomainView extends LazyBaseView {
+public class DomainView extends BaseView {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -4924496473085429208L;
 
     @Override
-    protected Component build() {
-        @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
+    protected void doInit(VerticalLayout main) {
         MultiDomainEditLayout layout = new MultiDomainEditLayout(new FormOptions().setShowRemoveButton(true),
                 newArrayList(MainActivity.class)) {
 
@@ -31,8 +28,7 @@ public class DomainView extends LazyBaseView {
                 return true;
             }
         };
-
-        return layout;
+        main.add(layout);
     }
 
 }

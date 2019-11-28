@@ -11,6 +11,10 @@ documentContainer.innerHTML =
 		        flex-direction: column;
 		        width: 100%;
 		      }
+		      		      
+		      :host-context([invalid]) [part~="value"] {
+		         background-color: var(--lumo-error-color-10pct);
+		      }
 	      
         </style>
     </template>

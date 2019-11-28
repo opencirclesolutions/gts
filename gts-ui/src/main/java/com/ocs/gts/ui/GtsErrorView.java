@@ -21,16 +21,13 @@ public class GtsErrorView extends BaseView {
     private static final long serialVersionUID = 3955677765990706688L;
 
     @Override
-    public void doInit() {
-        VerticalLayout main = new DefaultVerticalLayout(true, true);
+    protected void doInit(VerticalLayout main) {
 
         VerticalLayout inside = new DefaultVerticalLayout(true, true);
         main.add(inside);
 
         Label errorLabel = new Label(message("ocs.view.unknown"));
         inside.add(errorLabel);
-
-        add(main);
     }
 
 }
