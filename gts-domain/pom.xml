@@ -14,60 +14,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-test</artifactId>
+			<artifactId>dynamo-impl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-functional-domain</artifactId>
 		</dependency>
-		<!-- logging -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-core</artifactId>
+			<groupId>org.dynamoframework</groupId>
+			<artifactId>dynamo-parameter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -90,52 +49,37 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>11</source>
+					<target>11</target>
 				</configuration>
 			</plugin>
 			<!-- Query DSL plugin, generated the QEntity classes -->
 			<plugin>
-				<groupId>com.mysema.maven</groupId>
-				<artifactId>apt-maven-plugin</artifactId>
-				<version>${com.maven.plugins.apt.version}</version>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>3.3.3</version>
 				<executions>
 					<execution>
-						<id>src</id>
-						<phase>generate-sources</phase>
+						<id>process</id>
 						<goals>
 							<goal>process</goal>
 						</goals>
+						<phase>generate-sources</phase>
 						<configuration>
-							<outputDirectory>target/generated-sources/querydsl</outputDirectory>
-							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-						</configuration>
-					</execution>
-					<execution>
-						<id>src-tst</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>test-process</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>target/generated-test-sources/querydsl</outputDirectory>
-							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+							<compilerArguments>-implicit:class</compilerArguments>
+							<processors>
+								<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+							</processors>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<!-- Generate a jar file that contains the test sources -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.querydsl</groupId>
+						<artifactId>querydsl-apt</artifactId>
+						<version>5.0.0</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
