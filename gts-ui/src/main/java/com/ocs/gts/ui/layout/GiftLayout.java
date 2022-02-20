@@ -1,7 +1,6 @@
 package com.ocs.gts.ui.layout;
 
 import com.ocs.dynamo.dao.FetchJoinInformation;
-import com.ocs.dynamo.domain.model.AttributeModel;
 import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.service.BaseService;
 import com.ocs.dynamo.service.ServiceLocatorFactory;
@@ -12,7 +11,6 @@ import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.gts.domain.Gift;
 import com.ocs.gts.domain.GiftTranslation;
 import com.ocs.gts.service.GiftTranslationService;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.data.provider.SortOrder;
 
 /**
@@ -24,40 +22,35 @@ import com.vaadin.flow.data.provider.SortOrder;
  */
 public class GiftLayout extends ServiceBasedSplitLayout<Integer, Gift> {
 
-    private static final long serialVersionUID = -4522636263216539064L;
+	private static final long serialVersionUID = -4522636263216539064L;
 
-    private GiftTranslationService giftTranslationService = ServiceLocatorFactory.getServiceLocator()
-            .getService(GiftTranslationService.class);
+	private GiftTranslationService giftTranslationService = ServiceLocatorFactory.getServiceLocator()
+			.getService(GiftTranslationService.class);
 
-    public GiftLayout(BaseService<Integer, Gift> service, EntityModel<Gift> entityModel, FormOptions formOptions, SortOrder<?> sortOrder,
-            FetchJoinInformation... joins) {
-        super(service, entityModel, QueryType.ID_BASED, formOptions, sortOrder, joins);
-    }
+	public GiftLayout(BaseService<Integer, Gift> service, EntityModel<Gift> entityModel, FormOptions formOptions,
+			SortOrder<?> sortOrder, FetchJoinInformation... joins) {
+		super(service, entityModel, QueryType.ID_BASED, formOptions, sortOrder, joins);
+		addCustomField("translations", context -> {
+			FormOptions fo = new FormOptions().setShowRemoveButton(true);
 
-    @Override
-    protected Component constructCustomField(EntityModel<Gift> entityModel, AttributeModel attributeModel, boolean viewMode,
-            boolean searchMode) {
+			// create the table - notice how we pass the "viewMode" parameter
+			DetailsEditGrid<Integer, GiftTranslation> dt = new DetailsEditGrid<Integer, GiftTranslation>(
+					getEntityModelFactory().getModel(GiftTranslation.class), context.getAttributeModel(),
+					context.isViewMode(), fo);
+			dt.setService(giftTranslationService);
+			dt.setCreateEntitySupplier(() -> {
+				Gift gift = GiftLayout.this.getSelectedItem();
+				GiftTranslation translation = new GiftTranslation();
+				gift.addTranslation(translation);
+				return translation;
+			});
+			dt.setRemoveEntityConsumer(t -> {
+				Gift gift = GiftLayout.this.getSelectedItem();
+				gift.removeTranslation(t);
+			});
 
-        // add custom field for the "translations" attribute
-        if ("translations".equals(attributeModel.getName())) {
-            FormOptions fo = new FormOptions().setShowRemoveButton(true);
+			return dt;
+		});
+	}
 
-            // create the table - notice how we pass the "viewMode" parameter
-            DetailsEditGrid<Integer, GiftTranslation> dt = new DetailsEditGrid<Integer, GiftTranslation>(
-                    getEntityModelFactory().getModel(GiftTranslation.class), attributeModel, viewMode, fo);
-            dt.setCreateEntitySupplier(() -> {
-                Gift gift = GiftLayout.this.getSelectedItem();
-                GiftTranslation translation = new GiftTranslation();
-                gift.addTranslation(translation);
-                return translation;
-            });
-            dt.setRemoveEntityConsumer(t -> {
-                Gift gift = GiftLayout.this.getSelectedItem();
-                gift.removeTranslation(t);
-            });
-
-            return dt;
-        }
-        return null;
-    }
 };

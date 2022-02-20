@@ -2,19 +2,10 @@ package com.ocs.gts.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ocs.dynamo.domain.model.AttributeModel;
-import com.ocs.dynamo.domain.model.EntityModel;
-import com.ocs.dynamo.filter.EqualsPredicate;
-import com.ocs.dynamo.ui.component.ServiceBasedDetailsEditGrid;
-import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.ServiceBasedSplitLayout;
-import com.ocs.dynamo.ui.composite.type.ScreenMode;
-import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
-import com.ocs.gts.domain.Organization;
 import com.ocs.gts.domain.Person;
 import com.ocs.gts.service.PersonService;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -33,7 +24,7 @@ public class PersonView extends BaseView {
     private ServiceBasedSplitLayout<Integer, Person> layout;
 
     public PersonView() {
-        super(true);
+        super(true, false);
     }
 
     @Override

@@ -1,6 +1,6 @@
 vaadin-vertical-layout {
 	margin: 0px;
-	padding-left: 4px;
+	padding-left: 0px;
 	padding-bottom: 4px;
 	padding-right: 4px;
 }
@@ -47,11 +47,75 @@ img.banner {
 }
 
 [part~="cell"] ::slotted(vaadin-grid-cell-content) {
-    padding-left: 4px;
-    padding-right: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
 }
 
 .collapsiblePanelButton {
 	background-color: var(--lumo-primary-color);
 	color: white;
 }
+
+[theme~="padding"] {
+	padding: var(--lumo-space-s);
+}
+
+[theme~="margin"] {
+	margin: var(--lumo-space-s);
+}
+
+body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+.splitLayoutLeft {
+	padding-top: 15px;
+}
+
+.splitLayoutRight {
+	padding-top: 15px;
+}
+
+.dynamoDialog .simpleEditLayout {
+	padding-top: 15px;
+}
+
+.dynamoFlexRow {
+	height: 60px;
+}
+
+div.dynamoFlexRow * {
+	margin-right: 0.5rem !important;
+}
+
+.flexRemoveButton {
+	margin-top: 36px;
+}
+
+/*
+ dynamoPanel
+ */
+.dynamoPanelTitle {
+    color: var(--lumo-contrast-color);
+    padding: 0.4rem;
+    background: var(--lumo-primary-color);
+}
+
+.dynamoPanel {
+    border: 1px solid var(--lumo-primary-color) !important;
+    border-radius: 0.14rem;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.dynamoPanel > :not(.dynamoPanelTitle) {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.gridDetailsPanel {
+  border: 2px solid var(--lumo-primary-color);
+  border-radius: 5px;
+}
+
