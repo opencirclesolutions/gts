@@ -17,8 +17,13 @@ import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "person")
+@Getter
+@Setter
 public class Person extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -27,16 +32,6 @@ public class Person extends AbstractEntity<Integer> {
 	@SequenceGenerator(name = "person_id_gen", sequenceName = "person_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_id_gen")
 	private Integer id;
-
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	@NotNull
 	@Size(max = 255)
@@ -62,51 +57,4 @@ public class Person extends AbstractEntity<Integer> {
 
 	private LocalDate died;
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
-	public Organization getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
-	}
-
-	public LocalDate getBorn() {
-		return born;
-	}
-
-	public void setBorn(LocalDate born) {
-		this.born = born;
-	}
-
-	public LocalDate getDied() {
-		return died;
-	}
-
-	public void setDied(LocalDate died) {
-		this.died = died;
-	}
 }

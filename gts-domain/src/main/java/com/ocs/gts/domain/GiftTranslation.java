@@ -2,6 +2,9 @@ package com.ocs.gts.domain;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +24,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "gift_translations")
+@Getter
+@Setter
 public class GiftTranslation extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = 1600667730778955026L;
@@ -39,40 +44,6 @@ public class GiftTranslation extends AbstractEntity<Integer> {
 
 	@NotNull
 	private String language;
-
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Gift getGift() {
-		return gift;
-	}
-
-	public void setGift(Gift gift) {
-		this.gift = gift;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
 
 	@Override
 	public int hashCode() {

@@ -14,9 +14,14 @@ import com.ocs.dynamo.domain.model.EditableType;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Embeddable
 @Entity
 @Table(name = "gift_logo")
+@Getter
+@Setter
 public class GiftLogo extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -8668064619628599752L;
@@ -32,31 +37,5 @@ public class GiftLogo extends AbstractEntity<Integer> {
 	// hide in table to prevent fetch issues
 	@Attribute(editable = EditableType.READ_ONLY, visibleInGrid = VisibilityType.HIDE)
 	private String fileName;
-
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
 
 }

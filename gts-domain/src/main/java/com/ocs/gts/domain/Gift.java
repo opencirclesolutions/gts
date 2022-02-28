@@ -22,6 +22,9 @@ import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * An expensive gift
  * 
@@ -31,6 +34,8 @@ import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 @Entity
 @Table(name = "gift")
 @AttributeOrder(attributeNames = { "name", "description" })
+@Getter
+@Setter
 public class Gift extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -64,15 +69,6 @@ public class Gift extends AbstractEntity<Integer> {
 		translation.setGift(this);
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
-
 	public GiftLogo getLogo() {
 		if (logo == null) {
 			logo = new GiftLogo();
@@ -80,37 +76,9 @@ public class Gift extends AbstractEntity<Integer> {
 		return logo;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public Set<GiftTranslation> getTranslations() {
-		return translations;
-	}
-
 	public void removeTranslation(GiftTranslation translation) {
 		this.translations.remove(translation);
 		translation.setGift(null);
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public void setLogo(GiftLogo logo) {
-		this.logo = logo;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setTranslations(Set<GiftTranslation> translations) {
-		this.translations = translations;
-	}
 }

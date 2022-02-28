@@ -301,6 +301,7 @@ CREATE TABLE organization
 	yearly_mortality_rate NUMERIC(18,9),
 	reputation           VARCHAR(100) NULL,
 	url 				 VARCHAR(255),
+	main_activity        INTEGER NULL,
 	PRIMARY KEY (id)
 );
 
@@ -319,6 +320,9 @@ DELETE FROM organization;
 
 ALTER TABLE organization
 ADD CONSTRAINT fk_organization_domain FOREIGN KEY (country_of_origin) REFERENCES domain(id) ON DELETE CASCADE;
+
+ALTER TABLE organization
+ADD CONSTRAINT fk_organization_main_activity FOREIGN KEY (main_activity) REFERENCES domain(id) ON DELETE CASCADE;
 
 INSERT INTO organization(name,headquarters,address,country_of_origin, member_count, government_sponsored, yearly_mortality_rate, reputation, version)
   VALUES ('CamelCase Camorra', 'Vinnies Pizzeria', '25 Vina Del Mar', (select id from domain where code = 'ITA' and type = 'COUNTRY'),434, true, 3.4, 'FEARSOME', 0);

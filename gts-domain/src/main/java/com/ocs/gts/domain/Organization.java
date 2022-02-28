@@ -25,6 +25,9 @@ import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * A criminal organization operating in Javapolis
  * 
@@ -34,6 +37,8 @@ import com.ocs.gts.domain.type.Reputation;
 @Entity
 @Table(name = "organization")
 @Model(displayProperty = "name")
+@Getter
+@Setter
 public class Organization extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -75,88 +80,6 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
 	private Set<Person> members = new HashSet<>();
-
-	public String getAddress() {
-		return address;
-	}
-
-	public Country getCountryOfOrigin() {
-		return countryOfOrigin;
-	}
-
-	public Boolean getGovernmentSponsored() {
-		return governmentSponsored;
-	}
-
-	public String getHeadQuarters() {
-		return headQuarters;
-	}
-
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	public Integer getMemberCount() {
-		return memberCount;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Reputation getReputation() {
-		return reputation;
-	}
-
-	public BigDecimal getYearlyMortalityRate() {
-		return yearlyMortalityRate;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public void setCountryOfOrigin(Country countryOfOrigin) {
-		this.countryOfOrigin = countryOfOrigin;
-	}
-
-	public void setGovernmentSponsored(Boolean governmentSponsored) {
-		this.governmentSponsored = governmentSponsored;
-	}
-
-	public void setHeadQuarters(String headQuarters) {
-		this.headQuarters = headQuarters;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public void setMemberCount(Integer memberCount) {
-		this.memberCount = memberCount;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setReputation(Reputation reputation) {
-		this.reputation = reputation;
-	}
-
-	public void setYearlyMortalityRate(BigDecimal yearlyMortalityRate) {
-		this.yearlyMortalityRate = yearlyMortalityRate;
-	}
-
-	public Set<Person> getMembers() {
-		return members;
-	}
-
-	public void setMembers(Set<Person> members) {
-		this.members = members;
-	}
 
 	public void addMember(Person person) {
 		this.members.add(person);
