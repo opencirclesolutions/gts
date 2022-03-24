@@ -13,11 +13,6 @@
 	</parent>
 	<dependencies>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-envers</artifactId>
-			<version>5.6.5.Final</version>
-		</dependency>
-		<dependency>
 			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-impl</artifactId>
 		</dependency>
@@ -28,10 +23,6 @@
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-parameter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-envers</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>

@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.envers.Audited;
-
 import com.ocs.dynamo.domain.AbstractEntity;
 
 import lombok.Getter;
@@ -26,7 +24,6 @@ import lombok.Setter;
 @Table(name = "person")
 @Getter
 @Setter
-@Audited
 public class Person extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;

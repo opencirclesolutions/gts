@@ -3,12 +3,8 @@ package com.ocs.gts.domain;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.RelationTargetAuditMode;
-
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.functional.domain.Domain;
-
 
 @Entity
 @DiscriminatorValue("MAIN_ACTIVITY")

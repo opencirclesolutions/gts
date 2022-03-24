@@ -20,20 +20,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.RelationTargetAuditMode;
-
 import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.AttributeSelectMode;
-import com.ocs.dynamo.domain.model.AttributeTextFieldMode;
-import com.ocs.dynamo.domain.model.BooleanType;
-import com.ocs.dynamo.domain.model.NumberFieldMode;
-import com.ocs.dynamo.domain.model.TrimType;
-import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
 import com.ocs.dynamo.domain.model.annotation.Model;
-import com.ocs.dynamo.domain.model.annotation.SearchMode;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
 
@@ -46,7 +36,6 @@ import lombok.Setter;
  * @author bas.rutten
  *
  */
-@Audited
 @Entity
 @Table(name = "organization")
 @Model(displayProperty = "name")
@@ -66,30 +55,23 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@NotNull
 	@Size(max = 255)
-	@Attribute(searchable = SearchMode.ALWAYS, showPassword = true, trimSpaces = TrimType.TRIM, textFieldMode = AttributeTextFieldMode.PASSWORD, clearButtonVisible = BooleanType.TRUE)
 	private String name;
 
 	@NotNull
 	@Size(max = 255)
-	@Attribute(searchable = SearchMode.ALWAYS)
 	private String headQuarters;
 
 	@NotNull
 	@Size(max = 255)
-	@Attribute(searchable = SearchMode.ALWAYS)
 	private String address;
 
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(complexEditable = true, quickAddAllowed = true, selectMode = AttributeSelectMode.LOOKUP, 
-			visibleInGrid = VisibilityType.SHOW)
-	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private Country countryOfOrigin;
 
 	@NotNull
 	@Column(name = "member_count")
-	@Attribute(numberFieldMode = NumberFieldMode.NUMBERFIELD, searchable = SearchMode.ALWAYS)
 	private Integer memberCount;
 
 	@Column(name = "government_sponsored")
@@ -107,10 +89,7 @@ public class Organization extends AbstractEntity<Integer> {
 
 	@JoinColumn(name = "main_activity")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@Attribute(quickAddAllowed = true, complexEditable = true, searchable = SearchMode.ALWAYS, visibleInGrid = VisibilityType.SHOW, multipleSearch = true, searchSelectMode = AttributeSelectMode.TOKEN)
-	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private MainActivity mainActivity;
-	
 
 	public void addMember(Person person) {
 		this.members.add(person);

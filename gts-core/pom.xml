@@ -33,10 +33,6 @@
 			<artifactId>dynamo-functional-domain</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.dynamoframework</groupId>
-			<artifactId>dynamo-envers</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>

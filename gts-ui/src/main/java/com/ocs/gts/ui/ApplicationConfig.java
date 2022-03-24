@@ -24,8 +24,8 @@ import com.vaadin.flow.spring.annotation.UIScope;
  * @author Bas Rutten
  *
  */
-@ComponentScan(basePackages = { "com.ocs.gts", "com.ocs.dynamo", " com.ocs.dynamo.envers.domain" })
-@EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain", "com.ocs.dynamo.envers.domain" })
+@ComponentScan(basePackages = { "com.ocs.gts", "com.ocs.dynamo" })
+@EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain" })
 public class ApplicationConfig extends ApplicationConfigurationSupport {
 
 	@Override

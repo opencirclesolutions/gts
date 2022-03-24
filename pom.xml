@@ -182,7 +182,7 @@
 				<artifactId>lombok</artifactId>
 				<version>1.18.22</version>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-envers</artifactId>
 				<version>${com.ocs.dynamo.version}</version>
@@ -196,6 +196,7 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-envers</artifactId>
 			</dependency>
+						-->
 		</dependencies>
 	</dependencyManagement>
 	<build>
