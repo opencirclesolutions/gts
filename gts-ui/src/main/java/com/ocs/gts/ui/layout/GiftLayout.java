@@ -38,13 +38,13 @@ public class GiftLayout extends ServiceBasedSplitLayout<Integer, Gift> {
 					getEntityModelFactory().getModel(GiftTranslation.class), context.getAttributeModel(),
 					context.isViewMode(), fo);
 			dt.setService(giftTranslationService);
-			dt.setCreateEntitySupplier(() -> {
+			dt.setCreateEntity(() -> {
 				Gift gift = GiftLayout.this.getSelectedItem();
 				GiftTranslation translation = new GiftTranslation();
 				gift.addTranslation(translation);
 				return translation;
 			});
-			dt.setRemoveEntityConsumer(t -> {
+			dt.setRemoveEntity(t -> {
 				Gift gift = GiftLayout.this.getSelectedItem();
 				gift.removeTranslation(t);
 			});

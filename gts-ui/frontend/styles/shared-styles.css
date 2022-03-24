@@ -119,3 +119,7 @@ div.dynamoFlexRow * {
   border-radius: 5px;
 }
 
+.horizontalMenuButton {
+  color: var(--lumo-secondary-text-color);
+}
+

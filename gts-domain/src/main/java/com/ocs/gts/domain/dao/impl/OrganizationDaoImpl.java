@@ -23,4 +23,10 @@ public class OrganizationDaoImpl extends BaseDaoImpl<Integer, Organization> impl
 		return qOrganization;
 	}
 
+//	@Override
+//	protected FetchJoinInformation[] getFetchJoins() {
+//		return FetchJoinInformation.of(new FetchJoinInformation("countryOfOrigin"),
+//				new FetchJoinInformation("mainActivity"), new FetchJoinInformation("members"));
+//	}
+
 }

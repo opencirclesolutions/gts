@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-            
+                                    
+    
+    
+    
+    
+    
+    
     
     <wb-module deploy-name="gts-ui">
-                        
+                                                                        
+        
+        
+        
+        
+        
+        
         
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                        
+                                                                        
+        
+        
+        
+        
+        
+        
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                        
+                                                                        
+        
+        
+        
+        
+        
+        
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                        
+                                                                        
+        
+        
+        
+        
+        
+        
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <dependent-module archiveName="dynamo-frontend-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-frontend/dynamo-frontend">
@@ -35,15 +65,45 @@
         <dependent-module archiveName="dynamo-parameter-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-parameter/dynamo-parameter">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-                        
+        <dependent-module archiveName="dynamo-envers-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-envers/dynamo-envers">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="dynamo-envers-frontend-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-envers-frontend/dynamo-envers-frontend">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                                                                        
+        
+        
+        
+        
+        
+        
         
         <property name="context-root" value="gts-ui"/>
-                        
+                                                                        
+        
+        
+        
+        
+        
+        
         
         <property name="java-output-path" value="/gts-ui/target/classes"/>
-                    
+                                                                    
+    
+    
+    
+    
+    
+    
     
     </wb-module>
-        
+                                
+
+
+
+
+
+
 
 </project-modules>

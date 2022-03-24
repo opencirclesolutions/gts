@@ -24,51 +24,51 @@ import com.vaadin.flow.spring.annotation.UIScope;
  * @author Bas Rutten
  *
  */
-@ComponentScan(basePackages = { "com.ocs.gts", "com.ocs.dynamo" })
-@EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain" })
+@ComponentScan(basePackages = { "com.ocs.gts", "com.ocs.dynamo", " com.ocs.dynamo.envers.domain" })
+@EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain", "com.ocs.dynamo.envers.domain" })
 public class ApplicationConfig extends ApplicationConfigurationSupport {
 
-    @Override
-    protected String[] getBaseNames() {
-        return new String[] { "classpath:/META-INF/entitymodel", "classpath:/menu", "classpath:/ui.messages", "classpath:/ocscommon",
-                "classpath:/ValidationMessages" };
-    }
+	@Override
+	protected String[] getBaseNames() {
+		return new String[] { "classpath:/META-INF/entitymodel", "classpath:/menu", "classpath:/ui.messages",
+				"classpath:/ocscommon", "classpath:/ValidationMessages" };
+	}
 
-    @Bean
-    public BaseDao<Integer, Region> regionDao() {
-        return new DefaultDaoImpl<>(QRegion.region, Region.class);
-    }
+	@Bean
+	public BaseDao<Integer, Region> regionDao() {
+		return new DefaultDaoImpl<>(QRegion.region, Region.class);
+	}
 
-    @Bean
-    public BaseService<Integer, Region> regionService(BaseDao<Integer, Region> regionDao) {
-        DefaultServiceImpl<Integer, Region> regionService = new DefaultServiceImpl<>(regionDao, "code");
-        return regionService;
-    }
+	@Bean
+	public BaseService<Integer, Region> regionService(BaseDao<Integer, Region> regionDao) {
+		DefaultServiceImpl<Integer, Region> regionService = new DefaultServiceImpl<>(regionDao, "code");
+		return regionService;
+	}
 
-    @Bean
-    public BaseDao<Integer, Country> countryDao() {
-        return new DefaultDaoImpl<>(QCountry.country, Country.class, "parent");
-    }
+	@Bean
+	public BaseDao<Integer, Country> countryDao() {
+		return new DefaultDaoImpl<>(QCountry.country, Country.class, "parent");
+	}
 
-    @Bean
-    public BaseService<Integer, Country> countryService(BaseDao<Integer, Country> dao) {
-        DefaultServiceImpl<Integer, Country> countryService = new DefaultServiceImpl<>(dao, "code");
-        return countryService;
-    }
+	@Bean
+	public BaseService<Integer, Country> countryService(BaseDao<Integer, Country> dao) {
+		DefaultServiceImpl<Integer, Country> countryService = new DefaultServiceImpl<>(dao, "code");
+		return countryService;
+	}
 
-    @Bean
-    public BaseDao<Integer, MainActivity> mainActivityDao() {
-        return new DefaultDaoImpl<>(QMainActivity.mainActivity, MainActivity.class);
-    }
+	@Bean
+	public BaseDao<Integer, MainActivity> mainActivityDao() {
+		return new DefaultDaoImpl<>(QMainActivity.mainActivity, MainActivity.class);
+	}
 
-    @Bean
-    public BaseService<Integer, MainActivity> mainActivityService(BaseDao<Integer, MainActivity> dao) {
-        return new DefaultServiceImpl<>(dao, "name");
-    }
+	@Bean
+	public BaseService<Integer, MainActivity> mainActivityService(BaseDao<Integer, MainActivity> dao) {
+		return new DefaultServiceImpl<>(dao, "name");
+	}
 
-    @Bean
-    @UIScope
-    public UIHelper uiHelper() {
-        return new UIHelper();
-    }
+	@Bean
+	@UIScope
+	public UIHelper uiHelper() {
+		return new UIHelper();
+	}
 }
