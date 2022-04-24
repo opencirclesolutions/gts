@@ -17,7 +17,7 @@
 		<sonar.language>java</sonar.language>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<com.ocs.dynamo.version>2.10-SNAPSHOT</com.ocs.dynamo.version>
+		<com.ocs.dynamo.version>2.10</com.ocs.dynamo.version>
 		<javax.servlet.version>4.0.0</javax.servlet.version>
 		<querydsl.version>5.0.0</querydsl.version>
 		<vaadin.version>14.8.1</vaadin.version>

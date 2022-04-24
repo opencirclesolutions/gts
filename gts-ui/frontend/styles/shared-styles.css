@@ -123,3 +123,7 @@ div.dynamoFlexRow * {
   color: var(--lumo-secondary-text-color);
 }
 
+.quickSearchField {
+	margin-right: 5px;
+}
+

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                                        
+                                                
+    
+    
     
     
     
@@ -9,7 +11,9 @@
     
     
     <wb-module deploy-name="gts-ui">
-                                                                                
+                                                                                                
+        
+        
         
         
         
@@ -19,7 +23,9 @@
         
         
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                                                                                
+                                                                                                
+        
+        
         
         
         
@@ -29,7 +35,9 @@
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                                                                                
+                                                                                                
+        
+        
         
         
         
@@ -39,7 +47,9 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                                                                                
+                                                                                                
+        
+        
         
         
         
@@ -49,28 +59,15 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="dynamo-frontend-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-frontend/dynamo-frontend">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="dynamo-api-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-api/dynamo-api">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="dynamo-impl-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-impl/dynamo-impl">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="gts-core-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gts-core/gts-core">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="dynamo-functional-domain-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-functional-domain/dynamo-functional-domain">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="gts-domain-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gts-domain/gts-domain">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="dynamo-parameter-2.10-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dynamo-parameter/dynamo-parameter">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-                                                                                
+                                                                                                
+        
+        
         
         
         
@@ -80,7 +77,9 @@
         
         
         <property name="context-root" value="gts-ui"/>
-                                                                                
+                                                                                                
+        
+        
         
         
         
@@ -90,7 +89,9 @@
         
         
         <property name="java-output-path" value="/gts-ui/target/classes"/>
-                                                                            
+                                                                                            
+    
+    
     
     
     
@@ -100,7 +101,9 @@
     
     
     </wb-module>
-                                    
+                                            
+
+
 
 
 

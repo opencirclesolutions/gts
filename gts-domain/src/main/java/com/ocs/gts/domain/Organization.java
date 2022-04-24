@@ -22,7 +22,6 @@ import javax.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
@@ -41,9 +40,6 @@ import lombok.Setter;
 @Model(displayProperty = "name")
 @Getter
 @Setter
-@AttributeGroup(messageKey = "organization.first", attributeNames = { "name", "address", "headQuarters",
-		"countryOfOrigin" })
-@AttributeGroup(messageKey = "organization.second", attributeNames = { "reputation" })
 public class Organization extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
