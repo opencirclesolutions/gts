@@ -1,1 +1,7 @@
 /target/
+/bin/
+/node_modules/
+.project
+.eclipse
+.idea/
+*.iml
