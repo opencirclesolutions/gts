@@ -1,3 +1,7 @@
 /target/
 /gts-ui/node_modules
 /gts-ui/webpack.generated.js
+.project
+.idea/
+.settings/
+.classpath/

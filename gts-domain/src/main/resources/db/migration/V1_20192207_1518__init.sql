@@ -365,49 +365,49 @@ ADD CONSTRAINT fk_person_organisation FOREIGN KEY (organization) REFERENCES orga
 DELETE FROM person;
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Giovanni','Genarro', 'Generic', 0, (select id from organization where name = 'CamelCase Camorra'), '14-02-1952', null);
+   ('Giovanni','Genarro', 'Generic', 0, (select id from organization where name = 'CamelCase Camorra'), '1952-02-14', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Vinnie','Vicenzo', 'The Vector', 0, (select id from organization where name = 'CamelCase Camorra'), '01-04-1963', null);
+   ('Vinnie','Vicenzo', 'The Vector', 0, (select id from organization where name = 'CamelCase Camorra'), '1963-04-01', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Rudolfo','Renzi', 'Red Hat', 0, (select id from organization where name = 'CamelCase Camorra'), '01-07-1940', null);
+   ('Rudolfo','Renzi', 'Red Hat', 0, (select id from organization where name = 'CamelCase Camorra'), '1940-07-01', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Nicky','Nicoletti', 'The Nullpointer', 0, (select id from organization where name = 'Coda Nostra'), '12-10-1937', null);
+   ('Nicky','Nicoletti', 'The Nullpointer', 0, (select id from organization where name = 'Coda Nostra'), '1937-10-12', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Eros','Enoldi', 'Exceptional', 0, (select id from organization where name = 'Coda Nostra'), '12-03-1975', null);
+   ('Eros','Enoldi', 'Exceptional', 0, (select id from organization where name = 'Coda Nostra'), '1975-03-12', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Dicky','Danza', 'Deadlock', 0, (select id from organization where name = 'Coda Nostra'), '12-04-1984', null);
+   ('Dicky','Danza', 'Deadlock', 0, (select id from organization where name = 'Coda Nostra'), '1984-04-12', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Billie', 'Boid', 'Binary', 0, (select id from organization where name = 'Garbage Collection Gang'), '03-02-1939', null);
+   ('Billie', 'Boid', 'Binary', 0, (select id from organization where name = 'Garbage Collection Gang'), '1939-02-03', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Stephen', 'Sommersby', 'Stack Overflow', 0, (select id from organization where name = 'Garbage Collection Gang'), '03-02-1939', null);
+   ('Stephen', 'Sommersby', 'Stack Overflow', 0, (select id from organization where name = 'Garbage Collection Gang'), '1939-02-11', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Hank', 'Hendrix', 'Heap Space', 0, (select id from organization where name = 'Garbage Collection Gang'), '01-08-1955', null);
+   ('Hank', 'Hendrix', 'Heap Space', 0, (select id from organization where name = 'Garbage Collection Gang'), '1955-08-04', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Manuel', 'Manolo', 'Read the f*cking Manual', 0, (select id from organization where name = 'Los Pollos Hermanos'), '01-08-1984', null);
+   ('Manuel', 'Manolo', 'Read the f*cking Manual', 0, (select id from organization where name = 'Los Pollos Hermanos'), '1984-08-08', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Octavio', 'Octaviani', 'Open Source', 0, (select id from organization where name = 'Los Pollos Hermanos'), '04-05-1974', null);
+   ('Octavio', 'Octaviani', 'Open Source', 0, (select id from organization where name = 'Los Pollos Hermanos'), '1974-05-04', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Hector', 'Delgado', 'The Hacker', 0, (select id from organization where name = 'Los Pollos Hermanos'), '10-08-1980', null);
+   ('Hector', 'Delgado', 'The Hacker', 0, (select id from organization where name = 'Los Pollos Hermanos'), '1980-08-10', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Pipo', 'Peters', 'Pipo' ,0, (select id from organization where name = 'Horror Clown Consortium'), '01-01-1945', null);
+   ('Pipo', 'Peters', 'Pipo' ,0, (select id from organization where name = 'Horror Clown Consortium'), '1945-01-01', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('Bassie', 'Van Toor', 'Allemenaggies', 0, (select id from organization where name = 'Horror Clown Consortium'), '06-05-1971', null);
+   ('Bassie', 'Van Toor', 'Allemenaggies', 0, (select id from organization where name = 'Horror Clown Consortium'), '1971-05-06', null);
 
 INSERT INTO person(first_name, last_name, nickname, version, organization, born, died) VALUES 
-   ('William', 'Wartaal', 'Wallace', 0, (select id from organization where name = 'Horror Clown Consortium'), '01-01-1965', null);
+   ('William', 'Wartaal', 'Wallace', 0, (select id from organization where name = 'Horror Clown Consortium'), '1965-01-01', null);
 
 CREATE TABLE gift
 (

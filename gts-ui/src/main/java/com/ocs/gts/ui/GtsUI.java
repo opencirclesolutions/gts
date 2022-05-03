@@ -30,9 +30,9 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 /**
  * Main class
- * 
+ *
  * @author bas.rutten
- * 
+ *
  */
 @UIScope
 @Theme(Lumo.class)
@@ -78,7 +78,8 @@ public class GtsUI extends VerticalLayout implements RouterLayout {
 
         add(flex);
 
-        Image image = VaadinUtils.createImage("img-logo.png");
+        Image image = new Image("frontend/images/img-logo.png", "This is the logo");
+
         flex.add(image);
         flex.setFlexGrow(2, image);
 

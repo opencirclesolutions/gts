@@ -1,7 +1,7 @@
 /target/
 /bin/
-/node_modules/
 .project
-.eclipse
+.classpath
 .idea/
 *.iml
+.settings/

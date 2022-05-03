@@ -1,6 +1,7 @@
 /target/
 /bin/
 .project
-.eclipse
+.classpath
 .idea/
 *.iml
+.settings/
