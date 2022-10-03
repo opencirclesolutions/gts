@@ -17,6 +17,8 @@ import com.ocs.dynamo.ui.UIHelper;
 import com.ocs.gts.domain.MainActivity;
 import com.ocs.gts.domain.QMainActivity;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Spring Boot Java configuration
@@ -26,6 +28,8 @@ import com.vaadin.flow.spring.annotation.UIScope;
  */
 @ComponentScan(basePackages = { "com.ocs.gts", "com.ocs.dynamo" })
 @EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain" })
+@EnableWebMvc
+@Configuration
 public class ApplicationConfig extends ApplicationConfigurationSupport {
 
 	@Override
@@ -52,8 +56,7 @@ public class ApplicationConfig extends ApplicationConfigurationSupport {
 
 	@Bean
 	public BaseService<Integer, Country> countryService(BaseDao<Integer, Country> dao) {
-		DefaultServiceImpl<Integer, Country> countryService = new DefaultServiceImpl<>(dao, "code");
-		return countryService;
+		return new DefaultServiceImpl<>(dao, "code");
 	}
 
 	@Bean

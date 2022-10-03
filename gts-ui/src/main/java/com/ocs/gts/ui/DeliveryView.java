@@ -1,5 +1,6 @@
 package com.ocs.gts.ui;
 
+import com.vaadin.flow.router.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ocs.dynamo.domain.model.EntityModel;
@@ -17,6 +18,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
 @Route(value = Views.DELIVERY_VIEW, layout = GtsUI.class)
+@PageTitle("Deliveries")
 public class DeliveryView extends BaseView {
 
     @Autowired
@@ -26,6 +28,9 @@ public class DeliveryView extends BaseView {
 
     @Override
     public void doInit(VerticalLayout main) {
-
+        EntityModel<Delivery> em = getModelFactory().getModel(Delivery.class);
+        FormOptions fo = new FormOptions().setShowRemoveButton(true);
+        EditableGridLayout<Integer, Delivery> layout = new EditableGridLayout<>(deliveryService, em, fo, null);
+        main.add(layout);
     }
 }
