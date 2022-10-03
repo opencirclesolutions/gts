@@ -1,5 +1,6 @@
 package com.ocs.gts.domain.dao.impl;
 
+import com.ocs.dynamo.dao.FetchJoinInformation;
 import org.springframework.stereotype.Repository;
 
 import com.ocs.dynamo.dao.impl.BaseDaoImpl;
@@ -19,6 +20,11 @@ public class PersonDaoImpl extends BaseDaoImpl<Integer, Person> implements Perso
 	@Override
 	protected EntityPathBase<Person> getDslRoot() {
 		return QPerson.person;
+	}
+
+	@Override
+	protected FetchJoinInformation[] getFetchJoins() {
+		return FetchJoinInformation.of(new FetchJoinInformation("organization"), new FetchJoinInformation("luckyNumbers"));
 	}
 
 }

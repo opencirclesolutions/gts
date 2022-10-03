@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * Security adapter
@@ -17,19 +18,19 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
  */
 @EnableWebSecurity
 @Configuration
-public class GtsSecurityAdapter extends WebSecurityConfigurerAdapter {
+public class GtsSecurityAdapter {
 
     @Autowired
     private MyBasicAuthenticationEntryPoint entryPoint;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Dynamo").password("{noop}Dynamo").authorities("user");
+        auth.inMemoryAuthentication().withUser("Dynamo").password("{noop}Dynamo").authorities("user", "admin", "super");
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic().authenticationEntryPoint(entryPoint);
+    @Bean
+    public SecurityFilterChain restFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic().authenticationEntryPoint(entryPoint).and().build();
     }
 
     /**

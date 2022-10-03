@@ -2,6 +2,7 @@ package com.ocs.gts.domain;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 
+import com.ocs.dynamo.domain.model.annotation.Model;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "gift_translations")
+@Model(displayProperty = "gift")
 @Getter
 @Setter
 public class GiftTranslation extends AbstractEntity<Integer> {

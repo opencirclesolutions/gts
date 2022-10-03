@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 
+import com.vaadin.flow.server.VaadinRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -35,14 +36,6 @@ import com.vaadin.flow.theme.lumo.Lumo;
  *
  */
 @UIScope
-@Theme(Lumo.class)
-@CssImport("./styles/shared-styles.css")
-@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-@CssImport("./styles/vaadin-custom-field.html")
-@CssImport("./styles/vaadin-menu-bar.html")
-@CssImport("./styles/vaadin-dialog.html")
-@CssImport("./styles/vaadin-button.html")
-@PreserveOnRefresh
 public class GtsUI extends VerticalLayout implements RouterLayout {
 
     private static final long serialVersionUID = -4652393330832382449L;
@@ -69,19 +62,19 @@ public class GtsUI extends VerticalLayout implements RouterLayout {
      */
     @PostConstruct
     protected void init() {
-
-        VaadinUtils.storeLocale(new Locale("en"));
-        VaadinUtils.storeDateLocale(new Locale("en"));
+        System.out.println(new Locale(VaadinRequest.getCurrent().getLocale().toString()));
+        VaadinUtils.storeLocale(new Locale(VaadinRequest.getCurrent().getLocale().toString()));
+        VaadinUtils.storeDateLocale(new Locale(VaadinRequest.getCurrent().getLocale().toString()));
 
         HorizontalLayout flex = new HorizontalLayout();
         flex.setSizeFull();
 
         add(flex);
 
-        Image image = new Image("frontend/images/img-logo.png", "This is the logo");
-
-        flex.add(image);
-        flex.setFlexGrow(2, image);
+//        Image image = new Image("frontend/images/img-logo.png", "This is the logo");
+//
+//        flex.add(image);
+//        flex.setFlexGrow(2, image);
 
         VerticalLayout center = new VerticalLayout();
         center.setAlignItems(Alignment.CENTER);
