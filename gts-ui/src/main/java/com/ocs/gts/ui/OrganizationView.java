@@ -2,7 +2,6 @@ package com.ocs.gts.ui;
 
 import com.google.common.collect.Lists;
 import com.ocs.dynamo.domain.model.EntityModel;
-import com.ocs.dynamo.ui.composite.layout.FlexibleSearchLayout;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.provider.QueryType;
@@ -38,7 +37,7 @@ public class OrganizationView extends BaseView {
         EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
         FormOptions fo = new FormOptions().setShowRemoveButton(true);
         SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
-                QueryType.ID_BASED, fo, null);
+                                                                                    QueryType.ID_BASED, fo, null);
         layout.addCustomField("address", context -> {
             ComboBox<String> cb = new ComboBox<>(
                     context.getAttributeModel().getDisplayName(VaadinUtils.getLocale())

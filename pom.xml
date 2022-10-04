@@ -14,29 +14,110 @@
 		<module>gts-ui</module>
 	</modules>
 	<properties>
+		<java.version>17</java.version>
 		<sonar.language>java</sonar.language>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.compiler.version>17</project.build.compiler.version>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<dynamo.version>2.12.2-SNAPSHOT</dynamo.version>
-		<javax.servlet.version>4.0.0</javax.servlet.version>
+		<dynamo.version>3.0.0-SNAPSHOT</dynamo.version>
+		<jakarta.servlet.version>4.0.0</jakarta.servlet.version>
 		<querydsl.version>5.0.0</querydsl.version>
-		<vaadin.version>23.0.9</vaadin.version>
+		<vaadin.version>23.2.2</vaadin.version>
+		<flow.version>24.0.0.alpha1</flow.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<com.maven.plugins.apt.version>1.1.3</com.maven.plugins.apt.version>
 		<poi.version>4.1.2</poi.version>
 		<xlsx-streamer.version>2.2.0</xlsx-streamer.version>
-		<spring.boot.version>2.7.1</spring.boot.version>
+		<spring.boot.version>3.0.0-M5</spring.boot.version>
 		<commons.lang.version>3.12.0</commons.lang.version>
 		<postgresql.version>42.2.24</postgresql.version>
 		<flyway.version>8.4.0</flyway.version>
+		<org.apache.maven.plugins.compiler.version>3.8.1</org.apache.maven.plugins.compiler.version>
+		<org.apache.maven.plugins.jar.version>3.2.1</org.apache.maven.plugins.jar.version>
+		<org.apache.maven.plugins.source.version>3.2.1</org.apache.maven.plugins.source.version>
+		<org.apache.maven.plugins.javadoc.version>3.3.1</org.apache.maven.plugins.javadoc.version>
+		<org.apache.maven.plugins.release.version>3.0.0-M1</org.apache.maven.plugins.release.version>
+		<org.apache.maven.plugins.checkstyle.version>3.1.2</org.apache.maven.plugins.checkstyle.version>
+		<org.apache.maven.plugins.gpg.version>1.6</org.apache.maven.plugins.gpg.version>
 	</properties>
 	<repositories>
 		<repository>
+			<id>central</id>
+			<name>Maven Central Repository</name>
+			<layout>default</layout>
+			<url>https://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>apache</id>
+			<name>Apache Maven Repository</name>
+			<layout>default</layout>
+			<url>https://repo.maven.apache.org/maven/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>vaadin-prereleases</id>
+			<url>
+				https://maven.vaadin.com/vaadin-prereleases/
+			</url>
+		</repository>
+		<repository>
 			<id>vaadin-addons</id>
 			<url>https://maven.vaadin.com/vaadin-addons</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>apache snapshots</id>
+			<url>https://repository.apache.org/content/repositories/snapshots</url>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>vaadin-prereleases</id>
+			<url>
+				https://maven.vaadin.com/vaadin-prereleases/
+			</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -58,6 +139,13 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.vaadin</groupId>
+				<artifactId>flow-bom</artifactId>
+				<version>${flow.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -150,19 +238,74 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+			<dependency>
+				<groupId>jakarte.servlet</groupId>
+				<artifactId>jakarte.servlet-api</artifactId>
+				<version>${jakarte.servlet.version}</version>
+				<scope>provided</scope>
+			</dependency>
+<!--			<dependency>-->
+<!--				<groupId>org.vaadin.gatanaso</groupId>-->
+<!--				<artifactId>multiselect-combo-box-flow</artifactId>-->
+<!--				<version>4.0.0-rc2</version>-->
+<!--			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>11</source>
-					<target>11</target>
-				</configuration>
-			</plugin>
+			<resources>
+				<resource>
+					<directory>src/main/resources</directory>
+					<filtering>true</filtering>
+				</resource>
+			</resources>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>17</source>
+						<target>17</target>
+					</configuration>
+				</plugin>
+				<!-- Query DSL plugin, generated the QEntity classes -->
+<!--				<plugin>-->
+<!--					<groupId>com.mysema.maven</groupId>-->
+<!--					<artifactId>apt-maven-plugin</artifactId>-->
+<!--					<version>${com.maven.plugins.apt.version}</version>-->
+<!--					<executions>-->
+<!--						<execution>-->
+<!--							<id>src</id>-->
+<!--							<phase>generate-sources</phase>-->
+<!--							<goals>-->
+<!--								<goal>process</goal>-->
+<!--							</goals>-->
+<!--							<configuration>-->
+<!--								<outputDirectory>target/generated-sources/querydsl</outputDirectory>-->
+<!--								<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>-->
+<!--							</configuration>-->
+<!--						</execution>-->
+<!--						<execution>-->
+<!--							<id>src-tst</id>-->
+<!--							<phase>generate-test-sources</phase>-->
+<!--							<goals>-->
+<!--								<goal>test-process</goal>-->
+<!--							</goals>-->
+<!--							<configuration>-->
+<!--								<outputDirectory>target/generated-test-sources/querydsl</outputDirectory>-->
+<!--								<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>-->
+<!--							</configuration>-->
+<!--						</execution>-->
+<!--					</executions>-->
+<!--				</plugin>-->
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<version>3.3</version>-->
+<!--				<configuration>-->
+<!--					<source>11</source>-->
+<!--					<target>11</target>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>

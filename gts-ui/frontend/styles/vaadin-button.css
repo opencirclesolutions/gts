@@ -1,0 +1,5 @@
+:host(.collapsiblePanelButton) .vaadin-button-container {
+    justify-content: left;
+}
+
+

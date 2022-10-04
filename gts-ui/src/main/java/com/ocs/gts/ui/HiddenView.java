@@ -2,7 +2,8 @@ package com.ocs.gts.ui;
 
 import java.util.ArrayList;
 
-import org.vaadin.gatanaso.MultiselectComboBox;
+//import org.vaadin.gatanaso.MultiselectComboBox;
+
 
 import com.ocs.dynamo.ui.auth.Authorized;
 import com.ocs.dynamo.ui.component.EntityTokenSelect;
@@ -11,6 +12,7 @@ import com.ocs.gts.domain.Organization;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
+import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 
 @UIScope
 @Route(value = "hidden")
@@ -22,7 +24,7 @@ public class HiddenView extends BaseView {
     @Override
     protected void doInit(VerticalLayout main) {
         VerticalLayout layout = new VerticalLayout();
-        layout.add(new MultiselectComboBox<>());
+        layout.add(new MultiSelectComboBox<>());
         layout.add(new EntityTokenSelect<Integer, Organization>(getModelFactory().getModel(Organization.class), null, new ArrayList<>()));
     }
 
