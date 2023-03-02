@@ -35,97 +35,92 @@ import com.vaadin.flow.theme.lumo.Lumo;
  *
  */
 @UIScope
-@Theme(Lumo.class)
-@CssImport("./styles/shared-styles.css")
-@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-@CssImport("./styles/vaadin-custom-field.html")
-@CssImport("./styles/vaadin-menu-bar.html")
-@CssImport("./styles/vaadin-dialog.html")
-@CssImport("./styles/vaadin-button.html")
 @PreserveOnRefresh
 public class GtsUI extends VerticalLayout implements RouterLayout {
 
-    private static final long serialVersionUID = -4652393330832382449L;
+	private static final long serialVersionUID = -4652393330832382449L;
 
-    private MenuBar menu;
+	private MenuBar menu;
 
-    @Autowired
-    private MenuService menuService;
+	@Autowired
+	private MenuService menuService;
 
-    @Autowired
-    private MessageService messageService;
+	@Autowired
+	private MessageService messageService;
 
-    @Autowired
-    private UIHelper uiHelper;
+	@Autowired
+	private UIHelper uiHelper;
 
-    /**
-     * The version number - retrieved from POM file via application.properties
-     */
-    @Value("${application.version}")
-    private String versionNumber;
+	/**
+	 * The version number - retrieved from POM file via application.properties
+	 */
+	@Value("${application.version}")
+	private String versionNumber;
 
-    /**
-     * Main method - sets up the application
-     */
-    @PostConstruct
-    protected void init() {
+	/**
+	 * Main method - sets up the application
+	 */
+	@PostConstruct
+	protected void init() {
 
-        VaadinUtils.storeLocale(new Locale("en"));
-        VaadinUtils.storeDateLocale(new Locale("en"));
+		VaadinUtils.storeLocale(new Locale("en"));
+		VaadinUtils.storeDateLocale(new Locale("nl"));
 
-        HorizontalLayout flex = new HorizontalLayout();
-        flex.setSizeFull();
+		HorizontalLayout flex = new HorizontalLayout();
+		flex.setSizeFull();
 
-        add(flex);
+		add(flex);
 
-        Image image = new Image("frontend/images/img-logo.png", "This is the logo");
+		Image image = new Image("frontend/images/img-logo.png", "This is the logo");
+		// Image image = VaadinUtils.createImage("img-logo.png");
 
-        flex.add(image);
-        flex.setFlexGrow(2, image);
+		flex.add(image);
+		flex.setFlexGrow(2, image);
 
-        VerticalLayout center = new VerticalLayout();
-        center.setAlignItems(Alignment.CENTER);
-        center.setJustifyContentMode(JustifyContentMode.CENTER);
+		VerticalLayout center = new VerticalLayout();
+		center.setAlignItems(Alignment.CENTER);
+		center.setJustifyContentMode(JustifyContentMode.CENTER);
 
-        flex.add(center);
-        flex.setFlexGrow(5, center);
+		flex.add(center);
+		flex.setFlexGrow(5, center);
 
-        Text titleLabel = new Text(messageService.getMessage("gts.application.name", VaadinUtils.getLocale()) + " v" + versionNumber);
-        VerticalLayout titleLayout = new VerticalLayout();
-        titleLayout.add(titleLabel);
-        center.add(titleLayout);
+		Text titleLabel = new Text(
+				messageService.getMessage("gts.application.name", VaadinUtils.getLocale()) + " v" + versionNumber);
+		VerticalLayout titleLayout = new VerticalLayout();
+		titleLayout.add(titleLabel);
+		center.add(titleLayout);
 
-        HorizontalLayout rightLayout = new DefaultHorizontalLayout(false, false);
-        flex.add(rightLayout);
-        rightLayout.setJustifyContentMode(JustifyContentMode.END);
+		HorizontalLayout rightLayout = new DefaultHorizontalLayout(false, false);
+		flex.add(rightLayout);
+		rightLayout.setJustifyContentMode(JustifyContentMode.END);
 
-        VerticalLayout rightNested = new DefaultVerticalLayout(false, true);
-        rightNested.setWidth("400px");
-        rightLayout.add(rightNested);
+		VerticalLayout rightNested = new DefaultVerticalLayout(false, true);
+		rightNested.setWidth("400px");
+		rightLayout.add(rightNested);
 
-        Button logoutButton = new Button("Logout");
-        logoutButton.addClickListener(event -> {
-            VaadinUtils.showErrorNotification("This functionality has not been implemented");
-        });
-        rightNested.add(logoutButton);
+		Button logoutButton = new Button("Logout");
+		logoutButton.addClickListener(event -> {
+			VaadinUtils.showErrorNotification("This functionality has not been implemented");
+		});
+		rightNested.add(logoutButton);
 
-        // construct the menu
-        menu = menuService.constructMenu("gts.menu");
-        add(menu);
-        uiHelper.setMenuBar(menu);
+		// construct the menu
+		menu = menuService.constructMenu("gts.menu");
+		add(menu);
+		uiHelper.setMenuBar(menu);
 
-        menuService.setLastVisited(menu, Views.ORGANIZATION_VIEW);
+		menuService.setLastVisited(menu, Views.ORGANIZATION_VIEW);
 
-        uiHelper.addEntityNavigationMapping(Organization.class, item -> {
-            uiHelper.setSelectedEntity(item);
-            uiHelper.navigate(Views.ORGANIZATION_VIEW);
-            uiHelper.clearState();
-        });
+		uiHelper.addEntityNavigationMapping(Organization.class, item -> {
+			uiHelper.setSelectedEntity(item);
+			uiHelper.navigate(Views.ORGANIZATION_VIEW);
+			uiHelper.clearState();
+		});
 
-    }
+	}
 
-    public MenuBar getMenu() {
-        return menu;
-    }
+	public MenuBar getMenu() {
+		return menu;
+	}
 
 }
