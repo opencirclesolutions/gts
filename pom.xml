@@ -27,7 +27,7 @@
 		<xlsx-streamer.version>2.1.0</xlsx-streamer.version>
 		<spring.boot.version>2.7.3</spring.boot.version>
 		<commons.lang.version>3.12.0</commons.lang.version>
-		<postgresql.version>42.5.0</postgresql.version>
+		<postgresql.version>42.5.1</postgresql.version>
 		<flyway.version>9.3.0</flyway.version>
 	</properties>
 	<repositories>
