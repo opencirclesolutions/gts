@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ocs.dynamo.domain.model.PagingMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -70,7 +71,7 @@ public class Organization extends AbstractEntity<Integer> {
     @NotNull
     @JoinColumn(name = "country_of_origin")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Attribute(visibleInGrid = VisibilityType.SHOW, searchable = SearchMode.ALWAYS, selectMode = AttributeSelectMode.LOOKUP, complexEditable = true)
+    @Attribute(visibleInGrid = VisibilityType.SHOW, searchable = SearchMode.ALWAYS, selectMode = AttributeSelectMode.LIST, complexEditable = true, searchSelectMode = AttributeSelectMode.LIST, pagingMode = PagingMode.PAGED)
     private Country countryOfOrigin;
 
     @NotNull

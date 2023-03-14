@@ -45,7 +45,7 @@ public class OrganizationView extends BaseView {
             ListDataProvider<String> dataProvider = new ListDataProvider<>(
                     Lists.newArrayList("1234 Palomita Boulevard", "5678 Horseshoe Road")
             );
-            cb.setDataProvider(dataProvider);
+            cb.setItems(dataProvider);
             cb.setRequiredIndicatorVisible(true);
             return cb;
         });

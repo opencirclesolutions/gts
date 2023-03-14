@@ -2,7 +2,6 @@ package com.ocs.gts.ui;
 
 import java.util.ArrayList;
 
-//import org.vaadin.gatanaso.MultiselectComboBox;
 
 
 import com.ocs.dynamo.ui.auth.Authorized;
