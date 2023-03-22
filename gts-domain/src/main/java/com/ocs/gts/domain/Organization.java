@@ -23,6 +23,8 @@ import jakarta.validation.constraints.Size;
 
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.BooleanType;
+import com.ocs.dynamo.domain.model.CascadeMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.*;
 import com.ocs.dynamo.functional.domain.Country;
@@ -39,9 +41,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "organization")
 @Model(displayProperty = "name")
-@AttributeGroup(messageKey = "organization.first", attributeNames = { "name", "address", "headQuarters", "countryOfOrigin" })
-@AttributeGroup(messageKey = "organization.second", attributeNames = { "reputation" })
-@AttributeOrder(attributeNames = { "name", "headQuarters", "address", "countryOfOrigin", "reputation" })
+//@AttributeGroup(messageKey = "organization.first", attributeNames = { "name", "address", "headQuarters", "countryOfOrigin" })
+//@AttributeGroup(messageKey = "organization.second", attributeNames = { "reputation" })
+//@AttributeOrder(attributeNames = { "name", "headQuarters", "address", "countryOfOrigin", "reputation" })
 @Getter
 @Setter
 public class Organization extends AbstractEntity<Integer> {
@@ -55,49 +57,51 @@ public class Organization extends AbstractEntity<Integer> {
 
     @NotNull
     @Size(max = 255)
-    @Attribute(searchable = SearchMode.ALWAYS)
+    @Attribute(searchable = SearchMode.NONE, searchPrefixOnly = BooleanType.FALSE)
     private String name;
 
     @NotNull
     @Size(max = 255)
-    @Attribute(searchable = SearchMode.ALWAYS, displayName = "Headquarters", groupTogetherWith = "address")
+    @Attribute(searchable = SearchMode.NONE, displayName = "Headquarters", groupTogetherWith = "address")
     private String headQuarters;
 
     @NotNull
     @Size(max = 255)
-    @Attribute(searchable = SearchMode.ALWAYS)
+    @Attribute(searchable = SearchMode.NONE)
     private String address;
 
     @NotNull
     @JoinColumn(name = "country_of_origin")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Attribute(visibleInGrid = VisibilityType.SHOW, searchable = SearchMode.ALWAYS, selectMode = AttributeSelectMode.LIST, complexEditable = true, searchSelectMode = AttributeSelectMode.LIST, pagingMode = PagingMode.PAGED)
+    @Attribute(visibleInGrid = VisibilityType.SHOW, searchable = SearchMode.NONE, selectMode = AttributeSelectMode.COMBO, complexEditable = true, searchSelectMode = AttributeSelectMode.LIST, pagingMode = PagingMode.NON_PAGED, 
+    quickAddAllowed = true, cascade = @Cascade(cascadeTo = "members", filterPath = "countryOfOrigin",mode = CascadeMode.SEARCH), replacementSearchPath = "countryOfOrigin.name")
     private Country countryOfOrigin;
 
     @NotNull
     @Column(name = "member_count")
-    @Attribute(searchable = SearchMode.ALWAYS)
+    @Attribute(searchable = SearchMode.NONE)
     private Integer memberCount;
 
     @Column(name = "government_sponsored")
-    @Attribute(searchable = SearchMode.ALWAYS)
+    @Attribute(searchable = SearchMode.NONE)
     private Boolean governmentSponsored = Boolean.FALSE;
 
     @Column(name = "yearly_mortality_rate")
-    @Attribute(searchable = SearchMode.ALWAYS, defaultValue = "100.00")
+    @Attribute(searchable = SearchMode.NONE, defaultValue = "100.00")
     private BigDecimal yearlyMortalityRate;
 
     @Enumerated(EnumType.STRING)
-    @Attribute(searchable = SearchMode.ALWAYS)
+    @Attribute(searchable = SearchMode.NONE)
     private Reputation reputation;
 
-    @Attribute(quickAddAllowed = true, complexEditable = true, searchable = SearchMode.ALWAYS, searchSelectMode = AttributeSelectMode.LOOKUP)
+    @Attribute(quickAddAllowed = true, complexEditable = true, searchable = SearchMode.NONE, searchSelectMode = AttributeSelectMode.TOKEN)
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     private Set<Person> members = new HashSet<>();
 
     @JoinColumn(name = "main_activity")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Attribute(quickAddAllowed = true, complexEditable = true, searchable = SearchMode.ALWAYS, visibleInGrid = VisibilityType.SHOW, multipleSearch = true, searchSelectMode = AttributeSelectMode.TOKEN)
+    @Attribute(quickAddAllowed = true, complexEditable = true, searchable = SearchMode.NONE, visibleInGrid = VisibilityType.SHOW, multipleSearch = true, selectMode = AttributeSelectMode.COMBO, 
+    replacementSortPath = "mainActivity.name", pagingMode = PagingMode.PAGED)
     private MainActivity mainActivity;
 
     @Attribute(url = true)

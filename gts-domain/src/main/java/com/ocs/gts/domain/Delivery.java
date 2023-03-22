@@ -1,6 +1,7 @@
 package com.ocs.gts.domain;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.PagingMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
@@ -31,7 +32,7 @@ public class Delivery extends AbstractEntity<Integer> {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_person")
-    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true)
+    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true, pagingMode = PagingMode.NON_PAGED)
     private Person fromPerson;
 
     @NotNull

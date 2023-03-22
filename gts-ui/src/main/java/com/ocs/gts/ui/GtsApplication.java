@@ -19,21 +19,24 @@ import org.springframework.context.annotation.Import;
  * @author Bas Rutten
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.ocs.gts"})
-@EntityScan(basePackages = {"com.ocs.gts.domain", "com.ocs.dynamo.functional.domain", "om.ocs.dynamo.envers.listener"})
+@ComponentScan(basePackages = { "com.ocs.gts" })
+@EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain",
+		"om.ocs.dynamo.envers.listener" })
 @Theme(themeClass = Lumo.class)
-@CssImport("./styles/shared-styles.css")
+//@CssImport("./styles/shared-styles.css")
+//@CssImport("./styles/vaadin-custom-field.css")
+//@CssImport("./styles/vaadin-menu-bar.css")
+//@CssImport("./styles/vaadin-dialog.css")
+//@CssImport("./styles/vaadin-button.css")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-@CssImport("./styles/vaadin-custom-field.css")
-@CssImport("./styles/vaadin-menu-bar.css")
-@CssImport("./styles/vaadin-dialog.css")
-@CssImport("./styles/vaadin-button.css")
 @PreserveOnRefresh
 @Import(ApplicationConfig.class)
 public class GtsApplication extends SpringBootServletInitializer implements AppShellConfigurator {
 
-    public static void main(String[] args) {
-        SpringApplication.run(GtsApplication.class, args);
-    }
+	private static final long serialVersionUID = -2461957363779869974L;
+
+	public static void main(String[] args) {
+		SpringApplication.run(GtsApplication.class, args);
+	}
 
 }

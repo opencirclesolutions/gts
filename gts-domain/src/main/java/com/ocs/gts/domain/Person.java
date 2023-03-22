@@ -1,24 +1,37 @@
 package com.ocs.gts.domain;
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.ocs.dynamo.domain.AbstractEntity;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.domain.model.annotation.SearchMode;
+import com.ocs.dynamo.functional.domain.Country;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "person")
-@Model(displayProperty = "firstName")
+@Model(displayProperty = "fullName")
 @AttributeOrder(attributeNames = {"firstName", "lastName", "nickName", "born", "died"})
 @Getter
 @Setter
@@ -64,5 +77,16 @@ public class Person extends AbstractEntity<Integer> {
     private LocalDate born;
 
     private LocalDate died;
+    
+    @NotNull
+    @JoinColumn(name = "country_of_origin")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Attribute(complexEditable = true)
+    private Country countryOfOrigin;
+    
+    @Attribute(visible = VisibilityType.HIDE)
+    public String getFullName() {
+    	return firstName + " \"" + nickName + "\" " + lastName; 
+    }
 
 }

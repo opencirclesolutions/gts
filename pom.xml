@@ -23,7 +23,6 @@
 		<jakarta.servlet.version>4.0.0</jakarta.servlet.version>
 		<querydsl.version>5.0.0</querydsl.version>
 		<vaadin.version>24.0.0</vaadin.version>
-<!--		<flow.version>24.0.0</flow.version>-->
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<com.maven.plugins.apt.version>1.1.3</com.maven.plugins.apt.version>
@@ -84,6 +83,10 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/</url>
 		</repository>
 	</repositories>
 

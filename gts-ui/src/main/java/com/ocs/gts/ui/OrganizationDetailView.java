@@ -1,13 +1,13 @@
 package com.ocs.gts.ui;
 
-import com.ocs.dynamo.filter.ContainsPredicate;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ocs.dynamo.domain.model.EntityModel;
 import com.ocs.dynamo.filter.EqualsPredicate;
+import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.ServiceBasedDetailLayout;
 import com.ocs.dynamo.ui.composite.layout.SimpleEditLayout;
 import com.ocs.dynamo.ui.composite.layout.TabLayout;
-
-import com.ocs.dynamo.domain.model.EntityModel;
-import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
 import com.ocs.gts.domain.Delivery;
@@ -21,8 +21,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 
 @UIScope
 @Route(value = Views.ORGANIZATION_DETAIL_VIEW, layout = GtsUI.class)

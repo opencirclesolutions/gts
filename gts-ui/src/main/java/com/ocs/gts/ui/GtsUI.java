@@ -2,9 +2,6 @@ package com.ocs.gts.ui;
 
 import java.util.Locale;
 
-import jakarta.annotation.PostConstruct;
-
-import com.vaadin.flow.server.VaadinRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -17,17 +14,14 @@ import com.ocs.dynamo.ui.utils.VaadinUtils;
 import com.ocs.gts.domain.Organization;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.Viewport;
-import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.spring.annotation.UIScope;
-import com.vaadin.flow.theme.Theme;
-import com.vaadin.flow.theme.lumo.Lumo;
+
+import jakarta.annotation.PostConstruct;
 
 /**
  * Main class
