@@ -1,0 +1,6 @@
+= Gift Tracker System - Dynamo framework training
+
+The Gift Tracking System supports learning to use the https://dynamoframework.org[Dynamo framework].
+
+The training manual can be found xref:gts-documentation/index.adoc[here].
+
