@@ -6,6 +6,7 @@ import com.ocs.dynamo.service.UserDetailsService;
 import com.ocs.dynamo.ui.auth.Authorized;
 import com.ocs.dynamo.ui.composite.layout.FormOptions;
 import com.ocs.dynamo.ui.composite.layout.ServiceBasedSplitLayout;
+import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
 import com.ocs.dynamo.ui.provider.QueryType;
 import com.ocs.dynamo.ui.view.BaseView;
 import com.ocs.gts.domain.Person;
@@ -38,10 +39,10 @@ public class PersonView extends BaseView {
     @Override
     protected void doInit(VerticalLayout main) {
         EntityModel<Person> em = getModelFactory().getModel(Person.class);
-        FormOptions fo = new FormOptions().setShowSplitLayoutSearchButton(true);
-        ServiceBasedSplitLayout<Integer, Person> layout = new ServiceBasedSplitLayout<>(personService,
+        FormOptions fo = new FormOptions().setShowSplitLayoutSearchButton(true).setOpenInViewMode(true);
+        SimpleSearchLayout<Integer, Person> layout = new SimpleSearchLayout<>(personService,
                 em, QueryType.ID_BASED, fo, null);
-        layout.setQuickSearchFilterCreator(text -> new LikePredicate<>("firstName", "%" + text + "%", false));
+        //layout.setQuickSearchFilterCreator(text -> new LikePredicate<>("firstName", "%" + text + "%", false));
         layout.setPostProcessMainButtonBar(buttonBar -> {
             Button notificationButton = new Button("Show name");
             notificationButton.addClickListener(event -> {

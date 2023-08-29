@@ -23,11 +23,11 @@ import org.springframework.context.annotation.Import;
 @EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain",
 		"om.ocs.dynamo.envers.listener" })
 @Theme(themeClass = Lumo.class)
-//@CssImport("./styles/shared-styles.css")
-//@CssImport("./styles/vaadin-custom-field.css")
-//@CssImport("./styles/vaadin-menu-bar.css")
-//@CssImport("./styles/vaadin-dialog.css")
-//@CssImport("./styles/vaadin-button.css")
+@CssImport("./styles/shared-styles.css")
+@CssImport("./styles/vaadin-custom-field.css")
+@CssImport("./styles/vaadin-menu-bar.css")
+@CssImport("./styles/vaadin-dialog.css")
+@CssImport("./styles/vaadin-button.css")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 @PreserveOnRefresh
 @Import(ApplicationConfig.class)

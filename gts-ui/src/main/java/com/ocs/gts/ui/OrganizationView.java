@@ -38,7 +38,7 @@ public class OrganizationView extends BaseView {
     @Override
     protected void doInit(VerticalLayout main) {
         EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-        FormOptions fo = new FormOptions().setShowRemoveButton(true);
+        FormOptions fo = new FormOptions().setShowRemoveButton(true).setEnableAdvancedSearchMode(true);
         SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
                                                                                     QueryType.ID_BASED, fo, null, 
                                                                                     new FetchJoinInformation("countryOfOrigin"), 
@@ -59,11 +59,11 @@ public class OrganizationView extends BaseView {
             org.setName("Cozy Nostra");
             return org;
         });
-        layout.setPostProcessEditFields(editForm -> {
-            ComboBox<Reputation> reputation = editForm.getField("reputation", ComboBox.class);
-            TextArea yearlyMortality = editForm.getField("yearlyMortalityRate", TextArea.class);
-            reputation.addValueChangeListener(event -> yearlyMortality.clear());
-        });
+//        layout.setPostProcessEditFields(editForm -> {
+//            ComboBox<Reputation> reputation = editForm.getField("reputation", ComboBox.class);
+//            TextArea yearlyMortality = editForm.getField("yearlyMortalityRate", TextArea.class);
+//            reputation.addValueChangeListener(event -> yearlyMortality.clear());
+//        });
 
         layout.setPostProcessMainButtonBar(buttonBar -> {
             Button navigateButton = new Button("Navigate");

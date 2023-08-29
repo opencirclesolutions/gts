@@ -43,7 +43,7 @@ import lombok.Setter;
 @Model(displayProperty = "name")
 //@AttributeGroup(messageKey = "organization.first", attributeNames = { "name", "address", "headQuarters", "countryOfOrigin" })
 //@AttributeGroup(messageKey = "organization.second", attributeNames = { "reputation" })
-//@AttributeOrder(attributeNames = { "name", "headQuarters", "address", "countryOfOrigin", "reputation" })
+@AttributeOrder(attributeNames = { "name", "headQuarters", "address", "countryOfOrigin", "reputation" })
 @Getter
 @Setter
 public class Organization extends AbstractEntity<Integer> {
@@ -57,12 +57,12 @@ public class Organization extends AbstractEntity<Integer> {
 
     @NotNull
     @Size(max = 255)
-    @Attribute(searchable = SearchMode.NONE, searchPrefixOnly = BooleanType.FALSE)
+    @Attribute(searchable = SearchMode.ALWAYS, searchPrefixOnly = BooleanType.FALSE, searchSelectMode = AttributeSelectMode.TOKEN)
     private String name;
 
     @NotNull
     @Size(max = 255)
-    @Attribute(searchable = SearchMode.NONE, displayName = "Headquarters", groupTogetherWith = "address")
+    @Attribute(searchable = SearchMode.ALWAYS, displayName = "Headquarters", groupTogetherWith = "address")
     private String headQuarters;
 
     @NotNull
@@ -73,8 +73,8 @@ public class Organization extends AbstractEntity<Integer> {
     @NotNull
     @JoinColumn(name = "country_of_origin")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Attribute(visibleInGrid = VisibilityType.SHOW, searchable = SearchMode.NONE, selectMode = AttributeSelectMode.COMBO, complexEditable = true, searchSelectMode = AttributeSelectMode.LIST, pagingMode = PagingMode.NON_PAGED, 
-    quickAddAllowed = true, cascade = @Cascade(cascadeTo = "members", filterPath = "countryOfOrigin",mode = CascadeMode.SEARCH), replacementSearchPath = "countryOfOrigin.name")
+    @Attribute(visibleInGrid = VisibilityType.SHOW, searchable = SearchMode.ALWAYS, multipleSearch = true, selectMode = AttributeSelectMode.LOOKUP, complexEditable = true,  
+    quickAddAllowed = true, /*cascade = @Cascade(cascadeTo = "members", filterPath = "countryOfOrigin",mode = CascadeMode.SEARCH),*/ replacementSortPath = "countryOfOrigin.name")
     private Country countryOfOrigin;
 
     @NotNull
@@ -94,7 +94,7 @@ public class Organization extends AbstractEntity<Integer> {
     @Attribute(searchable = SearchMode.NONE)
     private Reputation reputation;
 
-    @Attribute(quickAddAllowed = true, complexEditable = true, searchable = SearchMode.NONE, searchSelectMode = AttributeSelectMode.TOKEN)
+    @Attribute(quickAddAllowed = true, complexEditable = true, searchable = SearchMode.ALWAYS, searchSelectMode = AttributeSelectMode.TOKEN)
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     private Set<Person> members = new HashSet<>();
 

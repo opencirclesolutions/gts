@@ -32,7 +32,8 @@ public class Delivery extends AbstractEntity<Integer> {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_person")
-    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true, pagingMode = PagingMode.NON_PAGED)
+    @Attribute(visibleInGrid = VisibilityType.SHOW, complexEditable = true, pagingMode = PagingMode.NON_PAGED, 
+    replacementSortPath = "fromPerson.firstName")
     private Person fromPerson;
 
     @NotNull

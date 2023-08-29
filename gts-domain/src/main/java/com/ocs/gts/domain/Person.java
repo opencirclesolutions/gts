@@ -65,13 +65,14 @@ public class Person extends AbstractEntity<Integer> {
     @NotNull
     @JoinColumn(name = "organization")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Attribute(visibleInGrid = VisibilityType.SHOW, navigable = true)
+    @Attribute(visibleInGrid = VisibilityType.SHOW, navigable = true,  complexEditable = true, 
+    		quickAddAllowed = true)
     private Organization organization;
 
     @ElementCollection
     @CollectionTable(name = "person_lucky_numbers")
     @Column(name = "lucky_number")
-    @Attribute(complexEditable = true, minValue = 0, maxValue = 100)
+    @Attribute(complexEditable = true, minValue = 0, maxValue = 100, searchable = SearchMode.ALWAYS)
     private Set<Integer> luckyNumbers = new HashSet<>();
 
     private LocalDate born;
