@@ -386,13 +386,13 @@ how the entity model is built.
 Open the *Organization* class and place the *@Attribute* annotation on
 the *name* property. Then set the *searchable* setting to ALWAYS:
 
+[source,java]
+--
 @NotNull
-
 @Size(max = 100)
-
-@Attribute(searchable = S#earchMode.*_ALWAYS_*)
-
-*private* String name;
+@Attribute(searchable = SearchMode.ALWAYS)
+private String name;
+--
 
 Restart the application and look at the screen. You will now see a
 search form that contains a “Name” search field. Experiment with the
@@ -424,15 +424,15 @@ rendered.
 
 This is what it looks like in the code:
 
+[source,java]
+--
 @NotNull
-
 @Size(max = 255)
-
-@Attribute(searchable = S#earchMode.*_ALWAYS_*,
-searchCaseSensitive = BooleanType.TRUE, searchPrefixOnly =
-BooleanType.TRUE)
-
-*private* String name;
+@Attribute( searchable          = SearchMode.ALWAYS,
+            searchCaseSensitive = BooleanType.TRUE,
+            searchPrefixOnly    = BooleanType.TRUE)
+private String name;
+--
 
 Now, set the “searchable” setting to ALWAYS on all other attributes
 _except for countryOfOrigin and members._
@@ -473,8 +473,8 @@ should no longer appear.
 Next, in *OrganizationView,* change the code so that the line referring
 to FormOptions looks as follows:
 
-FormOptions fo = *new*
-FormOptions().setEnableAdvancedSearchMode(*true*);
+FormOptions fo = new
+FormOptions().setEnableAdvancedSearchMode(true);
 
 You will now see an additional button show up in the button bar.
 Clicking it will toggle between showing and hiding the search fields
@@ -506,13 +506,13 @@ default *toString* representation of the object inside the component.
 To fix this, open the *Person* class and, at the top of the class, add
 the *@Model* annotation like this:
 
+[source,java]
+--
 @Entity
-
 @Table(name = "person")
-
 @Model(displayProperty = "nickName")
-
-*public* *class* Person *extends* AbstractEntity<Integer> \{
+public class Person extends AbstractEntity<Integer>{
+--
 
 *@Model* is like *@Attribute* except that it is placed on the entity,
 not on one of its attributes. *@Model* supports several settings:
@@ -626,14 +626,13 @@ search field.
 Next, let’s change the attribute order – go to the *Organization* class
 and add the *@AttributeOrder* annotation to the class as seen below
 
+[source,java]
+--
 @Entity
-
 @Table(name = "organization")
-
-@AttributeOrder(attributeNames = \{ "name", "headQuarters", "address",
-"countryOfOrigin", "reputation" })
-
-*public* *class* Organization *extends* AbstractEntity<Integer> \{
+@AttributeOrder(attributeNames = { "name", "headQuarters", "address", "countryOfOrigin", "reputation" })
+public class Organization extends AbstractEntity<Integer>{
+--
 
 Restart the application to verify that the attributes are now displayed
 in the order specified above – note that this goes for both the search
@@ -651,13 +650,12 @@ search form. If you would rather use a different attribute order for
 your search form or the result grid, you can use the
 *@SearchAttributeOrder* or *@GridAttributeOrder* to specify this.
 
-@AttributeOrder(attributeNames = \{ "name", "headQuarters", "address",
-"countryOfOrigin", "reputation" })
-
-@GridAttributeOrder(attributeNames = \{ "memberCount",
-"yearlyMortalityRate" })
-
-*public* *class* Organization *extends* AbstractEntity<Integer> \{
+[source,java]
+--
+@AttributeOrder(attributeNames = { "name", "headQuarters", "address","countryOfOrigin", "reputation" })
+@GridAttributeOrder(attributeNames = { "memberCount", "yearlyMortalityRate" })
+public class Organization extends AbstractEntity<Integer>{
+--
 
 In the above example, we have added an *@GridAttributeOrder.* Now when
 you restart the application after this, you will see that the grid
@@ -667,13 +665,13 @@ that the other attributes are shown in alphabetical order.
 OK, now it’s time to fix the enumeration. Open the
 *ui.messages.properties* file and add the following:
 
-Reputation.REALLY_NOT_FEARSOME=Really not fearsome#
-
-Reputation.MILDLY_FEARSOME=Mildly fearsome#
-
-Reputation.FEARSOME=Fearsome#
-
-Reputation.EXTREMELY_FEARSOME=Extremely fearsome#
+[source,properties]
+--
+Reputation.REALLY_NOT_FEARSOME=Really not fearsome
+Reputation.MILDLY_FEARSOME=Mildly fearsome
+Reputation.FEARSOME=Fearsome
+Reputation.EXTREMELY_FEARSOME=Extremely fearsome
+--
 
 Restart the application and see how the enumeration values have now been
 replaced by the values from the message bundle.
@@ -684,14 +682,13 @@ attributes in the grid. In this case, you can limit the maximum length
 of the value of an attribute inside the grid by setting the
 *maxLengthInGrid* setting. Try this for the *name* attribute:
 
+[source,java]
+--
 @NotNull
-
 @Size(max = 255)
-
-@Attribute(searchable = SearchMode.*_ALWAYS_*, main = *true*,
-maxLengthInGrid = 10)
-
-*private* String name;
+@Attribute(searchable = SearchMode.ALWAYS, main = true, maxLengthInGrid = 10)
+private String name;
+--
 
 Restart the application and verify that the values inside the name
 column are now truncated after 10 characters:
@@ -718,7 +715,10 @@ divide or multiply the value by anything).
 * You can tweak the entity model using the message bundle. The syntax
 for this is
 
-*[entity name].[property name].[setting] = [value]*
+[source,properties]
+--
+[entity name].[property name].[setting] = [value]
+--
 
 You can also directly change the settings on the entity by not including
 any property name, e.g. *Organization.displayName=Organisatie*
@@ -730,9 +730,11 @@ can also change it by using the message bundle.
 To practice a bit more, add the following lines to
 *entitymodel.properties*.
 
+[source,properties]
+--
 Organization.governmentSponsored.trueRepresentation=You bet!
-
 Organization.governmentSponsored.falseRepresentation=No Way!
+--
 
 Then, restart the application and verify that instead of the standard
 “true” and “false” values for the Boolean *governmentSponsored*
@@ -759,12 +761,15 @@ functionality.
 Let’s demonstrate by changing the textual representations of the
 *Organization* entity. First, open the GtsUI class and replace the line:
 
-VaadinUtils._storeLocale_(*new* Locale("en"));
-
+[source,java]
+--
+VaadinUtils._storeLocale_(new Locale("en"));
+--
 By the line:
-
-VaadinUtils._storeLocale_(*new* Locale("nl"));
-
+[source,java]
+--
+VaadinUtils._storeLocale_(new Locale("nl"));
+--
 Here, we specify that the user that uses the application will use the
 “nl” (Dutch) locale. For this example, we use a hard-coded value but it
 is also possible to set the locale dynamically based on the user’s
@@ -777,12 +782,12 @@ Now, locate the *entitymodel.properties* file. In the same directory as
 that file, create a file named *entitymodel_nl.properties* and add the
 following to it:
 
-Organization.displayName=Organisatie#
-
-Organization.displayNamePlural=Organisaties#
-
-Organization.name.displayName=Naam#
-
+[source,properties]
+--
+Organization.displayName=Organisatie
+Organization.displayNamePlural=Organisaties
+Organization.name.displayName=Naam
+--
 Restart the application and verify that the application now displays the
 Dutch names of the entity (e.g. above the search results grid). The
 column that contains the organization name should now also have the
@@ -798,16 +803,14 @@ attribute is not shown inside a grid. To fix this, add the *@Attribute*
 annotation to the *countryOfOrigin* property and set the *visibleInGrid*
 setting to SHOW.
 
+[source,java]
+--
 @NotNull
-
 @JoinColumn(name = "country_of_origin")
-
-@ManyToOne(fetch = FetchType.*_LAZY_*)
-
-@Attribute(visibleInGrid = VisibilityType.*_SHOW_*)
-
-*private* Country countryOfOrigin;
-
+@ManyToOne(fetch = FetchType.LAZY)
+@Attribute(visibleInGrid = VisibilityType.SHOW)
+private Country countryOfOrigin;
+--
 Now, restart the application and watch it *crash and burn*! You are
 trying to display a property that is not retrieved from the database by
 default(since it is set to lazy fetching, as you can see above).
@@ -820,15 +823,13 @@ fetch this relation as part of the retrieval of the organisations.
 To fix this, go to the *OrganizationDaoImpl* class and add the following
 code:
 
+[source,java]
+--
 @Override
-
-*protected* FetchJoinInformation[] getFetchJoins() \{
-
-return FetchJoinInformation.of(*new*
-FetchJoinInformation("countryOfOrigin"));
-
+protected FetchJoinInformation[] getFetchJoins() {
+    return FetchJoinInformation.of(new FetchJoinInformation("countryOfOrigin"));
 }
-
+--
 This will make sure that whenever any Organizations are fetched by the
 framework, the *countryOfOrigin* relation of those organizations will be
 fetched as well.
@@ -893,24 +894,18 @@ functionality for _Default Services_ and define the required service in
 Spring. Open the *ApplicationConfig.java* class and observe the
 following code:
 
+[source,java]
+--
 @Bean
-
-*public* BaseDao<Integer, Country> countryDao() \{
-
-*return* *new* DefaultDaoImpl<>(QCountry.*_country_*, Country.*class*,
-"parent");
-
+public BaseDao<Integer, Country> countryDao() {
+    return new DefaultDaoImpl<>(QCountry.country, Country.class, "parent");
 }
 
 @Bean
-
-*public* BaseService<Integer, Country> countryService(BaseDao<Integer,
-Country> dao) \{
-
-*return* *new* DefaultServiceImpl<>(dao, "code");
-
+public BaseService<Integer, Country> countryService(BaseDao<Integer, Country> dao) {
+    return new DefaultServiceImpl<>(dao, "code");
 }
-
+--
 This defines a bean that is an instance of *DefaultServiceImpl* which
 has an inner bean of type *DefaultDaoImpl.* These are convenience
 classes that in turn inherit from the *BaseServiceImpl* and
@@ -941,17 +936,16 @@ a combo box. You can use the *searchSelectMode* and *selectMode* to
 change this if you want to. Go ahead and change the *selectMode* to
 *AttributeSelectMode.LOOKUP*:
 
+[source,java]
+--
 @NotNull
-
-@JoinColumn(name = "country_of_origin")
-
-@ManyToOne(fetch = FetchType.*_LAZY_*)
-
-@Attribute(searchable = SearchMode.*_ALWAYS_*, visibleInGrid =
-VisibilityType.*_SHOW_*, selectMode = AttributeSelectMode.*_LOOKUP_*)
-
-*private* Country countryOfOrigin;
-
+@JoinColumn(name            = "country_of_origin")
+@ManyToOne( fetch           = FetchType.LAZY)
+@Attribute( searchable      = SearchMode.ALWAYS,
+            visibleInGrid   = VisibilityType.SHOW,
+            selectMode      = AttributeSelectMode.LOOKUP)
+private Country countryOfOrigin;
+--
 Restart the application and observe how you can now use a popup dialog
 to search for the country you want to filter on.
 
@@ -998,18 +992,16 @@ To make the components for editing the complex attributes show up, you
 can set the *complexEditable* setting for an attribute to true. We do
 this now for the country of origin field:
 
+[source,java]
+--
 @NotNull
-
 @JoinColumn(name = "country_of_origin")
-
-@ManyToOne(fetch = FetchType.*_LAZY_*)
-
-@Attribute(visibleInGrid = VisibilityType.*_SHOW_*, searchable =
-SearchMode.*_ALWAYS_*, selectMode = AttributeSelectMode.*_LOOKUP_*,
-complexEditable = *true*)
-
-*private* Country countryOfOrigin;
-
+@ManyToOne(fetch = FetchType.LAZY)
+@Attribute(visibleInGrid = VisibilityType.SHOW, searchable =
+SearchMode.ALWAYS, selectMode = AttributeSelectMode.LOOKUP,
+complexEditable = true)
+private Country countryOfOrigin;
+--
 Now, go ahead and add a new organization to the system (be creative).
 Note that validations have automatically been added to the form based on
 the Java Validation API annotation like *@NotNull* and *@Size* that are
@@ -1051,29 +1043,28 @@ numeric input field for a numeric property (this currently only works
 for properties of type “int” or “Integer”, and only when they are not
 also set to “percentage = true”). When you set this to “NUMBERFIELD”,
 e.g. for the “memberCount” property, you will see the following:
-
-____
++
 image:media/image9.png[image,width=399,height=76]
-
++
+____
 This is a numeric input field which will only accept numeric input and
 also contains plus and minus buttons for changing the value. You can use
 the *numberFieldStep* setting to modify the step size.
 ____
-
 * You can use the *groupTogetherWith* setting to specify that multiple
 components must be placed on the same row in the edit form. To do so,
 use a *groupTogetherWith* value on the attribute you want to appear
 *first* in the row:
-
++
+[source,java]
+--
 @NotNull
-
 @Size(max = 255)
-
-@Attribute(searchable = SearchMode.*_ALWAYS_*, displayName =
-"Headquarters", groupTogetherWith = "address")
-
-*private* String headQuarters;
-
+@Attribute( searchable          = SearchMode.ALWAYS,
+            displayName         = "Headquarters",
+            groupTogetherWith   = "address")
+private String headQuarters;
+--
 * The above will make sure that the “address” field shows up on the same
 line as the “headQuarters” field. When using this setting, take care
 that the attributes are in the right order (the attribute on which you
@@ -1099,11 +1090,11 @@ The Dynamo Framework also supports the functionality of turning certain
 fields into clickable URLs (that point to external resources).
 
 To demonstrate, add the following code to the *Organization* class:
-
-@Attribute(url = *true*)
-
-*private* String url;
-
+[source,java]
+--
+@Attribute(url = true)
+private String url;
+--
 Then, start the application and verify that in the grid in the
 Organizations screen you will now see an empty “URL” field. Navigate to
 the edit screen and fill in a value.
@@ -1126,9 +1117,10 @@ If you want to change e.g. the number of columns being used, you can
 modify the value of the system property
 ocs.default.edit.form.column.thresholds. To test this, open the
 *application.properties* file and add the following:
-
+[source,properties]
+--
 ocs.default.edit.form.column.thresholds=0px,600px,1200px
-
+--
 Now, if you restart the application you will see that the edit fields
 are divided over three columns as long as the screen is at least 1200
 pixels wide, and over two columns if the screen is between 600 and 1200
@@ -1140,9 +1132,10 @@ property again, or set it to just “0px”.
 If you want a single column, but you don’t want it to stretch across the
 entire screen, you can limit the form width by adding the following to
 application.properties:
-
+[source,properties]
+--
 ocs.default.max.edit.form.width=1000px
-
+--
 For search forms, you can achieve the same with the properties
 ocs.default.search.form.column.thresholds and
 ocs.default.max.search.form.width
@@ -1163,32 +1156,30 @@ have a way of grouping certain attributes together.
 
 To demonstrate how this works, modify the *Organization* view so that it
 reads as follows:
-
+[source,java]
+--
 @Entity
-
 @Table(name = "organization")
 
-@AttributeGroup(messageKey = "organization.first", attributeNames = \{
+@AttributeGroup(messageKey = "organization.first", attributeNames = {
 "name", "address", "headQuarters", "countryOfOrigin" })
-
-@AttributeGroup(messageKey = "organization.second", attributeNames = \{
+@AttributeGroup(messageKey = "organization.second", attributeNames = {
 "reputation" })
 
-@AttributeOrder(attributeNames = \{ "name", "headQuarters", "address",
+@AttributeOrder(attributeNames = { "name", "headQuarters", "address",
 "countryOfOrigin", "reputation" })
-
-*public* *class* Organization *extends* AbstractEntity<Integer> \{
-
+public class Organization *extends* AbstractEntity<Integer> {
+--
 Here, you define two attribute groups identified by the message keys
 “organization.first” and “organization.second” and place some attributes
 in each group.
 
 In the *entitymodel.properties* file, add the following lines:
-
-*organization.first=First*
-
-*organization.second=Second*
-
+[source,properties]
+--
+organization.first=First
+organization.second=Second
+--
 Restart the application and verify that the edit form now looks as
 follows:
 
@@ -1206,10 +1197,10 @@ specified by the *@AttributeOrder* annotation.
 Also, by default the application will use panels to group the attributes
 together. If you prefer tabs, go to the *OrganizationView* class again
 and change the form options so they read as follows:
-
-FormOptions fo = *new*
-FormOptions().setAttributeGroupMode(AttributeGroupMode.*_TABSHEET_*);
-
+[source,java]
+--
+FormOptions fo = new FormOptions().setAttributeGroupMode(AttributeGroupMode.TABSHEET);
+--
 After you restart the application you will see that the attributes have
 now been placed on three tab sheets:
 
@@ -1219,9 +1210,10 @@ image:media/image11.png[image,width=560,height=152]
 
 To enable the functionality for removing entities, modify the
 *FormOptions* object as follows:
-
-FormOptions fo = *new* FormOptions().setShowRemoveButton(*true*);
-
+[source,java]
+--
+FormOptions fo = new FormOptions().setShowRemoveButton(true);
+--
 Restart the application and verify that you can now remove Organizations
 from the system (be careful and don’t throw them all away!).
 
@@ -1278,32 +1270,30 @@ It is also fairly easy to define your own lookup tables. As a case in
 point, take a look at the “MainActivity” class. This defines the main
 activity of an Organization. In order to use it in the application,
 modify Organization.java so that it reads the following:
-
+[source,java]
+--
 @JoinColumn(name = "main_activity")
-
-@ManyToOne(fetch = FetchType.*_LAZY_*)
-
-@Attribute(quickAddAllowed = true, complexEditable = *true*, searchable
-= SearchMode.*_ALWAYS_*, visibleInGrid = VisibilityType.*_SHOW_*,
-multipleSearch = *true*, searchSelectMode =
-AttributeSelectMode.*_TOKEN_*)
-
-*private* MainActivity mainActivity;
-
+@ManyToOne(fetch = FetchType.LAZY)
+@Attribute(
+        quickAddAllowed = true,
+        complexEditable = true,
+        searchable = SearchMode.ALWAYS,
+        visibleInGrid = VisibilityType.SHOW,
+        multipleSearch = true,
+        searchSelectMode = AttributeSelectMode.TOKEN)
+private MainActivity mainActivity;
+--
 Also, modify the OrganizationDaoImpl so that the “mainActivity” is
 included in the fetch joins:
-
+[source,java]
+--
 @Override
-
-*protected* FetchJoinInformation[] getFetchJoins() \{
-
-*return* FetchJoinInformation._of_(*new*
-FetchJoinInformation("countryOfOrigin"),
-
-*new* FetchJoinInformation("mainActivity"));
-
+protected FetchJoinInformation[] getFetchJoins() {
+    return FetchJoinInformation.of(
+            new FetchJoinInformation("countryOfOrigin"),
+            new FetchJoinInformation("mainActivity"));
 }
-
+--
 Now, when you open the detail page for an organization, you should see a
 “Main Activity” field in the edit form:
 
@@ -1324,9 +1314,10 @@ already existing entity, the application will throw a validation
 exception. The message that is shown is expected to be in the message
 bundle under the *<DomainName>.not.unique* key. To make this work for
 the MainActivity, add the following to entitymodel.properties
-
+[source,properties]
+--
 MainActivity.not.unique=This main activity already exists
-
+--
 Now, restart the application, try to add a duplicate main activity and
 verify that see the error message defined here.
 
@@ -1371,11 +1362,11 @@ new screen to the menu.
 
 Open the *menu.properties* file and check that it contains the
 following:
-
+[source,properties]
+--
 gts.menu.1.displayName=Organizations
-
 gts.menu.1.destination=organizationView
-
+--
 This file contains a declarative definition of the menu. Each line
 starts with a prefix (can be anything) that allows you to define
 multiple menus and potentially switch between them if needed. In this
@@ -1388,17 +1379,14 @@ behind the first one. The numbers must be separated by periods.
 For now, we replace the main menu item “Organizations” by a new main
 menu item “Top Level Menu” that contains two sub-items, one for
 Organizations and one for Members. Modify the menu to look as follows:
-
+[source,properties]
+--
 gts.menu.1.displayName=Top Level Menu
-
 gts.menu.1.1.displayName=Organizations
-
 gts.menu.1.1.destination=organizationView
-
 gts.menu.1.2.displayName=Members
-
 gts.menu.1.2.destination=personView
-
+--
 Here, you can see that for every menu item we can specify:
 
 * The *displayName* is the caption of the menu item.
@@ -1469,10 +1457,11 @@ a screen that displays all members of a certain organization.
 * By default, the *ServiceBasedSplitLayout* displays all entities of a
 certain type, i.e. there is no filtering. You can add filtering by
 calling the *setFilterCreator* method, e.g.
-
-layout.setFilterCreator(() -> *new* EqualsPredicate<>("firstName",
-"Manuel"));
-
++
+[source,java]
+--
+layout.setFilterCreator(() -> new EqualsPredicate<>("firstName","Manuel"));
+--
 filters the component so that only members with first name “Manuel” show
 up.
 
@@ -1492,17 +1481,16 @@ is encountered You can use the *setQuickSearchFilterCreator* method to
 change this.
 
 Using the the *setQuickSearchFilter* method looks as follows:
+[source,java]
+--
+FormOptions fo = new FormOptions().setShowQuickSearchField(true);
 
-FormOptions fo = *new* FormOptions().setShowQuickSearchField(*true*);
+ServiceBasedSplitLayout<Integer, Person> layout =
+    new ServiceBasedSplitLayout<Integer, Person>(personService, em, QueryType.ID_BASED, fo, null);
 
-ServiceBasedSplitLayout<Integer, Person> layout = *new*
-ServiceBasedSplitLayout<Integer, Person>(personService,
-
-em, QueryType.*_ID_BASED_*, fo, *null*);
-
-layout.setQuickSearchFilterCreator (text -> *new*
-LikePredicate<Person>("firstName", "%" + text + "%", *false*));
-
+layout.setQuickSearchFilterCreator (text ->
+    new LikePredicate<Person>("firstName", "%" + text + "%", *false*));
+--
 As you can see, the method expects a function that maps from a String
 (the search term) to a *SerializablePredicate.* This is an interface
 from the Vaadin framework that allows you to construct complex search
@@ -1551,10 +1539,10 @@ Open the *GiftView* class and add a *SplitLayout* to this view, similar
 to how you already added a layout to the *PersonView.*
 
 After the declaration of the layout, add this single line:
-
-layout.setDetailJoins(*new* FetchJoinInformation[] \{ *new*
-FetchJoinInformation("logo") });
-
+[source,java]
+--
+layout.setDetailJoins(new FetchJoinInformation[] { new FetchJoinInformation("logo") });
+--
 This is needed because of a peculiarity with dealing with BLOB (binary
 large object) files in PostgreSQL, which is beyond the scope of this
 training.
@@ -1574,20 +1562,18 @@ image:media/image15.png[image,width=560,height=88]
 You can upload a file using these components, but the application will
 currently not show a preview. To fix this, open the *GiftLogo* class and
 find the *image* attribute. Annotate it as follows:
-
+[source,java]
+--
 @Lob
-
-@Attribute(image = *true*, fileNameProperty = "logo.fileName")
-
-*private* *byte*[] image;
-
+@Attribute(image = true, fileNameProperty = "logo.fileName")
+private byte[] image;
+--
 Also annotate the *fileName* property directly below it as follows:
-
-@Attribute(editable = *EditableType.READ_ONLY*, visibleInGrid =
-VisibilityType.*_HIDE_*)
-
-*private* String fileName;
-
+[source,java]
+--
+@Attribute(editable = EditableType.READ_ONLY, visibleInGrid = VisibilityType.HIDE)
+private String fileName;
+--
 By changing the value of the *image* setting to true you mark this field
 as an image, causing the application to try and render a preview of the
 contents of this field (it will of course still fail if you didn’t
@@ -1599,7 +1585,7 @@ another property to the name of the file you uploaded – in this case the
 
 Now, if you want to restrict the type of files that the user can upload,
 you can use the *allowedExtensions* setting. This setting takes as its
-value an array of strings, e.g. \{“png”, “gif”}
+value an array of strings, e.g. {“png”, “gif”}
 
 Play around with the file upload functionality for a while if you want,
 then have a look at the rest of the screen and make sure you get all the
@@ -1622,26 +1608,27 @@ using their full paths (e.g. “logo.image”).
 Now, let’s add a screen for managing the various gift deliveries from
 one criminal to the other. First, open the *menu.properties* file again
 and add the following:
-
+[source,properties]
+--
 gts.menu.2.displayName=Deliveries
-
 gts.menu.2.destination=deliveryView
-
+--
 This will add a new top-level menu item that will lead to the
 *DeliveryView* screen. Like the other screens, this screen will
 initially be empty. Using what you have learned, add an
 *EditableGridLayout* component to this view. Make sure the *Remove*
 button shows up in this layout (use the *FormOptions*).
+[source,java]
+--
+EntityModel<Delivery> em = getModelFactory().getModel(Delivery.class);
 
-EntityModel<Delivery> em = getModelFactory().getModel(Delivery.*class*);
+FormOptions fo = new FormOptions().setShowRemoveButton(true);
 
-FormOptions fo = *new* FormOptions().setShowRemoveButton(*true*);
-
-EditableGridLayout<Integer, Delivery> layout = *new*
-EditableGridLayout<>(deliveryService, em, fo, *null*);
+EditableGridLayout<Integer, Delivery> layout =
+    new EditableGridLayout<>(deliveryService, em, fo, null);
 
 main.add(layout);
-
+--
 Now, when you restart the application and open the Deliveries screen,
 you will see a grid in which you can edit the displayed entities.
 Currently, the grid will be empty but you can use the *Add* button to
@@ -1673,10 +1660,10 @@ You can click on the save button to persist your changes or
 
 If you would rather edit multiple rows at once you can you can do so by
 changing the *gridEditMode* on the FormOptions to *SIMULTANEOUS:*
-
-FormOptions fo = *new*
-FormOptions().setGridEditMode(GridEditMode.*_SIMULTANEOUS_*);
-
+[source,java]
+--
+FormOptions fo = new FormOptions().setGridEditMode(GridEditMode.SIMULTANEOUS);
+--
 This will cause all rows in the grid to appear in editable mode, and
 will cause a *Save* button to show up below the grid. Any changes you
 make will only be stored after you press this Save button.
@@ -1736,10 +1723,10 @@ for that attribute.
 
 Modify the code inside the *OrganizationView* by adding the following
 code below the declaration of the *SimpleSearchLayout*
-
-layout.addFieldFilter("countryOfOrigin", *new*
-LikePredicate<String>("name", "%au%", *false*));
-
+[source,java]
+--
+layout.addFieldFilter("countryOfOrigin", new LikePredicate<String>("name", "%au%", false));
+--
 Now, restart the application and verify that in the Organizations
 screen, you can only select countries of which the name contains the
 value “au” (open the search dialog, perform a search, and verify that
@@ -1785,25 +1772,18 @@ creation process. You can do this by invoking the *addCustomField*
 method on a composite component.
 
 For example, we can do the following in the *OrganizationView*:
-
-layout.addCustomField("address", context -> \{
-
-ComboBox<String> cb = *new* ComboBox<String>(
-
-context.getAttributeModel().getDisplayName(VaadinUtils._getLocale_()));
-
-ListDataProvider<String> dataProvider = *new* ListDataProvider<>(
-
-Lists._newArrayList_("1234 Palomita Boulevard", "5678 Horseshoe Road"));
-
-cb.setDataProvider(dataProvider);
-
-cb.setRequiredIndicatorVisible(*true*);
-
-*return* cb;
-
+[source,java]
+--
+layout.addCustomField("address", context -> {
+    ComboBox<String> cb = new ComboBox<String>(
+    context.getAttributeModel().getDisplayName(VaadinUtils.getLocale()));
+    ListDataProvider<String> dataProvider = new ListDataProvider<>(
+    Lists.newArrayList("1234 Palomita Boulevard", "5678 Horseshoe Road"));
+    cb.setDataProvider(dataProvider);
+    cb.setRequiredIndicatorVisible(true);
+    return cb;
 });
-
+--
 This works as follows:
 
 * The first parameter (“address”) indicates the name of the attribute
@@ -1853,18 +1833,19 @@ is meant to hold a collection of translations of the name of the Gift in
 various languages.
 
 Also, in the *GiftView*, change declaration of the layout as follows:
+[source,java]
+--
+EntityModel<Gift> em = getModelFactory().getModel(Gift.class);
 
-EntityModel<Gift> em = getModelFactory().getModel(Gift.*class*);
+FormOptions fo = new FormOptions().setShowRemoveButton(true);
 
-FormOptions fo = *new* FormOptions().setShowRemoveButton(*true*);
+GiftLayout layout = new GiftLayout(giftService, em, fo, null);
 
-GiftLayout layout = *new* GiftLayout(giftService, em, fo, *null*);
-
-layout.setDetailJoins(*new* FetchJoinInformation[] \{ *new*
-FetchJoinInformation("logo"),
-
-*new* FetchJoinInformation("translations") });
-
+layout.setDetailJoins(new FetchJoinInformation[] {
+        new FetchJoinInformation("logo"),
+        new FetchJoinInformation("translations")
+});
+--
 You will notice how we replace the layout with a subclass named
 *GiftLayout*. Inspect this class and see how inside it, we call the
 *addCustomField* method and use it to create a *DetailsEditGrid.*
@@ -1932,34 +1913,29 @@ collection, the application renders a separate sub-form for each entity.
 
 Open the *GiftLayout* class if you haven’t already and replace the
 declaration of the *DetailsEditGrid* by the following:
+[source,java]
+--
+DetailsEditLayout<Integer, GiftTranslation, Integer, Gift> dt = new DetailsEditLayout<>(
+        giftTranslationService,
+        getEntityModelFactory().getModel(GiftTranslation.class),
+        context.getAttributeModel(),
+        context.isViewMode(),
+        fo,
+        new AttributeComparator<>("description")
+);
 
-DetailsEditLayout<Integer, GiftTranslation, Integer, Gift> dt = *new*
-DetailsEditLayout<Integer, GiftTranslation, Integer, Gift>(
-
-giftTranslationService,
-getEntityModelFactory().getModel(GiftTranslation.*class*),
-
-context.getAttributeModel(), context.isViewMode(), fo, *new*
-AttributeComparator<>("description"));
-
-dt.setCreateEntity(gift -> \{
-
-GiftTranslation gt = *new* GiftTranslation();
-
-gift.addTranslation(gt);
-
-*return* gt;
-
+dt.setCreateEntity(gift -> {
+    GiftTranslation gt = new GiftTranslation();
+    gift.addTranslation(gt);
+    return gt;
 });
 
-dt.setRemoveEntity((gift, translation) -> \{
-
-gift.removeTranslation(translation);
-
+dt.setRemoveEntity((gift, translation) -> {
+    gift.removeTranslation(translation);
 });
 
-*return* dt;
-
+return dt;
+--
 Now, restart the application and verify that you see something like
 this:
 
@@ -1997,21 +1973,19 @@ button bar.
 If you want to do this, you can do so by calling the
 *setPostProcessMainButtonBar* method of the component. Let’s do this in
 the *PersonView* by adding the following inside the layout:
+[source,java]
+--
+layout.setPostProcessMainButtonBar(buttonBar -> {
 
-layout.setPostProcessMainButtonBar(buttonBar -> \{
+    Button notificationButton = new Button("Show name");
 
-Button notificationButton = *new* Button("Show name");
+    notificationButton.addClickListener(event -> {
+        showErrorNotification(layout.getSelectedItem().getNickName());
+    });
 
-notificationButton.addClickListener(event -> \{
-
-showErrorNotification(layout.getSelectedItem().getNickName());
-
+    buttonBar.add(notificationButton);
 });
-
-buttonBar.add(notificationButton);
-
-});
-
+--
 The code above will add a button that will simply display a message
 containing the user’s nickname when clicked. Go ahead and try it out. It
 will work fine with the one exception that the button can be clicked
@@ -2019,9 +1993,10 @@ when no row is selected, resulting in a rather ugly stack trace.
 
 We can fix this by adding a single line of code. After the instantiation
 of the button, add the following line:
-
+[source,java]
+--
 layout.registerComponent(notificationButton);
-
+--
 This will make sure the button will only be enabled if a row is selected
 in the grid.
 
@@ -2033,35 +2008,30 @@ the button.
 
 As an example, replace the previous code for the
 “setPostProcessMainButtonBar” by the following:
+[source,java]
+--
+layout.setPostProcessMainButtonBar(buttonBar -> {
 
-layout.setPostProcessMainButtonBar(buttonBar -> \{
+    Button notificationButton = new Button("Show name");
 
-Button notificationButton = *new* Button("Show name");
+    notificationButton.addClickListener(event -> {
+        showErrorNotification(layout.getSelectedItem().getNickName());
+    });
 
-notificationButton.addClickListener(event -> \{
+    buttonBar.add(notificationButton);
 
-showErrorNotification(layout.getSelectedItem().getNickName());
-
+    layout.registerComponent("notificationButton", notificationButton);
 });
 
-buttonBar.add(notificationButton);
+layout.setMustEnableComponent((com, ent) -> {
 
-layout.registerComponent("notificationButton", notificationButton);
+    if(layout.isRegisteredComponent("notificationButton", com)) {
+        return ent.getFirstName().startsWith("M");
+    }
 
+    return true;
 });
-
-layout.setMustEnableComponent((com, ent) -> \{
-
-*if* (layout.isRegisteredComponent("notificationButton", com)) \{
-
-*return* ent.getFirstName().startsWith("M");
-
-}
-
-*return* *true*;
-
-});
-
+--
 Here, we make a small change to the “registerComponent” method, passing
 along an extra parameter “notificationButton”. In the
 “setMustEnableComponent”-method, which is called for every registered
@@ -2135,35 +2105,32 @@ case.
 
 Let’s try out some of these callback methods. Open the
 *OrganizationView* again, and add the following code:
+[source,java]
+--
+layout.setCreateEntity(() -> {
 
-layout.setCreateEntity(() -> \{
-
-Organization org = *new* Organization();
-
-org.setName("Cozy Nostra");
-
-*return* org;
-
+    Organization org = new Organization();
+    org.setName("Cozy Nostra");
+    return org;
 });
-
+--
 Restart the application, go to the Organizations screen, press the *Add*
 button and verify that the value you specified above is already filled
 in in the address field.
 
 Next, add the following code to the OrganizationView:
+[source,java]
+--
+layout.setPostProcessEditFields(editForm -> {
 
-layout.setPostProcessEditFields(editForm -> \{
+    ComboBox<Reputation> reputation = editForm.getField("reputation", ComboBox.class);
 
-ComboBox<Reputation> reputation =
-editForm.getField("reputation", ComboBox.*class*)#;
+    TextField yearlyMortality = editForm.getField("yearlyMortalityRate", TextField.class);
 
-TextField yearlyMortality = editForm.getField("yearlyMortalityRate",
-TextField.*class*);
-
-reputation.addValueChangeListener(event -> yearlyMortality.clear());
+    reputation.addValueChangeListener(event -> yearlyMortality.clear());
 
 });
-
+--
 Here, we set up a change listener that triggers when the value of the
 “reputation” field changes. It responds by clearing the value of the
 “yearly mortality rate” field. This is a contrived example but it shows
@@ -2174,18 +2141,14 @@ setValue(null). This no longer works since setting a Null value will
 result in an exception. Use the clear() method instead._
 
 Finally, add the following code:
-
-layout.setValidateBeforeSearch(() -> \{
-
-*if* (!layout.isFilterSet("countryOfOrigin")) \{
-
-*throw* *new* OCSValidationException("Please select a Country of
-Origin");
-
-}
-
+[source,java]
+--
+layout.setValidateBeforeSearch(() -> {
+    if (!layout.isFilterSet("countryOfOrigin")) {
+        throw new OCSValidationException("Please select a Country of Origin");
+    }
 });
-
+--
 Restart the application, then try to perform a search in the
 Organisation screen. Verify that you will get an error message (and no
 search will be performed) when you try to carry out a search without
@@ -2240,13 +2203,12 @@ will simply appear with an asterisk behind its caption, but in the
 *FlexibleSearchLayout* there will be a mandatory, non-removable search
 filter row for every required attribute. Try this by setting the
 *requiredForSearching* setting for the reputation field to true:
-
-@Enumerated(EnumType.*_STRING_*)
-
-@Attribute(searchable = *true*, requiredForSearching = *true*)
-
-*private* Reputation reputation;
-
+[source,java]
+--
+@Enumerated(EnumType.STRING)
+@Attribute(searchable = true, requiredForSearching = true)
+private Reputation reputation;
+--
 Then, restart the application and verify that you will now see a
 non-removable filter row at the top of the search screen:
 
@@ -2258,20 +2220,19 @@ A very useful capability of the framework is the option to export the
 contents of any grid to Excel or CSV format. To make this possible, open
 the *application.properties* file and make sure it contains the
 following line:
-
+[source,properties]
+--
 ocs.allow.list.export=true
-
+--
 Also, in the pom.xml file for the gts-ui project, add the following
 dependency:
-
+[source,xml]
+--
 <dependency>
-
-<groupId>org.dynamoframework</groupId>
-
-<artifactId>dynamo-frontend-export</artifactId>
-
+    <groupId>org.dynamoframework</groupId>
+    <artifactId>dynamo-frontend-export</artifactId>
 </dependency>
-
+--
 This will add the *dynamo-frontend-export* module which contains the
 export functionality.
 
@@ -2287,19 +2248,21 @@ contains all the rows in the result set, not just the visible rows.
 By default, only the columns that are shown in the grid will be
 exported. If you’d rather export all (visible) properties of the model
 instead, you can use the *FormOptions* to change the export mode:
-
-FormOptions fo = *new* FormOptions().setExportMode(ExportMode.*_FULL_*);
-
+[source,java]
+--
+FormOptions fo = new FormOptions().setExportMode(ExportMode.FULL);
+--
 When using the *FULL* export mode it’s possible that you need to fetch
 additional relations that are note needed for displaying the data in the
 grid. You can specify these additional relations by using the
 *setExportJoins* method:
-
-layout.setExportJoins(*new* FetchJoinInformation[] \{ *new*
-FetchJoinInformation("countryOfOrigin"),
-
-*new* FetchJoinInformation("members") });
-
+[source,java]
+--
+layout.setExportJoins(new FetchJoinInformation[] {
+        new FetchJoinInformation("countryOfOrigin"),
+        new FetchJoinInformation("members")
+});
+--
 When set, the *exportJoins* will override the normal joins
 
 You can also use the *setExportEntityModel* method (on the layout, not
@@ -2321,9 +2284,10 @@ E.g., suppose you want to modify the default number of decimals to use
 when displaying or editing a decimal value. By default, this is set to
 *2* but you can change it e.g.to *3* by including the following system
 property:
-
-*ocs.default.decimal.precision=3*
-
+[source,properties]
+--
+ocs.default.decimal.precision=3
+--
 Add this to your *application.properties* then restart the application
 and verify that e.g. the “yearly mortality rate” can now be entered with
 a precision of three decimals.
@@ -2356,21 +2320,19 @@ a hyperlink that allows navigation within the application.
 We will demonstrate this using the *organization* property of the
 *Person.* Change the code of the Person class so that is read as
 follows:
-
-@Attribute(navigable = *true*, visibleInGrid = VisibilityType.*_SHOW_*)
-
-*private* Organization organization;
-
+[source,java]
+--
+@Attribute(navigable = true, visibleInGrid = VisibilityType.SHOW)
+private Organization organization;
+--
 Next, open the *GtsUI* class and check out the following piece of code:
-
-uiHelper.addEntityNavigationMapping(Organization.*class*, item -> \{
-
-uiHelper.setSelectedEntity(item);
-
-uiHelper.navigate(Views.*_ORGANIZATION_VIEW_*);
-
+[source,java]
+--
+uiHelper.addEntityNavigationMapping(Organization.class, item -> {
+    uiHelper.setSelectedEntity(item);
+    uiHelper.navigate(Views.ORGANIZATION_VIEW);
 });
-
+--
 The *navigable* setting on the *@Attribute* annotation will make sure
 that whenever the property is shown in read-only mode, a hyperlink will
 be rendered instead of just a textual representation. When the user
@@ -2389,17 +2351,14 @@ entity yet, which is what we want.
 Some custom code is needed to make sure the correct item is displayed in
 the detail screen. Open the *OrganizationView* class and add the
 following at the bottom of the *doInit* method:
-
-*if* (getUiHelper().getSelectedEntity() != *null*) \{
-
-Organization org = (Organization) getUiHelper().getSelectedEntity();
-
-layout.edit(organizationService.fetchById(org.getId()));
-
-getUiHelper().setSelectedEntity(*null*);
-
+[source,java]
+--
+if (getUiHelper().getSelectedEntity() != null) {
+    Organization org = (Organization) getUiHelper().getSelectedEntity();
+    layout.edit(organizationService.fetchById(org.getId()));
+    getUiHelper().setSelectedEntity(null);
 }
-
+--
 This code will check the *GtsUI* for the presence of a selected entity
 and if it is there, makes sure that the detail screen is displayed by
 calling the *layout.edit()* method.
@@ -2435,25 +2394,18 @@ that all text fields are replace by text areas:
 
 To do so, create a new class named MyTextFieldComponentCreator and
 implement it as follows:
-
+[source,java]
+--
 @org.springframework.stereotype.Component
+public class MyTextFieldComponentCreator extends TextFieldComponentCreator {
 
-*public* *class* MyTextFieldComponentCreator *extends*
-TextFieldComponentCreator \{
-
-@Override
-
-*public* Component createComponent(AttributeModel am,
-FieldCreationContext context) \{
-
-TextArea ta = *new* TextArea();
-
-*return* ta;
-
+    @Override
+    public Component createComponent(AttributeModel am, FieldCreationContext context) {
+        TextArea ta = new TextArea();
+        return ta;
+    }
 }
-
-}
-
+--
 This component extends the standard TextFieldComponentCreator which is
 tasked with creating text field, and overrides the “createComponent”
 method to produce text area’s instead.
@@ -2475,15 +2427,13 @@ a certain button shows up).
 
 To test this, open the *PersonView* and modify the class declaration by
 adding the *@Authorized* annotation as follows:
-
+[source,java]
+--
 @UIScope
-
-@SpringView(name = Views.*_PERSON_VIEW_*)
-
+@SpringView(name = Views.PERSON_VIEW)
 @Authorized(roles = "admin")
-
-*public* *class* PersonView *extends* BaseView \{
-
+public class PersonView extends BaseView {
+--
 This will make this view only available to the users in the “admin” role
 (which you currently aren’t assigned to). Start the application and
 check that you indeed can no longer see the *PersonView* show up in the
@@ -2501,9 +2451,10 @@ Restart the application and verify that you can now access the
 
 Now, let’s add some programmatic security. Go to the *PersonView* once
 again and, add the following line:
-
+[source,java]
+--
 layout.setEditAllowed(() -> userDetailsService.isUserInRole("super"));
-
+--
 This will ensure that the component can only be edited if the user is in
 the “super” role. Since this is not the case, you will no longer be able
 to edit the data in the Members screen. Restart the application and
@@ -2514,47 +2465,32 @@ can once again edit the data in the Members screen.
 So, what does it take to get this working? Very little actually. The
 authorization mechanism depends on the following Spring Boot
 configuration:
-
+[source,java]
+--
 @Bean
-
-@ConditionalOnMissingBean(value = PermissionChecker.*class*)
-
-@ConditionalOnProperty(name =
-DynamoConstants.*_SP_ENABLE_VIEW_AUTHENTICATION_*, havingValue = "true")
-
-*public* PermissionChecker
-permissionChecker(@Value("$\{ocs.view.package:}#") String
-basePackage) \{
-
-*return* *new* DefaultPermissionCheckerImpl(basePackage);
-
+@ConditionalOnMissingBean(value = PermissionChecker.class)
+@ConditionalOnProperty(
+        name = DynamoConstants.SP_ENABLE_VIEW_AUTHENTICATION,
+        havingValue = "true")
+public PermissionChecker permissionChecker(@Value("${ocs.view.package:}#") String basePackage) {
+    return new DefaultPermissionCheckerImpl(basePackage);
 }
 
 @Bean
-
-@ConditionalOnMissingBean(value =
-AuthenticationServiceInitListener.*class*)
-
-@ConditionalOnProperty(name =
-DynamoConstants.*_SP_ENABLE_VIEW_AUTHENTICATION_*, havingValue = "true")
-
-*public* AuthenticationServiceInitListener authenticationInitListener()
-\{
-
-*return* *new* AuthenticationServiceInitListener();
-
+@ConditionalOnMissingBean(value = AuthenticationServiceInitListener.class)
+@ConditionalOnProperty(
+        name = DynamoConstants.SP_ENABLE_VIEW_AUTHENTICATION,
+        havingValue = "true")
+public AuthenticationServiceInitListener authenticationInitListener(){
+    return new AuthenticationServiceInitListener();
 }
 
 @Bean
-
-@ConditionalOnMissingBean(value = UserDetailsService.*class*)
-
-*public* UserDetailsService userDetailsService() \{
-
-*return* *new* DefaultUserDetailsServiceImpl();
-
+@ConditionalOnMissingBean(value = UserDetailsService.class)
+public UserDetailsService userDetailsService() {
+    return new DefaultUserDetailsServiceImpl();
 }
-
+--
 The *UserDetailsService* is a wrapper around the Spring user management
 functionality and can be used to check whether a user is in a certain
 role. The *PermissionChecker* does a classpath scan for all classes
@@ -2578,59 +2514,45 @@ One of the lesser known features of JPA is the ability to work with
 basically a collection of primitive values (String, integer, etc.) that
 can be defined as a property on an entity. Within the context of our
 example, we could define the following in the *Person* class:
-
+[source,java]
+--
 @ElementCollection
-
 @CollectionTable(name = "person_lucky_numbers")
-
 @Column(name = "lucky_number")
-
-@Attribute(complexEditable = *true*)
-
-*private* Set<Integer> luckyNumbers = *new* HashSet<>();
-
+@Attribute(complexEditable = true)
+private Set<Integer> luckyNumbers = new HashSet<>();
+--
 Go ahead and add the above code to the Person class.
 
 This will define a collection of integers that can be used to store a
 person’s lucky numbers. As you can see, these are stored in the database
 in a table named “person_lucky_numbers”. The definition for this table
 is as follows:
-
-CREATE TABLE person_lucky_numbers
-
-(
-
-id serial NOT NULL,
-
-person_id integer,
-
-lucky_number integer,
-
-primary key(id)
-
+[source,sql]
+--
+CREATE TABLE person_lucky_numbers(
+    id serial NOT NULL,
+    person_id integer,
+    lucky_number integer,
+    primary key(id)
 );
 
-ALTER TABLE person_lucky_numbers ADD CONSTRAINT
-fk_person_lucky_numbers_person FOREIGN KEY (person_id)
+ALTER TABLE person_lucky_numbers ADD CONSTRAINT fk_person_lucky_numbers_person FOREIGN KEY (person_id)
 
 REFERENCES person(id) ON DELETE CASCADE;
-
+--
 Go ahead and execute these commands in pgAdmin.
 
 Finally, go to the *PersonDaoImpl* class and add “luckyNumbers” to the
 fetch joins, as follows:
-
+[source,java]
+--
 @Override
-
-*protected* FetchJoinInformation[] getFetchJoins() \{
-
-*return* *new* FetchJoinInformation[] \{ *new*
-FetchJoinInformation("organization"),
-
-*new* FetchJoinInformation("luckyNumbers")};
-
+protected FetchJoinInformation[] getFetchJoins() { return new FetchJoinInformation[] {
+        new FetchJoinInformation("organization"),
+        new FetchJoinInformation("luckyNumbers")};
 }
-
+--
 Restart the application and navigate to the screen for managing persons.
 Select a Person and verify that you will now see a simple grid component
 for managing the person’s lucky numbers. This component consists of a
@@ -2649,17 +2571,14 @@ the attribute model. For Long and Integer values, you can use the
 value.
 
 This looks as follows in the *Person* class:
-
+[source,java]
+--
 @ElementCollection
-
 @CollectionTable(name = "person_lucky_numbers")
-
 @Column(name = "lucky_number")
-
-@Attribute(complexEditable = *true*, minValue = 10, maxValue = 25)
-
-*private* Set<Integer> luckyNumbers = *new* HashSet<>();
-
+@Attribute(complexEditable = true, minValue = 10, maxValue = 25)
+private Set<Integer> luckyNumbers = new HashSet<>();
+--
 Here, we define a minimum and maximum value of respectively 10 and 25.
 Restart the application and verify that you can now only save your
 changes if the values entered in the grid are within these bounds.
@@ -2704,25 +2623,21 @@ This involves:
 * Creating a button and adding it to the button bar. The click listener
 for the button should call the *navigate* method to perform the
 navigation to the *organizationDetailView.* This looks as follows:
++
+[source,java]
+--
+layout.setPostProcessMainButtonBar(buttonBar -> {
 
-layout.setPostProcessMainButtonBar(buttonBar -> \{
+    Button navigateButton = new Button("Navigate");
+    navigateButton.addClickListener(event -> {
+        getUiHelper().setSelectedEntity(layout.getSelectedItem());
+        getUiHelper().navigate(Views.ORGANIZATION_DETAIL_VIEW);
+    });
 
-Button navigateButton = *new* Button("Navigate");
-
-navigateButton.addClickListener(event -> \{
-
-getUiHelper().setSelectedEntity(layout.getSelectedItem());
-
-getUiHelper().navigate(Views.*_ORGANIZATION_DETAIL_VIEW_*);
-
+    buttonBar.add(navigateButton);
+    layout.registerComponent(navigateButton);
 });
-
-buttonBar.add(navigateButton);
-
-layout.registerComponent(navigateButton);
-
-});
-
+--
 * The code abouv will store the entity that is selected in the grid on
 the current UI object. The UI is a Vaadin concept that roughly
 corresponds to a browser tab: by storing data like this, you can
@@ -2747,37 +2662,27 @@ instance of the framework class *TabLayout* and add it to the screen.
 
 This is an class for creating a layout that displays various tabs. A
 simple implementation looks as follows:
+[source,java]
+--
+Organization org = getUiHelper().getSelectedEntity(Organization.class);
 
-Organization org =
-getUiHelper().getSelectedEntity(Organization.*class*);
-
-TabLayout<Integer, Organization> tabLayout = *new* TabLayout<Integer,
-Organization>(org);
+TabLayout<Integer, Organization> tabLayout = new TabLayout<Integer, Organization>(org);
 
 tabLayout.setTitleCreator(() -> "Look at my organization");
+tabLayout.setCaptions(new String[] { "Details" });
 
-tabLayout.setCaptions(*new* String[] \{ "Details" });
+tabLayout.setTabCreator(index -> {
+    if(index==0) {
 
-tabLayout.setTabCreator(index -> \{
+        EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
 
-*switch* (index) \{
-
-*case* 0:
-
-EntityModel<Organization> em =
-getModelFactory().getModel(Organization.*class*);
-
-*return* *new* SimpleEditLayout<Integer, Organization>(org,
-organizationService, em, *new* FormOptions());
-
-}
-
-*return* *null*;
-
+        return new SimpleEditLayout<Integer, Organization>(org, organizationService, em, new FormOptions());
+    }
+    return null;
 });
 
 main.add(tabLayout);
-
+--
 * *setTitleCreator* is used to determine the title that will appear in
 the title bar of the layout. This is optional, if you do not call this
 method the application will simply not show a title above the tabs.
@@ -2801,12 +2706,13 @@ image:media/image23.png[image,width=560,height=204]
 *Edit* button by modifying the *FormOptions*.
 * You can add an icon in front of a tab by implementing the
 “setIconCreator” method, e.g.:
-
-tabLayout.setIconCreator(index -> \{
-
-*return* VaadinIcon.*_ACADEMY_CAP_*.create();
-
++
+[source,java]
+--
+tabLayout.setIconCreator(index -> {
+    return VaadinIcon.ACADEMY_CAP.create();
 });
+--
 
 === Add an additional tab
 
@@ -2815,46 +2721,38 @@ String “Members” to the String array that is returned from the
 *getTabCaptions* method and modify the *initTab* method so that it will
 return a *ServiceBasedDetailLayout* when the tab with index 1 is
 returned:
+[source,java]
+--
+ServiceBasedDetailLayout<Integer, Person, Integer, Organization> layout = new ServiceBasedDetailLayout<>(
+        personService,
+        tabLayout.getEntity(),
+        organizationService,
+        entityModelFactory.getModel("OrganizationPerson", Person.class),
+        QueryType.ID_BASED,
+        new FormOptions(),
+        null
+);
 
-ServiceBasedDetailLayout<Integer, Person, Integer, Organization> layout
-= *new* ServiceBasedDetailLayout<Integer, Person, Integer,
-Organization>(
-
-personService, tabLayout.getEntity(), organizationService,
-
-entityModelFactory.getModel("OrganizationPerson", Person.*class*),
-QueryType.*_ID_BASED_*,
-
-*new* FormOptions(), *null*);
-
-layout.setCreateEntity(() -> \{
-
-Person person = *new* Person();
-
-person.setOrganization(tabLayout.getEntity());
-
-*return* person;
-
+layout.setCreateEntity(() -> {
+    Person person = new Person();
+    person.setOrganization(tabLayout.getEntity());
+    return person;
 });
 
-layout.setParentFilterCreator(
+layout.setParentFilterCreator( item ->
+        new EqualsPredicate<Person>("organization", tabLayout.getEntity())
+);
 
-item -> *new* EqualsPredicate<Person>("organization",
-tabLayout.getEntity()));
-
-*return* layout;
-
+return layout;
+--
 You also have to add the following declarations at the top of the class
 to make the code compile:
+[source,java]
+--
+@Autowired private OrganizationService organizationService;
 
-@Autowired
-
-*private* OrganizationService organizationService;
-
-@Autowired
-
-*private* PersonService personService;
-
+@Autowired private PersonService personService;
+--
 *ServiceBasedDetailLayout* is a subclass of the
 *ServiceBasedSplitLayout* you saw before – it functions in the same way
 as the *ServiceBasedSplitLayout* but it keeps a reference to a parent
@@ -2876,20 +2774,20 @@ other *Members* screen).
 
 Note that when instantiating the layout, we specified a custom entity
 model for this screen:
-
-getEntityModelFactory().getModel(
-
-"OrganizationPerson", Person.*class*)
-
+[source,java]
+--
+getEntityModelFactory().getModel("OrganizationPerson", Person.class)
+--
 This will create a separate entity model just for this screen, which by
 default inherits everything from the default entity model for the
 *Person* class.
 
 We can use the message bundle (entitymodel.properties) to overwrite the
 behaviour for this screen by adding the following line:
-
-*OrganizationPerson.organization.complexEditable=false*
-
+[source,properties]
+--
+OrganizationPerson.organization.complexEditable=false
+--
 Start the application and verify that the *organization* field indeed no
 longer shows up in the edit form. Play around with this functionality a
 bit more if you want (e.g. to overrule display names) and verify that
@@ -2911,12 +2809,12 @@ organizations, but this information is not stored directly on the
 Delivery entity. You can instead retrieve it by going via the
 “fromPerson” property, by defining the *setParentFilterCreator* method
 as follows:
-
-layout.setParentFilterCreator(
-
-item -> *new* EqualsPredicate<Delivery>("fromPerson.organization",
-getEntity()));
-
+[source,java]
+--
+layout.setParentFilterCreator( item ->
+        new EqualsPredicate<Delivery>("fromPerson.organization", getEntity())
+);
+--
 Tip: by default, the complex properties (fromPerson, toPerson, gift)
 will not show up in the edit form, so you must modify the
 *complexEditable* setting for these properties.
