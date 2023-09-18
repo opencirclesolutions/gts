@@ -65,11 +65,6 @@ public class GtsUI extends VerticalLayout implements RouterLayout {
 
         add(flex);
 
-//        Image image = new Image("frontend/images/img-logo.png", "This is the logo");
-//
-//        flex.add(image);
-//        flex.setFlexGrow(2, image);
-
         VerticalLayout center = new VerticalLayout();
         center.setAlignItems(Alignment.CENTER);
         center.setJustifyContentMode(JustifyContentMode.CENTER);

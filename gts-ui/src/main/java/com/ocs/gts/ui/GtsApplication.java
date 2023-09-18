@@ -1,5 +1,7 @@
 package com.ocs.gts.ui;
 
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.PreserveOnRefresh;
@@ -21,12 +23,7 @@ import org.springframework.context.annotation.Import;
 @ComponentScan(basePackages = { "com.ocs.gts" })
 @EntityScan(basePackages = { "com.ocs.gts.domain", "com.ocs.dynamo.functional.domain",
 		"om.ocs.dynamo.envers.listener" })
-@Theme(themeClass = Lumo.class)
-//@CssImport("./styles/shared-styles.css")
-//@CssImport("./styles/vaadin-custom-field.css")
-//@CssImport("./styles/vaadin-menu-bar.css")
-//@CssImport("./styles/vaadin-dialog.css")
-//@CssImport("./styles/vaadin-button.css")
+@Theme(value = "my-theme", variant = Lumo.LIGHT)
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 @PreserveOnRefresh
 @Import(ApplicationConfig.class)

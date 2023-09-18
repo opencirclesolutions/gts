@@ -1,0 +1,129 @@
+vaadin-vertical-layout {
+	margin: 0px;
+	padding-left: 0px;
+	padding-bottom: 4px;
+	padding-right: 4px;
+}
+
+img.dynamoImagePreview {
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.dynamoDialog {
+	width: 1200px !important;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.dynamoPanel {
+	border: 1px solid var(--lumo-primary-color) !important;
+	border-radius: 4px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.dynamoDialogTitle {
+	background-color: var(--lumo-primary-color) !important;
+	color: white !important;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+vaadin-custom-field div * {
+	margin-right: 4px !important;
+}
+
+div vaadin-button {
+	margin-right: 4px !important;
+}
+
+div.dynamoFlexRow * {
+	margin-right: 4px !important;
+}
+
+img.banner {
+	padding: 10px;
+}
+
+[part~="cell"] ::slotted(vaadin-grid-cell-content) {
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.collapsiblePanelButton {
+	background-color: var(--lumo-primary-color);
+	color: white;
+}
+
+[theme~="padding"] {
+	padding: var(--lumo-space-s);
+}
+
+[theme~="margin"] {
+	margin: var(--lumo-space-s);
+}
+
+body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+.splitLayoutLeft {
+	padding-top: 15px;
+}
+
+.splitLayoutRight {
+	padding-top: 15px;
+}
+
+.dynamoDialog .simpleEditLayout {
+	padding-top: 15px;
+}
+
+.dynamoFlexRow {
+	height: 60px;
+}
+
+div.dynamoFlexRow * {
+	margin-right: 0.5rem !important;
+}
+
+.flexRemoveButton {
+	margin-top: 36px;
+}
+
+/*
+ dynamoPanel
+ */
+.dynamoPanelTitle {
+    color: var(--lumo-contrast-color);
+    padding: 0.4rem;
+    background: var(--lumo-primary-color);
+}
+
+.dynamoPanel {
+    border: 1px solid var(--lumo-primary-color) !important;
+    border-radius: 0.14rem;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.dynamoPanel > :not(.dynamoPanelTitle) {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.gridDetailsPanel {
+  border: 2px solid var(--lumo-primary-color);
+  border-radius: 5px;
+}
+
+.horizontalMenuButton {
+  color: var(--lumo-secondary-text-color);
+}
+
+.quickSearchField {
+	margin-right: 5px;
+}
+

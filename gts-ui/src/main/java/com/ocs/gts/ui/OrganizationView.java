@@ -29,7 +29,7 @@ public class OrganizationView extends BaseView {
 	@Override
 	protected void doInit(VerticalLayout main) {
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		FormOptions fo = new FormOptions().setShowRemoveButton(true);
+		FormOptions fo = new FormOptions();
 		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
 				QueryType.ID_BASED, fo, null);
 		main.add(layout);
