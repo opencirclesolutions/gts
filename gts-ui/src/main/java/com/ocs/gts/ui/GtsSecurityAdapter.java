@@ -24,7 +24,7 @@ public class GtsSecurityAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Dynamo").password("{noop}Dynamo").authorities("user", "admin", "super");
+        auth.inMemoryAuthentication().withUser("Dynamo").password("{noop}Dynamo").authorities("user");
     }
 
     @Bean
