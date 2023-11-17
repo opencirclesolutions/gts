@@ -12,3 +12,7 @@
    line-height: 24px;
 }
 
+:host([theme~="spacing"]) {
+  gap: var(--lumo-space-s);
+}
+

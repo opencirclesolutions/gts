@@ -1,4 +1,11 @@
-[part="content"] {
+[part='content'] {
     padding: 0px !important;
 }
 
+:host([part='content']) {
+    padding: 0px !important;
+}
+
+vaadin-dialog-overlay::part(content) {
+    padding: 0px !important;
+}
