@@ -65,7 +65,6 @@ public class Organization extends AbstractEntity<Integer> {
 	@Enumerated(EnumType.STRING)
 	private Reputation reputation;
 
-	@Attribute(quickAddAllowed = true, complexEditable = true)
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
 	private Set<Person> members = new HashSet<>();
 

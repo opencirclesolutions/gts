@@ -32,10 +32,12 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.dynamoframework</groupId>
 			<artifactId>dynamo-frontend-export</artifactId>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>gts-core</artifactId>
