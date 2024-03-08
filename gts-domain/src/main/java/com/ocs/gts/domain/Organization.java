@@ -1,8 +1,11 @@
 package com.ocs.gts.domain;
 
 import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.MultiSelectMode;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
 import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.dynamo.domain.model.annotation.SearchMode;
 import com.ocs.dynamo.functional.domain.Country;
 import com.ocs.gts.domain.type.Reputation;
 import jakarta.persistence.*;
@@ -50,6 +53,8 @@ public class Organization extends AbstractEntity<Integer> {
 	@NotNull
 	@JoinColumn(name = "country_of_origin")
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Attribute(searchable = SearchMode.ALWAYS, multiSelectMode = MultiSelectMode.ROWSELECT,
+		searchSelectMode = AttributeSelectMode.LOOKUP, multipleSearch = true)
 	private Country countryOfOrigin;
 
 	@NotNull

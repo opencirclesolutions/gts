@@ -14,24 +14,23 @@
 		<module>gts-ui</module>
 	</modules>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<sonar.language>java</sonar.language>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.compiler.version>17</project.build.compiler.version>
+		<project.build.compiler.version>21</project.build.compiler.version>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<dynamo.version>3.0.0</dynamo.version>
+		<dynamo.version>3.0.3-SNAPSHOT</dynamo.version>
 		<jakarta.servlet.version>4.0.0</jakarta.servlet.version>
 		<querydsl.version>5.0.0</querydsl.version>
-		<vaadin.version>24.0.0</vaadin.version>
+		<vaadin.version>24.3.3</vaadin.version>
+		<vaadin.version>24.3.3</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<com.maven.plugins.apt.version>1.1.3</com.maven.plugins.apt.version>
-		<poi.version>4.1.2</poi.version>
-		<xlsx-streamer.version>2.2.0</xlsx-streamer.version>
-		<spring.boot.version>3.0.4</spring.boot.version>
-		<commons.lang.version>3.12.0</commons.lang.version>
-		<postgresql.version>42.2.24</postgresql.version>
-		<flyway.version>8.4.0</flyway.version>
+		<spring.boot.version>3.2.2</spring.boot.version>
+		<commons.lang.version>3.14.0</commons.lang.version>
+		<postgresql.version>42.7.1</postgresql.version>
+		<flyway.version>9.22.3</flyway.version>
 		<org.apache.maven.plugins.compiler.version>3.8.1</org.apache.maven.plugins.compiler.version>
 		<org.apache.maven.plugins.jar.version>3.2.1</org.apache.maven.plugins.jar.version>
 		<org.apache.maven.plugins.source.version>3.2.1</org.apache.maven.plugins.source.version>
@@ -67,7 +66,7 @@
 		</repository>
 		<repository>
 			<id>vaadin-addons</id>
-			<url>https://maven.vaadin.com/vaadin-addons</url>
+			<url>https://vaadin.com/nexus/content/repositories/vaadin-addons</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -89,7 +88,6 @@
 			<url>https://oss.sonatype.org/</url>
 		</repository>
 	</repositories>
-
 	<pluginRepositories>
 		<pluginRepository>
 			<id>central</id>
@@ -113,8 +111,6 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
-
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -209,6 +205,11 @@
 				<artifactId>dynamo-test</artifactId>
 				<version>${dynamo.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.30</version>
+			</dependency>
 			<!--<dependency>
 				<groupId>org.dynamoframework</groupId>
 				<artifactId>dynamo-envers</artifactId>
@@ -230,17 +231,6 @@
 				<version>${commons.lang.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.monitorjbl</groupId>
-				<artifactId>xlsx-streamer</artifactId>
-				<version>${xlsx-streamer.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.apache.poi</groupId>
-						<artifactId>poi-ooxml-schemas</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
 				<groupId>jakarte.servlet</groupId>
 				<artifactId>jakarte.servlet-api</artifactId>
 				<version>${jakarte.servlet.version}</version>
@@ -259,15 +249,16 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.12.1</version>
 					<configuration>
-						<source>17</source>
-						<target>17</target>
+						<source>21</source>
+						<target>21</target>
 					</configuration>
 				</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version>
+				<version>0.8.11</version>
 				<executions>
 					<execution>
 						<id>jacoco-initialize</id>
