@@ -34,7 +34,7 @@ public class GiftLayout extends ServiceBasedSplitLayout<Integer, Gift> {
 			FormOptions fo = new FormOptions().setShowRemoveButton(true);
 
 			// create the table - notice how we pass the "viewMode" parameter
-			DetailsEditGrid<Integer, GiftTranslation> dt = new DetailsEditGrid<Integer, GiftTranslation>(
+			DetailsEditGrid<Integer, GiftTranslation> dt = new DetailsEditGrid<>(
 					getEntityModelFactory().getModel(GiftTranslation.class), context.getAttributeModel(),
 					context.isViewMode(), fo);
 			dt.setId("translations");

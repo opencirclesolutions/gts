@@ -85,23 +85,23 @@ import '@vaadin/vaadin-lumo-styles/vaadin-iconset.js';
 
 const loadOnDemand = (key) => {
   const pending = [];
-  if (key === '764369613e9f3a419e285cc58f50c47d8c524d4b8407af01ce47d04359ba2684') {
+  if (key === '0c7f39a7794c8c95f7d675e256266374301cbd387451ffb39b63a2902d90d1cf') {
     pending.push(import('./chunks/chunk-4430b2684b5d3b0c72bb794d9693a327f52027f6cb3b1beda9eefc183f6c2dba.js'));
-  }
-  if (key === '5a45b218e44710635b0afd584b9b4cfc2da6576aaf29e8e415d165f689eed944') {
-    pending.push(import('./chunks/chunk-3697e0c9c6a8155f9cbab9cf6ac5b1e0ab082b5c9f1c48cdcb7a74e600c40bcc.js'));
   }
   if (key === 'a4fd6ae510c7a306337d9cb7d134d1b2e0c259b9d052312f76e9fb82425a26eb') {
     pending.push(import('./chunks/chunk-4430b2684b5d3b0c72bb794d9693a327f52027f6cb3b1beda9eefc183f6c2dba.js'));
   }
-  if (key === '0c7f39a7794c8c95f7d675e256266374301cbd387451ffb39b63a2902d90d1cf') {
-    pending.push(import('./chunks/chunk-4430b2684b5d3b0c72bb794d9693a327f52027f6cb3b1beda9eefc183f6c2dba.js'));
-  }
-  if (key === 'bcafe2c268cd2b8c6a9f4352ca8c6724e270d2ca89d712b39248199d36cdb3ea') {
+  if (key === '764369613e9f3a419e285cc58f50c47d8c524d4b8407af01ce47d04359ba2684') {
     pending.push(import('./chunks/chunk-4430b2684b5d3b0c72bb794d9693a327f52027f6cb3b1beda9eefc183f6c2dba.js'));
   }
   if (key === '53b04b43e22da91135dc9db15d8a21adb790fd1b8a94177ba1e16793465fa4ba') {
     pending.push(import('./chunks/chunk-3697e0c9c6a8155f9cbab9cf6ac5b1e0ab082b5c9f1c48cdcb7a74e600c40bcc.js'));
+  }
+  if (key === '5a45b218e44710635b0afd584b9b4cfc2da6576aaf29e8e415d165f689eed944') {
+    pending.push(import('./chunks/chunk-3697e0c9c6a8155f9cbab9cf6ac5b1e0ab082b5c9f1c48cdcb7a74e600c40bcc.js'));
+  }
+  if (key === 'bcafe2c268cd2b8c6a9f4352ca8c6724e270d2ca89d712b39248199d36cdb3ea') {
+    pending.push(import('./chunks/chunk-4430b2684b5d3b0c72bb794d9693a327f52027f6cb3b1beda9eefc183f6c2dba.js'));
   }
   return Promise.all(pending);
 }

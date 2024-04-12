@@ -5,7 +5,6 @@ import com.ocs.dynamo.domain.model.AttributeSelectMode;
 import com.ocs.dynamo.domain.model.PagingMode;
 import com.ocs.dynamo.domain.model.VisibilityType;
 import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeGroup;
 import com.ocs.dynamo.domain.model.annotation.Model;
 import com.ocs.dynamo.domain.model.annotation.SearchMode;
 import com.ocs.dynamo.functional.domain.Country;
@@ -79,7 +78,7 @@ public class Organization extends AbstractEntity<Integer> {
     private Boolean governmentSponsored = Boolean.FALSE;
 
     @Column(name = "yearly_mortality_rate")
-    @Attribute(percentage = true, autoFillInstructions = "round to two decimals, use comma as separator",
+    @Attribute(percentage = true, autoFillInstructions = "round to two decimals",
             searchable = SearchMode.ALWAYS)
     private BigDecimal yearlyMortalityRate;
 

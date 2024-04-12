@@ -29,7 +29,7 @@ public class GiftView extends BaseView {
                 .setScreenMode(ScreenMode.HORIZONTAL).setShowFormFillButton(true);
         GiftLayout layout = new GiftLayout(giftService, em, fo, null);
         layout.setDetailJoins(new FetchJoinInformation("logo"),
-                new FetchJoinInformation("translations.country"));
+                new FetchJoinInformation("translations"));
         main.add(layout);
     }
 
