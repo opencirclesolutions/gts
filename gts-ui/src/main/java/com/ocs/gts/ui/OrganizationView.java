@@ -1,5 +1,6 @@
 package com.ocs.gts.ui;
 
+import com.ocs.dynamo.ui.composite.type.AttributeGroupMode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ocs.dynamo.domain.model.EntityModel;
@@ -29,7 +30,10 @@ public class OrganizationView extends BaseView {
 	@Override
 	protected void doInit(VerticalLayout main) {
 		EntityModel<Organization> em = getModelFactory().getModel(Organization.class);
-		FormOptions fo = new FormOptions();
+		FormOptions fo = new FormOptions()
+				.setShowFormFillButton(true)
+				.setShowRemoveButton(true)
+				.setAttributeGroupMode(AttributeGroupMode.TABSHEET);
 		SimpleSearchLayout<Integer, Organization> layout = new SimpleSearchLayout<>(organizationService, em,
 				QueryType.ID_BASED, fo, null);
 		main.add(layout);

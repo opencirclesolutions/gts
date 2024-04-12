@@ -1,29 +1,24 @@
 package com.ocs.gts.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import com.ocs.dynamo.domain.AbstractEntity;
+import com.ocs.dynamo.domain.model.AttributeSelectMode;
+import com.ocs.dynamo.domain.model.PagingMode;
+import com.ocs.dynamo.domain.model.VisibilityType;
+import com.ocs.dynamo.domain.model.annotation.Attribute;
+import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
+import com.ocs.dynamo.domain.model.annotation.Model;
+import com.ocs.dynamo.domain.model.annotation.SearchMode;
+import com.ocs.dynamo.functional.domain.Country;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
-import com.ocs.dynamo.domain.AbstractEntity;
-import com.ocs.dynamo.domain.model.annotation.Attribute;
-import com.ocs.dynamo.domain.model.annotation.AttributeOrder;
-
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * An expensive gift
@@ -36,6 +31,8 @@ import lombok.Setter;
 @AttributeOrder(attributeNames = { "name", "description" })
 @Getter
 @Setter
+@Model(displayProperty = "name")
+@ToString(onlyExplicitlyIncluded = true)
 public class Gift extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;
@@ -53,6 +50,7 @@ public class Gift extends AbstractEntity<Integer> {
 	@NotNull
 	@Size(max = 255)
 	@Attribute(main = true)
+	@ToString.Include
 	private String name;
 
 	@NotNull
@@ -62,6 +60,7 @@ public class Gift extends AbstractEntity<Integer> {
 	@Valid
 	@OneToMany(mappedBy = "gift", fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
 			CascadeType.PERSIST }, orphanRemoval = true)
+	@Attribute(complexEditable = true, autoFillInstructions = "interpret as a list")
 	private Set<GiftTranslation> translations = new HashSet<>();
 
 	public void addTranslation(GiftTranslation translation) {

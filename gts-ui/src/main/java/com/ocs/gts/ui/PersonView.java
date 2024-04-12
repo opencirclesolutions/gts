@@ -1,5 +1,10 @@
 package com.ocs.gts.ui;
 
+import com.ocs.dynamo.domain.model.EntityModel;
+import com.ocs.dynamo.ui.composite.layout.FormOptions;
+import com.ocs.dynamo.ui.composite.layout.SimpleSearchLayout;
+import com.ocs.dynamo.ui.provider.QueryType;
+import com.ocs.gts.domain.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ocs.dynamo.ui.composite.layout.ServiceBasedSplitLayout;
@@ -29,6 +34,11 @@ public class PersonView extends BaseView {
 
     @Override
     protected void doInit(VerticalLayout main) {
+        EntityModel<Person> em = getModelFactory().getModel(Person.class);
+        FormOptions fo = new FormOptions();
+        ServiceBasedSplitLayout<Integer, Person> layout = new ServiceBasedSplitLayout<>(personService, em,
+                QueryType.ID_BASED, fo, null);
+        main.add(layout);
     }
 
 }
