@@ -9,7 +9,7 @@ import com.ocs.gts.domain.QDelivery;
 import com.ocs.gts.domain.dao.DeliveryDao;
 import com.querydsl.core.types.dsl.EntityPathBase;
 
-@Repository("deliveryDao")
+@Repository
 public class DeliveryDaoImpl extends BaseDaoImpl<Integer, Delivery> implements DeliveryDao {
 
 	@Override
@@ -22,9 +22,4 @@ public class DeliveryDaoImpl extends BaseDaoImpl<Integer, Delivery> implements D
 		return QDelivery.delivery;
 	}
 
-	@Override
-	protected FetchJoinInformation[] getFetchJoins() {
-		return new FetchJoinInformation[] { new FetchJoinInformation("fromPerson"),
-		        new FetchJoinInformation("toPerson"), new FetchJoinInformation("gift") };
-	}
 }

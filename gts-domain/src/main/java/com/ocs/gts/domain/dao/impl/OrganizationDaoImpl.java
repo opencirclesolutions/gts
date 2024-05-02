@@ -8,7 +8,7 @@ import com.ocs.gts.domain.QOrganization;
 import com.ocs.gts.domain.dao.OrganizationDao;
 import com.querydsl.core.types.dsl.EntityPathBase;
 
-@Repository("organizationDao")
+@Repository
 public class OrganizationDaoImpl extends BaseDaoImpl<Integer, Organization> implements OrganizationDao {
 
 	private QOrganization qOrganization = QOrganization.organization;

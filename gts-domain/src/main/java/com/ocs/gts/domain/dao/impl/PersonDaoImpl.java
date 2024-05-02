@@ -8,7 +8,7 @@ import com.ocs.gts.domain.QPerson;
 import com.ocs.gts.domain.dao.PersonDao;
 import com.querydsl.core.types.dsl.EntityPathBase;
 
-@Repository("personDao")
+@Repository
 public class PersonDaoImpl extends BaseDaoImpl<Integer, Person> implements PersonDao {
 
 	@Override

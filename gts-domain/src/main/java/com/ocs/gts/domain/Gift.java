@@ -3,6 +3,8 @@ package com.ocs.gts.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ocs.dynamo.domain.model.FetchJoin;
+import com.ocs.dynamo.domain.model.FetchJoins;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,6 +38,7 @@ import lombok.Setter;
 @AttributeOrder(attributeNames = { "name", "description" })
 @Getter
 @Setter
+@FetchJoins(joins = @FetchJoin(attribute = "translations"))
 public class Gift extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -3436199710873943375L;

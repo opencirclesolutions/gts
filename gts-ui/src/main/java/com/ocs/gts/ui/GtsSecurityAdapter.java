@@ -11,9 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * Security adapter
- * 
- * @author Bas Rutten
  *
+ * @author Bas Rutten
  */
 @EnableWebSecurity
 @Configuration
@@ -29,12 +28,15 @@ public class GtsSecurityAdapter {
 
     @Bean
     public SecurityFilterChain restFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic().authenticationEntryPoint(entryPoint).and().build();
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().authenticated())
+                .httpBasic(basic -> basic.authenticationEntryPoint(entryPoint)).build();
     }
 
     /**
      * Overwritten to remove the default "ROLE_" prefix
-     * 
+     *
      * @return
      */
     @Bean
